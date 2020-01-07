@@ -1,0 +1,23 @@
+
+<h3 class="page-header">Listing</h3>
+<div class="list-group row">
+  <ul class="list-group centerJob">
+    <li class="list-group-item col-sm-6" *ngFor="let job of jobs">
+      <div class="card">
+        <div class="card-header">
+          <a [routerLink]="['/job-description', job.Id]">{{job.Name}}</a>
+        </div>
+        <div class="card-body">
+          <blockquote class="blockquote mb-0">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+            <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+          </blockquote>
+        </div>
+      </div>
+
+      <!-- <i class="fa fa-pencil-square-o icon-right-side" aria-hidden="true" ></i>
+      <i class="fa fa-trash icon-right-side" aria-hidden="true"></i> -->
+    </li>
+  </ul>
+</div>
+

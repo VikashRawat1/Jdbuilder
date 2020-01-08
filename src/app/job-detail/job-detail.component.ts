@@ -1,8 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { JobServiceService } from '../services/job-service.service';
 import {MatChipInputEvent} from '@angular/material';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 @Component({
   selector: 'app-job-detail',
   templateUrl: './job-detail.component.html',
@@ -29,11 +32,22 @@ export class JobDetailComponent implements OnInit {
   removable = true;
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  tagsCtrl = new FormControl();
+  filteredTags: Observable<string[]>;
   tags = [];
+  allTags = [];
   ////
+  @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto') matAutocomplete: MatAutocomplete;
+  constructor(private formBuilder: FormBuilder, private jobService: JobServiceService, private cdr: ChangeDetectorRef) {
 
-  constructor(private formBuilder: FormBuilder, private jobService: JobServiceService, private cdr: ChangeDetectorRef) { }
-
+   }
+  private _filter(value: any): string[] {
+    const filterValue = value.Id ? value.Id.toLowerCase() : value.toLowerCase();
+    return this.allTags.filter((option, index) => {
+      return option.TagName.toLowerCase().includes(filterValue);
+    });
+  }
   ngOnInit() {
     this.jobService.fetchProfiles(location.pathname.split('/').pop()).subscribe((jobDetail: any) => {
       if (jobDetail.StatusCode === 200) {
@@ -60,8 +74,8 @@ export class JobDetailComponent implements OnInit {
         this.jobDescriptionForm = this.formBuilder.group({
           about: new FormControl(jobDetail.ProfileDetail.About),
           selectedDesignation: new FormControl(jobDetail.ProfileDetail.DesignationId),
-          selectedLocation: new FormControl(jobDetail.ProfileDetail.ExperienceId),
-          selectedExperience: new FormControl(jobDetail.ProfileDetail.DesignationId),
+          selectedLocation: new FormControl(jobDetail.ProfileDetail.LocationId),
+          selectedExperience: new FormControl(jobDetail.ProfileDetail.ExperienceId),
           desiredSkills: this.formBuilder.array(defaultDesiredSkill),
           mandatorySkills: this.formBuilder.array(defaultMandatorySkill),
           qualifications:  this.formBuilder.array(defaultQualification),
@@ -81,28 +95,41 @@ export class JobDetailComponent implements OnInit {
           qualifications:  this.formBuilder.array([ this.formBuilder.group({Id: 0, Name: 'default qualification'})]),
         });
       }
+      this.jobService.FetchTagsList().subscribe((tags: any) => {
+        if (tags.StatusCode === 200) {
+          this.allTags = tags.ProfileTagsList;
+          // this.tagsCtrl = tags.DesignationList;
+          for (let index = 0; this.allTags.length > index ; index++) {
+            for (let index2 = 0; this.tags.length > index2 ; index2++) {
+              if (this.allTags[index].Id === this.tags[index2].Id) {
+                this.allTags.splice(index, 1);
+                index = 0;
+                index2 = 0;
+              }
+            }
+          }
+          this.filteredTags = this.tagsCtrl.valueChanges.pipe(
+            startWith(null),
+            map((tag: object | null) =>  tag ? this._filter(tag) : this.allTags.slice()));
+        }
+      });
     });
     this.jobService.FetchExperienceList().subscribe((experiences: any) => {
-      console.log(experiences, 'experiences');
       if (experiences.StatusCode === 200) {
         this.experiences = experiences.ExperienceMasterList;
       }
     });
     this.jobService.FetchLocationList().subscribe((locations: any) => {
-      console.log(locations, 'locations');
       if (locations.StatusCode === 200) {
         this.locations = locations.LocationMasterList;
       }
     });
     this.jobService.FetchDesignationList().subscribe((designations: any) => {
-      console.log(designations, 'designations');
       if (designations.StatusCode === 200) {
         this.designations = designations.DesignationList;
       }
     });
-    this.jobService.FetchTagsList().subscribe((tags) => {
-      console.log(tags, 'tags');
-    });
+
   }
   createMandatorySkill(newSkill): FormGroup {
     return this.formBuilder.group({
@@ -171,29 +198,26 @@ export class JobDetailComponent implements OnInit {
     this.rolesAndResponsibility.removeAt(index);
   }
   moveToDesired(selectedSkill, index) {
-    console.log(selectedSkill, 'selected skill', index, 'indexsxx');
     const updatedSkill = {
       SkillId: selectedSkill.SkillId.value,
       SkillName: selectedSkill.SkillName.value
     };
-    console.log(updatedSkill, 'updatedSkill skill');
     this.desiredSkills = this.jobDescriptionForm.get('desiredSkills') as FormArray;
     this.desiredSkills.push(this.createDesiredSkill(updatedSkill));
-    // this.createDesiredSkill(updatedSkill);
-    this.deleteSkill(selectedSkill, index);
+    this.mandatorySkills = this.jobDescriptionForm.get('mandatorySkills') as FormArray;
+    this.mandatorySkills.removeAt(index);
   }
   moveToMandatory(selectedSkill, index) {
-    console.log(selectedSkill, 'selected skill', index, 'indexsxx');
     const updatedSkill = {
       SkillId: selectedSkill.SkillId.value,
-      SkillName: selectedSkill.SkillName.value
+      SkillName: selectedSkill.SkillName.value,
+      SkillTypeId: 1,
+      SkillTypeName: 'Mandatory'
     };
-    console.log(updatedSkill, 'updatedSkill skill');
     this.mandatorySkills = this.jobDescriptionForm.get('mandatorySkills') as FormArray;
     this.mandatorySkills.push(this.createMandatorySkill(updatedSkill));
-    // this.createDesiredSkill(updatedSkill);
-    this.deleteDesiredSkill(selectedSkill, index);
-
+    this.desiredSkills = this.jobDescriptionForm.get('desiredSkills') as FormArray;
+    this.desiredSkills.removeAt(index);
   }
   // get mandatorySkills(): FormArray { return this.jobDescriptionForm.get('mandatorySkills') as FormArray; }
   // get qualifications(): FormArray { return this.jobDescriptionForm.get('qualifications') as FormArray; }
@@ -201,32 +225,43 @@ export class JobDetailComponent implements OnInit {
   // addMandatorySkill(): void {
   //   this.mandatorySkills.push(new FormControl());
   // }
-  add(event: MatChipInputEvent): void {
-    const input = event.input;
-    const value = event.value;
-    console.log(input,'inputdd',value,"valuedd")
-    // Add our fruit
-    if ((value || '').trim()) {
-      this.tags.push({Id: '', TagName: value.trim()});
+  add(event: MatChipInputEvent, isAdd): void {
+    if (isAdd){
+      const input = event.input;
+      const value = event.value;
+      // Add our tag
+      if ((value || '').trim()) {
+        this.tags.push({Id: '', TagName: value.trim()});
+      }
+      // Reset the input value
+      if (input) {
+        input.value = '';
+      }
+      this.tagsCtrl.setValue(null);
     }
 
-    // Reset the input value
-    if (input) {
-      input.value = '';
-    }
   }
 
-  remove(tag): void {
-    console.log(tag)
+  removeTag(tag): void {
     const index = this.tags.indexOf(tag);
 
     if (index >= 0) {
       this.tags.splice(index, 1);
+      this.allTags.push(tag);
       this.deletedTags.push(tag.Id);
     }
   }
+  selected(event: MatAutocompleteSelectedEvent): void {
+    this.tags.push(event.option.value);
+    this.tagInput.nativeElement.value = '';
+    this.allTags.filter((option, index) => {
+      if (option.Id.toLowerCase().includes(event.option.value.Id)) {
+        this.allTags.splice(index, 1);
+      }
+    });
+    this.tagsCtrl.setValue(null);
+  }
   onSave() {
-    console.log( this.jobDescriptionForm,'formmmm')
     const jdObject = {
       ProfileId: location.pathname.split('/').pop(),
       About: this.jobDescriptionForm.get('about').value,

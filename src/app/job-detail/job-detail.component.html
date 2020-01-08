@@ -14,18 +14,24 @@
         <mat-form-field class="example-chip-list">
           <mat-chip-list #chipList>
             <mat-chip *ngFor="let tag of tags" [selectable]="selectable"
-                     [removable]="removable" (removed)="remove(tag)">
+                     [removable]="removable" (removed)="removeTag(tag)">
               {{tag.TagName}}
               <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
             </mat-chip>
             <input placeholder="New tag..."
+                    #tagInput
                    [matChipInputFor]="chipList"
                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                   [matChipInputAddOnBlur]="addOnBlur"
-                   (matChipInputTokenEnd)="add($event)">
+                   [formControl]="tagsCtrl"
+                   [matAutocomplete]="auto"
+                   (matChipInputTokenEnd)="add($event,true)">
           </mat-chip-list>
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+            <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+              {{tag.TagName}}
+            </mat-option>
+          </mat-autocomplete>
         </mat-form-field>
-        <p style="color:gray">{{jobDescriptionForm.controls.about.value}}</p>
         <h5>Designation</h5>
         <select name="demo" class="browser-default custom-select" formControlName="selectedDesignation">
           <option *ngFor = "let designation of designations" [value]="designation.Id">{{designation.DesignationName}}</option>

@@ -278,7 +278,7 @@ export class JobDetailComponent implements OnInit {
       DeletedTags: this.deletedTags
     };
     this.jobService.saveJd(jdObject).subscribe((updatedData) => {
-      // location.reload();
+      location.reload();
     });
   }
 }

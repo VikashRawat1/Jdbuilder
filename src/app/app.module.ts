@@ -12,7 +12,15 @@ import { SharedModule } from './shared/shared.module';
 import { HeaderComponent } from './shared/layout/header/header.component';
 import { SidebarComponent } from './shared/layout/sidebar/sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatChipsModule, MatFormFieldModule, MatIconModule, MatAutocompleteModule} from '@angular/material';
+import {
+  MatChipsModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatAutocompleteModule,
+  MatInputModule,
+  MatSelectModule,
+  MatPaginatorModule
+} from '@angular/material';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +40,10 @@ import { MatChipsModule, MatFormFieldModule, MatIconModule, MatAutocompleteModul
     MatChipsModule,
     MatFormFieldModule,
     MatIconModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatInputModule,
+    MatSelectModule,
+    MatPaginatorModule
   ],
   providers: [JobServiceService],
   bootstrap: [AppComponent]

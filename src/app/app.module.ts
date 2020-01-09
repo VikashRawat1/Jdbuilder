@@ -12,6 +12,10 @@ import { SharedModule } from './shared/shared.module';
 import { HeaderComponent } from './shared/layout/header/header.component';
 import { SidebarComponent } from './shared/layout/sidebar/sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoaderService } from './services/loader.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoaderInterceptor } from './interceptors/loader.interceptors';
+import { LoaderComponent } from './shared/loader/loader.component'
 import {
   MatChipsModule,
   MatFormFieldModule,
@@ -19,7 +23,8 @@ import {
   MatAutocompleteModule,
   MatInputModule,
   MatSelectModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 @NgModule({
   declarations: [
@@ -28,7 +33,8 @@ import {
     PageNotFoundComponent,
     JobDetailComponent,
     HeaderComponent,
-    SidebarComponent
+    SidebarComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -43,9 +49,11 @@ import {
     MatAutocompleteModule,
     MatInputModule,
     MatSelectModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatProgressSpinnerModule
   ],
-  providers: [JobServiceService],
+  providers: [JobServiceService, LoaderService,
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -8,7 +8,8 @@
   float: right;margin-top: 15px;background-color: lightsteelblue;width: 80%;border-radius: 100px;
 }
 .filter-header{
-  background-color: #424242;height: auto;
+  /* background-color: #424242; */
+  height: auto;
 }
 .mat-paginator,.mat-paginator-page-size .mat-select-trigger{
   color: black
@@ -21,4 +22,7 @@
 }
 paginator-page-size.mat-select-trigger {
   color:black;
+}
+shadow{
+  box-shadow: 5px 10px 18px #888888;
 }

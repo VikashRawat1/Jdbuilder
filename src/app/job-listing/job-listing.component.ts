@@ -42,7 +42,20 @@ export class JobListingComponent implements OnInit {
       }
     });
   }
-
+  refresh(){
+    this.selectedLocation = undefined;
+    this.selectedExperience = undefined;
+    this.selectedDesignation = undefined;
+    const paramObject = {
+      locationId : 0,
+      experienceId : 0,
+      designationId : 0
+    };
+    this.jobService.getAllJobs().subscribe((jobs: any) => {
+      console.log(jobs, ' jobsss');
+      this.jobs = jobs.ProfileList;
+    });
+  }
   search() {
     console.log(this.selectedDesignation, 'slectedesigntion');
     const paramObject = {
@@ -50,6 +63,9 @@ export class JobListingComponent implements OnInit {
       experienceId : this.selectedExperience ? this.selectedExperience : 0,
       designationId : this.selectedDesignation ? this.selectedDesignation : 0
     };
+    this.filterProfile(paramObject);
+  }
+  filterProfile(paramObject){
     this.jobService.FetchFilteredProfiles(paramObject).subscribe((FilteredList: any) => {
       console.log(FilteredList,'filtersed list');
       if (FilteredList.StatusCode === 200) {

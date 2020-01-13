@@ -1,3 +1,100 @@
-<p>
-  job-listing works!
-</p>
+<div class="container row p-3 my-3 text-white col-md-12 filter-header">
+<div class="col-md-2">
+  <mat-form-field>
+    <mat-label>Designation</mat-label>
+    <mat-select (selectionChange)="selectedDesignation = $event.value" [(ngModel)]="selectedDesignation">
+      <mat-option *ngFor="let item of designations" [value]="item.Id">{{item.DesignationName}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div class="col-md-2">
+  <mat-form-field>
+    <mat-label>Experience</mat-label>
+    <mat-select (selectionChange)="selectedExperience = $event.value" [(ngModel)]="selectedExperience">
+      <mat-option *ngFor="let item of experiences" [value]="item.Id">{{item.ExperienceName}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div class="col-md-2">
+  <mat-form-field>
+    <mat-label>Location</mat-label>
+    <mat-select (selectionChange)="selectedLocation = $event.value" [(ngModel)]="selectedLocation">
+      <mat-option *ngFor="let item of locations" [value]="item.Id">{{item.LocationName}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div class="col-md-2">
+  <mat-form-field>
+    <mat-label>Created By</mat-label>
+    <mat-select>
+      <mat-option [value]="DMI">DMI</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div class="col-md-2">
+  <mat-form-field>
+    <mat-label>Sort By</mat-label>
+    <mat-select (selectionChange)="selectedSortBy = $event.value">
+      <mat-option>Option 1</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div class="col-md-2">
+  <button mat-button (click)="search()"  class="app-button">Search</button>
+  <button mat-button (click)="refresh()" class="app-button">Refresh</button>
+</div>
+
+</div>
+<!-- <mat-paginator [length]="100"
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25, 100]">
+</mat-paginator> -->
+<h3 class="page-header">Listing</h3>
+<div *ngIf="jobs.length>0" class="list-group row">
+  <ul class="list-group centerJob">
+    <li class="list-group-item col-sm-6" style="background-color:#ffffff;border:none" *ngFor="let job of jobs">
+      <div class="card shadow">
+        <div class="card-header">
+          <a [routerLink]="['job-description', job.Id]">{{job.Name}}</a>
+        </div>
+        <div class="card-body">
+          <blockquote class="blockquote mb-0">
+            <div class="row">
+              <div class="col-md-6 metaTags">
+                <i class="fa fa-user-circle-o" aria-hidden="true"></i> Designation : <cite title="Source Title">{{job.Designation.DesignationName}}</cite>
+              </div>
+              <div class="col-md-6 metaTags">
+                <i class="fa fa-bar-chart" aria-hidden="true"></i> Experience :  <cite title="Source Title">{{job.Experience.ExperienceName}}</cite>
+              </div>
+              <div class="col-md-6 metaTags">
+                <i class="fa fa-map-marker" aria-hidden="true"></i> Location :  <cite title="Source Title">{{job.Location.LocationName}}</cite>
+              </div>
+              <div class="col-md-6 metaTags">
+                <i class="fa fa-user-o" aria-hidden="true"></i>
+                Created By : <cite title="Source Title">DMI</cite></div>
+            </div>
+            <p>{{job.About}}</p>
+
+            <!-- <footer class="blockquote-footer"><i class="fa fa-bar-chart" aria-hidden="true"></i>Experience :  <cite title="Source Title">{{job.Experience.ExperienceName}}</cite></footer> -->
+
+          </blockquote>
+        </div>
+      </div>
+
+      <!-- <i class="fa fa-pencil-square-o icon-right-side" aria-hidden="true" ></i>
+      <i class="fa fa-trash icon-right-side" aria-hidden="true"></i> -->
+    </li>
+    <mat-paginator [length]="length"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="onPaginateChange($event)">
+</mat-paginator>
+  </ul>
+
+</div>
+
+<div *ngIf="jobs.length<1" style="align-items: center;" class="list-group row">
+  <p>No Record Found</p>
+</div>
+

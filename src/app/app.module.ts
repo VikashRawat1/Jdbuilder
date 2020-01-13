@@ -16,6 +16,7 @@ import { LoaderService } from './services/loader.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoaderInterceptor } from './interceptors/loader.interceptors';
 import { LoaderComponent } from './shared/loader/loader.component';
+import { Job1ServiceService } from './modules/job/job-service.service';
 import {
   MatChipsModule,
   MatFormFieldModule,
@@ -28,6 +29,7 @@ import {
 } from '@angular/material';
 import { DummyComponent } from './dummy/dummy.component';
 import { ToastrModule } from 'ngx-toastr';
+// import { JobModule } from './modules/job/job.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,9 +56,10 @@ import { ToastrModule } from 'ngx-toastr';
     MatSelectModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    // JobModule
   ],
-  providers: [JobServiceService, LoaderService,
+  providers: [JobServiceService, LoaderService, Job1ServiceService,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })

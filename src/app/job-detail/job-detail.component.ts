@@ -6,6 +6,7 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-job-detail',
   templateUrl: './job-detail.component.html',
@@ -39,7 +40,7 @@ export class JobDetailComponent implements OnInit {
   ////
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
-  constructor(private formBuilder: FormBuilder, private jobService: JobServiceService, private cdr: ChangeDetectorRef) {
+  constructor(private formBuilder: FormBuilder, private jobService: JobServiceService, private toastr: ToastrService) {
 
    }
   private _filter(value: any): string[] {
@@ -226,7 +227,7 @@ export class JobDetailComponent implements OnInit {
   //   this.mandatorySkills.push(new FormControl());
   // }
   add(event: MatChipInputEvent, isAdd): void {
-    if (isAdd){
+    if (isAdd) {
       const input = event.input;
       const value = event.value;
       // Add our tag
@@ -277,8 +278,11 @@ export class JobDetailComponent implements OnInit {
       DeletedResponsibilities: this.deletedResponsiblities,
       DeletedTags: this.deletedTags
     };
-    this.jobService.saveJd(jdObject).subscribe((updatedData) => {
-      location.reload();
+    this.jobService.saveJd(jdObject).subscribe((updatedData: any) => {
+      if (updatedData.StatusCode === 200){
+        this.toastr.success(updatedData.Message, 'Success');
+        // location.reload();
+      }
     });
   }
 }

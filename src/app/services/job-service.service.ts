@@ -4,8 +4,8 @@ const url = 'http://localhost:80/api';
 @Injectable({providedIn: 'root'})
 export class JobServiceService {
   constructor(private httpClient: HttpClient) { }
-  getAllJobs() {
-    return this.httpClient.get(`${url}/FetchProfiles`);
+  getAllJobs(pageParams) {
+    return this.httpClient.get(`${url}/FetchProfiles/?pageSize=${pageParams.pageSize}&pageIndex=${pageParams.pageIndex}`);
   }
   fetchProfiles(jdId) {
     return this.httpClient.get(`${url}/FetchProfileDetails?profileId=${jdId}`);
@@ -26,6 +26,6 @@ export class JobServiceService {
     return this.httpClient.get(`${url}/FetchTagsList`);
   }
   FetchFilteredProfiles(params) {
-    return this.httpClient.get(`${url}/FetchFilteredProfiles?experienceId=${params.experienceId}&locationId=${params.locationId}&designationId=${params.designationId}`);
+    return this.httpClient.get(`${url}/FetchFilteredProfiles?experienceId=${params.experienceId}&locationId=${params.locationId}&designationId=${params.designationId}&pageSize=${params.pageSize}&pageIndex=${params.pageIndex}`);
   }
 }

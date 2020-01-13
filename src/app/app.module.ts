@@ -15,7 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoaderService } from './services/loader.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoaderInterceptor } from './interceptors/loader.interceptors';
-import { LoaderComponent } from './shared/loader/loader.component'
+import { LoaderComponent } from './shared/loader/loader.component';
 import {
   MatChipsModule,
   MatFormFieldModule,
@@ -26,6 +26,8 @@ import {
   MatPaginatorModule,
   MatProgressSpinnerModule
 } from '@angular/material';
+import { DummyComponent } from './dummy/dummy.component';
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +36,8 @@ import {
     JobDetailComponent,
     HeaderComponent,
     SidebarComponent,
-    LoaderComponent
+    LoaderComponent,
+    DummyComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,8 @@ import {
     MatInputModule,
     MatSelectModule,
     MatPaginatorModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    ToastrModule.forRoot()
   ],
   providers: [JobServiceService, LoaderService,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }],

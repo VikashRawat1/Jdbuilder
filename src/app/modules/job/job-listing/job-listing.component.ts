@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { JobServiceService } from '../services/job-service.service';
-import { ToastrService } from 'ngx-toastr';
+import { JobServiceService } from '../../../services/job-service.service';
+import {PageEvent} from '@angular/material/paginator';
 @Component({
   selector: 'app-job-listing',
   templateUrl: './job-listing.component.html',
-  styleUrls: ['./job-listing.component.css']
+  styleUrls: ['./job-listing.component.scss']
 })
 export class JobListingComponent implements OnInit {
   jobs: any[] = [];
@@ -17,16 +17,13 @@ export class JobListingComponent implements OnInit {
   // MatPaginator Inputs
   length = 100;
   pageSize = 2;
-  pageSizeOptions: number[] = [2, 5, 10, 25, 100];
-  pageSelected = 0;
-  DefaultPageSize = 2;
-  constructor(private jobService: JobServiceService, private toastr: ToastrService) { }
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+
+  constructor(private jobService: JobServiceService, ) { }
 
   ngOnInit() {
-    const pageParams = {pageSize: this.DefaultPageSize, pageIndex: this.pageSelected};
-    this.jobService.getAllJobs(pageParams).subscribe((jobs: any) => {
+    this.jobService.getAllJobs(true).subscribe((jobs: any) => {
       this.jobs = jobs.ProfileList;
-      this.length = jobs.TotalRecords;
     });
     this.jobService.FetchExperienceList().subscribe((experiences: any) => {
       if (experiences.StatusCode === 200) {
@@ -48,40 +45,28 @@ export class JobListingComponent implements OnInit {
     this.selectedLocation = undefined;
     this.selectedExperience = undefined;
     this.selectedDesignation = undefined;
-    const pageParams = {pageSize: 2, pageIndex: 0};
-    this.jobService.getAllJobs(pageParams).subscribe((jobs: any) => {
+    const paramObject = {
+      locationId : 0,
+      experienceId : 0,
+      designationId : 0
+    };
+    this.jobService.getAllJobs(true).subscribe((jobs: any) => {
       this.jobs = jobs.ProfileList;
-      this.length = jobs.TotalRecords;
     });
   }
   search() {
     const paramObject = {
       locationId : this.selectedLocation ? this.selectedLocation : 0,
       experienceId : this.selectedExperience ? this.selectedExperience : 0,
-      designationId : this.selectedDesignation ? this.selectedDesignation : 0,
-      pageSize: this.DefaultPageSize,
-      pageIndex: 0
+      designationId : this.selectedDesignation ? this.selectedDesignation : 0
     };
     this.filterProfile(paramObject);
   }
-  filterProfile(paramObject) {
+  filterProfile(paramObject){
     this.jobService.FetchFilteredProfiles(paramObject).subscribe((FilteredList: any) => {
       if (FilteredList.StatusCode === 200) {
         this.jobs = FilteredList.ProfileList;
-        this.length = FilteredList.TotalRecords;
       }
     });
-  }
-  onPaginateChange(evn){
-    const paramObject = {
-      locationId : this.selectedLocation ? this.selectedLocation : 0,
-      experienceId : this.selectedExperience ? this.selectedExperience : 0,
-      designationId : this.selectedDesignation ? this.selectedDesignation : 0,
-      pageIndex: evn.pageIndex,
-      pageSize: evn.pageSize
-    };
-    this.pageSelected = evn.pageIndex;
-    this.DefaultPageSize = evn.pageSize;
-    this.filterProfile(paramObject);
   }
 }

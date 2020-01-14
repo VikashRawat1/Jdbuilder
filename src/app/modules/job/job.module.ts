@@ -6,15 +6,16 @@ import { JobListingComponent } from './job-listing/job-listing.component';
 import { JobDetailComponent } from './job-detail/job-detail.component';
 import { Job1ServiceService } from './job-service.service';
 import {
-  MatChipsModule,
-  MatFormFieldModule,
-  MatIconModule,
-  MatAutocompleteModule,
-  MatInputModule,
-  MatSelectModule,
-  MatPaginatorModule,
+  // MatChipsModule,
+  // MatFormFieldModule,
+  // MatIconModule,
+  // MatAutocompleteModule,
+  // MatInputModule,
+  // MatSelectModule,
+  // MatPaginatorModule,
   MatProgressSpinnerModule
 } from '@angular/material';
+import { MaterialUiModule } from '../material-ui/material-ui.module';
 @NgModule({
   declarations: [
     JobListingComponent,
@@ -25,13 +26,7 @@ import {
     ReactiveFormsModule,
     FormsModule,
     JobRoutingModule,
-    MatChipsModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatAutocompleteModule,
-    MatInputModule,
-    MatSelectModule,
-    MatPaginatorModule,
+    MaterialUiModule,
     MatProgressSpinnerModule,
   ],
   providers: [Job1ServiceService]

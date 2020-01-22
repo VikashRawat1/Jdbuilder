@@ -37,6 +37,7 @@ export class JobDetailComponent implements OnInit {
   filteredTags: Observable<string[]>;
   tags = [];
   allTags = [];
+  isEditJd = false;
   ////
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;

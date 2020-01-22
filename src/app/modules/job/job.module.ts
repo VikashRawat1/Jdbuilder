@@ -16,10 +16,14 @@ import {
   MatProgressSpinnerModule
 } from '@angular/material';
 import { MaterialUiModule } from '../material-ui/material-ui.module';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { ViewJdComponent } from './view-jd/view-jd.component';
+// import { ChartsModule } from 'ng2-charts';
 @NgModule({
   declarations: [
     JobListingComponent,
     JobDetailComponent,
+    ViewJdComponent,
   ],
   imports: [
     CommonModule,
@@ -28,6 +32,8 @@ import { MaterialUiModule } from '../material-ui/material-ui.module';
     JobRoutingModule,
     MaterialUiModule,
     MatProgressSpinnerModule,
+    NgxPaginationModule,
+    // ChartsModule
   ],
   providers: [Job1ServiceService]
 })

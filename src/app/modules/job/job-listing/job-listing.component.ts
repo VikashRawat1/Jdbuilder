@@ -20,6 +20,7 @@ export class JobListingComponent implements OnInit {
   pageSizeOptions: number[] = [2, 5, 10, 25, 100];
   pageSelected = 0;
   DefaultPageSize = 2;
+  range;
   constructor(private jobService: Job1ServiceService, private toastr: ToastrService) { }
 
   ngOnInit() {
@@ -27,6 +28,7 @@ export class JobListingComponent implements OnInit {
     this.jobService.getAllJobs(pageParams).subscribe((jobs: any) => {
       this.jobs = jobs.ProfileList;
       this.length = jobs.TotalRecords;
+      this.range = `${this.pageSelected + 1}-${this.jobs.length} of ${this.length}`;
     });
     this.jobService.FetchExperienceList().subscribe((experiences: any) => {
       if (experiences.StatusCode === 200) {
@@ -55,6 +57,7 @@ export class JobListingComponent implements OnInit {
     });
   }
   search() {
+    console.log(this.selectedDesignation, 'selectedselectiponnnnnn')
     const paramObject = {
       locationId : this.selectedLocation ? this.selectedLocation : 0,
       experienceId : this.selectedExperience ? this.selectedExperience : 0,
@@ -65,23 +68,27 @@ export class JobListingComponent implements OnInit {
     this.filterProfile(paramObject);
   }
   filterProfile(paramObject) {
+    console.log(paramObject,'paramobject')
     this.jobService.FetchFilteredProfiles(paramObject).subscribe((FilteredList: any) => {
       if (FilteredList.StatusCode === 200) {
         this.jobs = FilteredList.ProfileList;
         this.length = FilteredList.TotalRecords;
+        const previousRecord = paramObject.pageIndex * paramObject.pageSize;
+        this.range = `${previousRecord + 1}-${previousRecord + this.jobs.length} of ${this.length}`;
       }
     });
   }
   onPaginateChange(evn){
+    console.log(evn,'evfvvnnn', this.DefaultPageSize, "this.DefaultPageSizedd")
     const paramObject = {
       locationId : this.selectedLocation ? this.selectedLocation : 0,
       experienceId : this.selectedExperience ? this.selectedExperience : 0,
       designationId : this.selectedDesignation ? this.selectedDesignation : 0,
-      pageIndex: evn.pageIndex,
-      pageSize: evn.pageSize
+      pageIndex: evn.pageIndex !== undefined ? evn.pageIndex : evn - 1,
+      pageSize: evn.pageSize ? evn.pageSize : this.DefaultPageSize
     };
-    this.pageSelected = evn.pageIndex;
-    this.DefaultPageSize = evn.pageSize;
+    this.pageSelected = evn.pageIndex !== undefined ? evn.pageIndex : evn,
+    this.DefaultPageSize = evn.pageSize ? evn.pageSize : this.DefaultPageSize;
     this.filterProfile(paramObject);
   }
 }

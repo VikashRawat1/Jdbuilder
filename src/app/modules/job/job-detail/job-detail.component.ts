@@ -7,6 +7,9 @@ import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/a
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
+import { ChartType, ChartOptions } from 'chart.js';
+import { Label } from 'ng2-charts';
+// import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 @Component({
   selector: 'app-job-detail',
   templateUrl: './job-detail.component.html',
@@ -41,6 +44,31 @@ export class JobDetailComponent implements OnInit {
   ////
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
+  // Pie
+  public pieChartOptions: ChartOptions = {
+    responsive: true,
+    legend: {
+      position: 'bottom',
+    },
+    plugins: {
+      datalabels: {
+        formatter: (value, ctx) => {
+          const label = ctx.chart.data.labels[ctx.dataIndex];
+          return label;
+        },
+      },
+    }
+  };
+  public pieChartLabels: Label[] = [['90-100% '], ['80-90% '], ['70-80 %'],['<70 %']];
+  public pieChartData: number[] = [300, 370, 315, 280];
+  public pieChartType: ChartType = 'pie';
+  public pieChartLegend = true;
+  // public pieChartPlugins = [pluginDataLabels];
+  public pieChartColors = [
+    {
+      backgroundColor: ['#A9A9A9', '#454545', '#989898', '#D8D8D8'],
+    },
+  ];
   constructor(private formBuilder: FormBuilder, private jobService: Job1ServiceService, private toastr: ToastrService) {
 
    }

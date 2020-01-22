@@ -19,7 +19,7 @@ import {
 // import { MaterialUiModule } from './modules/material-ui/material-ui.module';
 import { ToastrModule } from 'ngx-toastr';
 import {NgxPaginationModule} from 'ngx-pagination';
-// import { ChartsModule } from 'ng2-charts';
+import { ChartsModule } from 'ng2-charts';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +37,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     MatProgressSpinnerModule,
     NgxPaginationModule,
     ToastrModule.forRoot(),
-    // ChartsModule
+    ChartsModule
   ],
   providers: [JobServiceService, LoaderService, Job1ServiceService,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }],

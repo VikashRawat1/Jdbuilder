@@ -1,13 +1,14 @@
 <div *ngIf="isDataFetched">
   <!-- EDIT MODE -->
-  <div *ngIf="isEditJd" class="row">
+  <div *ngIf="isEditJd" class="row bg-white pb-3">
     <div class="col-md-12 no-padding" style="padding-top: 1.4em;font-size: 13px;">
       <div class="row pt-3 d-lg-none">
       <div class="col-1">
-        <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
+        <i style="background: #979797;
+        padding: 6px;" class="fa fa-bars fa-2x text-white" aria-hidden="true"></i>
       </div>
       <div class="col-5">
-        <p style="color:black;" class="pt-2" >EDIT JDs</p>
+        <p style="color:black;" class="pl-2 mt-4 pb-0" >EDIT JDs</p>
       </div>
       <div (click)="isEditJd = false" class="col-6">
         <div class="dropdown dropleft float-right">
@@ -17,243 +18,252 @@
         </div>
       </div>
     </div>
-    <div class="card shadow-card mt-4">
+    <div class="card shadow-card mt-3">
       <div class="card-header" style="background:#EAECEA;">
         <div class="grid">
           <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left font-weight-bold mb-0 sub-heading">JD DOCUMENT ID :</p></div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-12"><h4 class="pull-right font-weight-bold mb-0 theme-color">370</h4></div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left mb-0">XXXXX00000XX</p></div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-12"><p class="pull-right mb-0"># Candidates with 80% Match Score</p></div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6 text-left">
+              <p class="font-weight-bold mb-0 sub-heading dark-gray-theme-color" style="line-height:50%">JD DOCUMENT ID :</p><br>
+              <p class="font-weight-bold mb-0 sub-heading gray-theme-color" style="line-height:40%">XXXXX00000XX </p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6 text-right">
+              <h4 class="font-weight-bold mb-0 dark-gray-theme-color" style="line-height:50%">370</h4><br>
+              <p class="mb-0 dark-gray-theme-color" ># Candidates with 80% Match Score</p>
+            </div>
           </div>
         </div>
-        <!-- <a [routerLink]="['job-description', job.Id]">{{job.Name}}</a> -->
       </div>
-    </div>
-    </div>
-    <div class="col-md-6">
-      <form
-        [formGroup]="jobDescriptionForm"
-        class="container p-3 my-3 text-muted col-md-12"
-        (ngSubmit)="onSave()"
-      >
-      <div class="row">
-        <p class="col-4 pt-2 font-weight-bold">Designation</p>
-        <div class="form-group col-8 pl-0 pr-0">
-          <select name="demo" class="form-control" formControlName="selectedDesignation">
-            <option *ngFor = "let designation of designations" [value]="designation.Id">{{designation.DesignationName}}</option>
-          </select>
-        </div>
-        <p class="col-4 pt-2 font-weight-bold">Experience</p>
-        <div class="form-group col-8 pl-0 pr-0">
-          <select name="demo" class="form-control" formControlName="selectedExperience">
-            <option *ngFor = "let experience of experiences" [value]="experience.Id">{{experience.ExperienceName}}</option>
-            </select>
-        </div>
-        <p class="col-4 pt-2 font-weight-bold">Location</p>
-        <div class="form-group col-8 pl-0 pr-0">
-          <select name="demo" class="form-control" formControlName="selectedLocation">
-            <option *ngFor = "let location of locations" [value]="location.Id">{{location.LocationName}}</option>
-            </select>
-        </div>
-        <div class="col-12">
-          <p class="pt-2 font-weight-bold">About</p>
-        </div>
-
-        <div class="col-11">
-          <p style="color:gray" >{{jobDescriptionForm.controls.about.value}}</p>
-        </div>
-        <!-- <div class="col-1 p-0 pt-4"><i class="fa fa-ellipsis-v float-right" aria-hidden="true"></i></div> -->
-
-      <!-- </div>
-      <div class="col-sm-12 pl-0"> -->
-        <p class="col-12 pt-2 font-weight-bold">TAGS</p>
-        <mat-form-field class="col-12 example-chip-list">
-          <mat-chip-list #chipList>
-            <mat-chip *ngFor="let tag of tags" [selectable]="selectable"
-                     [removable]="removable" (removed)="removeTag(tag)">
-              {{tag.TagName}}
-              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-            </mat-chip>
-            <input placeholder="New tag..."
-                    #tagInput
-                   [matChipInputFor]="chipList"
-                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                   [formControl]="tagsCtrl"
-                   [matAutocomplete]="auto"
-                   (matChipInputTokenEnd)="add($event,true)">
-          </mat-chip-list>
-          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-            <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
-              {{tag.TagName}}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-        <p class="col-12 pt-2 font-weight-bold">MANDATORY</p>
-        <div class="col-12" formArrayName="mandatorySkills"
-        *ngFor="let skill of jobDescriptionForm.get('mandatorySkills')['controls']; let i = index;">
-          <div [formGroupName]="i">
-            <div class="row pb-2">
-              <div class="col-11 col-md-11 col-lg-11">
-                <input *ngIf='skill.isEditing' formControlName="SkillName" placeholder="Item name">
-                <p *ngIf='!skill.isEditing' class="my-auto" style="color:gray">{{skill.controls.SkillName.value}}</p>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <form
+              [formGroup]="jobDescriptionForm"
+              class="container p-3 my-3 text-muted col-md-12"
+              (ngSubmit)="onSave()"
+            >
+            <div class="row">
+              <p class="col-4 pt-2 font-weight-bold">Designation</p>
+              <div class="form-group col-8 pl-0 pr-0">
+                <select name="demo" class="form-control" formControlName="selectedDesignation">
+                  <option *ngFor = "let designation of designations" [value]="designation.Id">{{designation.DesignationName}}</option>
+                </select>
+              </div>
+              <p class="col-4 pt-2 font-weight-bold">Experience</p>
+              <div class="form-group col-8 pl-0 pr-0">
+                <select name="demo" class="form-control" formControlName="selectedExperience">
+                  <option *ngFor = "let experience of experiences" [value]="experience.Id">{{experience.ExperienceName}}</option>
+                  </select>
+              </div>
+              <p class="col-4 pt-2 font-weight-bold">Location</p>
+              <div class="form-group col-8 pl-0 pr-0">
+                <select name="demo" class="form-control" formControlName="selectedLocation">
+                  <option *ngFor = "let location of locations" [value]="location.Id">{{location.LocationName}}</option>
+                  </select>
+              </div>
+              <div class="col-12">
+                <p class="pt-2 font-weight-bold">About</p>
               </div>
 
-              <!-- <div class="col-1 p-0 my-auto"> -->
-                <div class="col-1 p-0 btn dropdown dropright">
-                  <i class="fa fa-ellipsis-v float-right" aria-hidden="true" data-toggle="dropdown"></i>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="JavaScript:Void(0);" (click)='skill.isEditing = true'>Edit</a>
-                    <a class="dropdown-item" href="JavaScript:Void(0);" (click)="moveToDesired(skill.controls,i)">Move To Desired</a>
-                    <a class="dropdown-item" href="JavaScript:Void(0);" (click)='deleteSkill(skill.controls,i)'>Delete</a>
+              <div class="col-11">
+                <p style="color:gray" >{{jobDescriptionForm.controls.about.value}}</p>
+              </div>
+              <!-- <div class="col-1 p-0 pt-4"><i class="fa fa-ellipsis-v float-right" aria-hidden="true"></i></div> -->
+
+            <!-- </div>
+            <div class="col-sm-12 pl-0"> -->
+              <p class="col-12 pt-2 font-weight-bold">TAGS</p>
+              <mat-form-field class="col-12 example-chip-list">
+                <mat-chip-list #chipList>
+                  <mat-chip *ngFor="let tag of tags" [selectable]="selectable"
+                           [removable]="removable" (removed)="removeTag(tag)">
+                    {{tag.TagName}}
+                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                  </mat-chip>
+                  <input placeholder="New tag..."
+                          #tagInput
+                         [matChipInputFor]="chipList"
+                         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                         [formControl]="tagsCtrl"
+                         [matAutocomplete]="auto"
+                         (matChipInputTokenEnd)="add($event,true)">
+                </mat-chip-list>
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                  <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+                    {{tag.TagName}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+              <p class="col-12 pt-2 font-weight-bold">MANDATORY</p>
+              <div class="col-12" formArrayName="mandatorySkills"
+              *ngFor="let skill of jobDescriptionForm.get('mandatorySkills')['controls']; let i = index;">
+                <div [formGroupName]="i">
+                  <div class="row pb-2">
+                    <div class="col-11 col-md-11 col-lg-11">
+                      <input *ngIf='skill.isEditing' formControlName="SkillName" placeholder="Item name">
+                      <p *ngIf='!skill.isEditing' class="my-auto" style="color:gray">{{skill.controls.SkillName.value}}</p>
+                    </div>
+
+                    <!-- <div class="col-1 p-0 my-auto"> -->
+                      <div class="col-1 p-0 btn dropdown dropright">
+                        <i class="fa fa-ellipsis-v float-right" aria-hidden="true" data-toggle="dropdown"></i>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="JavaScript:Void(0);" (click)='skill.isEditing = true'>Edit</a>
+                          <a class="dropdown-item" href="JavaScript:Void(0);" (click)="moveToDesired(skill.controls,i)">Move To Desired</a>
+                          <a class="dropdown-item" href="JavaScript:Void(0);" (click)='deleteSkill(skill.controls,i)'>Delete</a>
+                        </div>
+                      </div>
+
+                    <!-- </div> -->
+                    <!-- <div class="col-1 col-md-1 col-lg-1">
+                      <i class="fa fa-angle-double-down icon-right-side" title="Move To Desired" (click)="moveToDesired(skill.controls,i)"></i>
+                      <i class="fa fa-trash icon-right-side" (click)='deleteSkill(skill.controls,i)' aria-hidden="true" title="Delete"></i>
+                      <i class="fa fa-pencil-square-o icon-right-side" aria-hidden="true" (click)='skill.isEditing = true' title="Edit"></i>
+                    </div> -->
                   </div>
+                </div>
+              </div>
+              <div class="col-12 pr-0">
+                <!-- <i
+                (click)="addMandatorySkill()"
+                class="fa fa-plus fa-lg pull-right"
+                aria-hidden="true"
+                title="Add more mandatory skill"
+              ></i> -->
+              <h5 class="font-weight-bold" (click)="addMandatorySkill()">+Add</h5>
+              <!-- <p class="font-weight-bold col-1 pull-right">+</p> -->
+
+              </div>
+
+              <p class="col-12 pt-2 font-weight-bold">DESIRED</p>
+              <div class="col-12" formArrayName="desiredSkills"
+              *ngFor="let skill of jobDescriptionForm.get('desiredSkills')['controls']; let i = index;">
+                <div [formGroupName]="i">
+                  <div class="row pb-2">
+                    <div class="col-11 col-md-11 col-lg-11">
+                      <input *ngIf='skill.isEditing' formControlName="SkillName" placeholder="Item name">
+                      <p *ngIf='!skill.isEditing' style="color:gray">{{skill.controls.SkillName.value}}</p>
+                    </div>
+                    <div class="col-1 p-0 btn dropdown dropright">
+                      <i class="fa fa-ellipsis-v float-right" aria-hidden="true" data-toggle="dropdown"></i>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="JavaScript:Void(0);" (click)='skill.isEditing = true'>Edit</a>
+                        <a class="dropdown-item" href="JavaScript:Void(0);" (click)="moveToMandatory(skill.controls,i)">Move To Mandatory</a>
+                        <a class="dropdown-item" href="JavaScript:Void(0);" (click)='deleteDesiredSkill(skill.controls,i)'>Delete</a>
+                      </div>
+                    </div>
+                    <!-- <div class="col-sm-3">
+                      <i class="fa fa-angle-double-up icon-right-side" aria-hidden="true" title="Move To Desired" (click)="moveToMandatory(skill.controls,i)"></i>
+                      <i class="fa fa-trash icon-right-side" (click)='deleteDesiredSkill(skill.controls,i)' aria-hidden="true" title="Delete"></i>
+                      <i class="fa fa-pencil-square-o icon-right-side" aria-hidden="true" (click)='skill.isEditing = true' title="Edit"></i>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+              <p class="col-12 pt-2 font-weight-bold">QUALIFICATION</p>
+              <div class="col-12" formArrayName="qualifications"
+              *ngFor="let item of jobDescriptionForm.get('qualifications')['controls']; let i = index;">
+                <div [formGroupName]="i">
+                  <div class="row pb-2">
+                    <div class="col-11 col-md-11 col-lg-11">
+                      <input *ngIf='item.isEditing' formControlName="Name" placeholder="Qualification">
+                      <p *ngIf='!item.isEditing' style="color:gray">{{item.controls.Name.value}}</p>
+                    </div>
+                    <div class="col-1 p-0 btn dropdown dropright">
+                      <i class="fa fa-ellipsis-v float-right" aria-hidden="true" data-toggle="dropdown"></i>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="JavaScript:Void(0);" (click)='skill.isEditing = true'>Edit</a>
+                        <a class="dropdown-item" href="JavaScript:Void(0);" (click)='deleteQualification(item.controls,i)'>Delete</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- <i class="fa fa-pencil-square-o icon-right-side" aria-hidden="true" (click)='item.isEditing = true' title="Edit"></i>
+                  <i class="fa fa-trash icon-right-side" aria-hidden="true" title="Delete" (click)='deleteQualification(item.controls,i)'></i> -->
+
+                </div>
+              </div>
+              <div class="col-12 pr-0">
+                <h5 class="font-weight-bold btn pl-0" (click)="addQualification()">+Add</h5>
+              </div>
+              <p class="col-12 pt-2 font-weight-bold">ROLES AND RESPONSIBILITY</p>
+              <div class="col-12" formArrayName="rolesAndResponsibility"
+              *ngFor="let item of jobDescriptionForm.get('rolesAndResponsibility')['controls']; let i = index;">
+                <div [formGroupName]="i">
+                  <div class="row pb-2">
+                    <div class="col-11 col-md-11 col-lg-11">
+                      <div class="form-group">
+                        <input type="text" class="form-control" *ngIf='item.isEditing' formControlName="Responsibility" placeholder="Role and Responsibility">
+                      </div>
+                      <p *ngIf='!item.isEditing' style="color:gray">{{item.controls.Responsibility.value}}</p>
+                    </div>
+                    <div class="col-1 p-0 btn dropdown dropright">
+                      <i class="fa fa-ellipsis-v float-right" aria-hidden="true" data-toggle="dropdown"></i>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="JavaScript:Void(0);" (click)='item.isEditing = true'>Edit</a>
+                        <a class="dropdown-item" href="JavaScript:Void(0);" (click)='deleteResponsiblity(item.controls,i)'>Delete</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <i
+                (click)="addResponsibility()"
+                class="fa fa-plus-square fa-lg"
+                aria-hidden="true"
+              ></i> -->
+              <div class="col-12 pr-0">
+                <h5 class="font-weight-bold btn pl-0" (click)="addResponsibility()">+Add</h5>
+              </div>
+              <hr class="w-100">
+              <p class="col-12 pt-2 font-weight-bold mb-0">DESIGNATION : <span class="font-weight-normal">Amit Ranjan</span></p>
+              <p class="col-12 font-weight-bold">CREATED ON : <span class="font-weight-normal">01-12-2019</span></p>
+              <!-- <div class="row d-none d-lg-block"> -->
+                <div class="col-12 d-none pr-0 d-lg-block">
+                  <input (click)="onSave()" type="button" value="Save" class="icon-right-side btn btn-dark mr-0"/>
+                  <input (click)="isEditJd = false" type="button" value="Cancel" class="icon-right-side btn btn-secondary"/>
                 </div>
 
               <!-- </div> -->
-              <!-- <div class="col-1 col-md-1 col-lg-1">
-                <i class="fa fa-angle-double-down icon-right-side" title="Move To Desired" (click)="moveToDesired(skill.controls,i)"></i>
-                <i class="fa fa-trash icon-right-side" (click)='deleteSkill(skill.controls,i)' aria-hidden="true" title="Delete"></i>
-                <i class="fa fa-pencil-square-o icon-right-side" aria-hidden="true" (click)='skill.isEditing = true' title="Edit"></i>
-              </div> -->
-            </div>
+
+
+              </div>
+
+            </form>
+          </div>
+          <div class="col-md-6 d-none d-lg-block">
+            <table class="table table-bordered p-3 my-3">
+              <thead>
+                <tr>
+                  <th scope="col">Candidate Count</th>
+                  <th scope="col">Match Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="noBorder">
+                  <td>30</td>
+                  <td>100</td>
+                </tr>
+                <tr class="noBorder">
+                  <td>50</td>
+                  <td>90</td>
+                </tr>
+                <tr class="noBorder">
+                  <td>120</td>
+                  <td>80</td>
+                </tr>
+                <tr>
+                  <td>1100</td>
+                  <td>All</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
-        <div class="col-12 pr-0">
-          <!-- <i
-          (click)="addMandatorySkill()"
-          class="fa fa-plus fa-lg pull-right"
-          aria-hidden="true"
-          title="Add more mandatory skill"
-        ></i> -->
-        <h5 class="font-weight-bold" (click)="addMandatorySkill()">+Add</h5>
-        <!-- <p class="font-weight-bold col-1 pull-right">+</p> -->
-
-        </div>
-
-        <p class="col-12 pt-2 font-weight-bold">DESIRED</p>
-        <div class="col-12" formArrayName="desiredSkills"
-        *ngFor="let skill of jobDescriptionForm.get('desiredSkills')['controls']; let i = index;">
-          <div [formGroupName]="i">
-            <div class="row pb-2">
-              <div class="col-11 col-md-11 col-lg-11">
-                <input *ngIf='skill.isEditing' formControlName="SkillName" placeholder="Item name">
-                <p *ngIf='!skill.isEditing' style="color:gray">{{skill.controls.SkillName.value}}</p>
-              </div>
-              <div class="col-1 p-0 btn dropdown dropright">
-                <i class="fa fa-ellipsis-v float-right" aria-hidden="true" data-toggle="dropdown"></i>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="JavaScript:Void(0);" (click)='skill.isEditing = true'>Edit</a>
-                  <a class="dropdown-item" href="JavaScript:Void(0);" (click)="moveToMandatory(skill.controls,i)">Move To Mandatory</a>
-                  <a class="dropdown-item" href="JavaScript:Void(0);" (click)='deleteDesiredSkill(skill.controls,i)'>Delete</a>
-                </div>
-              </div>
-              <!-- <div class="col-sm-3">
-                <i class="fa fa-angle-double-up icon-right-side" aria-hidden="true" title="Move To Desired" (click)="moveToMandatory(skill.controls,i)"></i>
-                <i class="fa fa-trash icon-right-side" (click)='deleteDesiredSkill(skill.controls,i)' aria-hidden="true" title="Delete"></i>
-                <i class="fa fa-pencil-square-o icon-right-side" aria-hidden="true" (click)='skill.isEditing = true' title="Edit"></i>
-              </div> -->
-            </div>
-          </div>
-        </div>
-        <p class="col-12 pt-2 font-weight-bold">QUALIFICATION</p>
-        <div class="col-12" formArrayName="qualifications"
-        *ngFor="let item of jobDescriptionForm.get('qualifications')['controls']; let i = index;">
-          <div [formGroupName]="i">
-            <div class="row pb-2">
-              <div class="col-11 col-md-11 col-lg-11">
-                <input *ngIf='item.isEditing' formControlName="Name" placeholder="Qualification">
-                <p *ngIf='!item.isEditing' style="color:gray">{{item.controls.Name.value}}</p>
-              </div>
-              <div class="col-1 p-0 btn dropdown dropright">
-                <i class="fa fa-ellipsis-v float-right" aria-hidden="true" data-toggle="dropdown"></i>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="JavaScript:Void(0);" (click)='skill.isEditing = true'>Edit</a>
-                  <a class="dropdown-item" href="JavaScript:Void(0);" (click)='deleteQualification(item.controls,i)'>Delete</a>
-                </div>
-              </div>
-            </div>
-
-            <!-- <i class="fa fa-pencil-square-o icon-right-side" aria-hidden="true" (click)='item.isEditing = true' title="Edit"></i>
-            <i class="fa fa-trash icon-right-side" aria-hidden="true" title="Delete" (click)='deleteQualification(item.controls,i)'></i> -->
-
-          </div>
-        </div>
-        <div class="col-12 pr-0">
-          <h5 class="font-weight-bold btn pl-0" (click)="addQualification()">+Add</h5>
-        </div>
-        <p class="col-12 pt-2 font-weight-bold">ROLES AND RESPONSIBILITY</p>
-        <div class="col-12" formArrayName="rolesAndResponsibility"
-        *ngFor="let item of jobDescriptionForm.get('rolesAndResponsibility')['controls']; let i = index;">
-          <div [formGroupName]="i">
-            <div class="row pb-2">
-              <div class="col-11 col-md-11 col-lg-11">
-                <div class="form-group">
-                  <input type="text" class="form-control" *ngIf='item.isEditing' formControlName="Responsibility" placeholder="Role and Responsibility">
-                </div>
-                <p *ngIf='!item.isEditing' style="color:gray">{{item.controls.Responsibility.value}}</p>
-              </div>
-              <div class="col-1 p-0 btn dropdown dropright">
-                <i class="fa fa-ellipsis-v float-right" aria-hidden="true" data-toggle="dropdown"></i>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="JavaScript:Void(0);" (click)='item.isEditing = true'>Edit</a>
-                  <a class="dropdown-item" href="JavaScript:Void(0);" (click)='deleteResponsiblity(item.controls,i)'>Delete</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- <i
-          (click)="addResponsibility()"
-          class="fa fa-plus-square fa-lg"
-          aria-hidden="true"
-        ></i> -->
-        <div class="col-12 pr-0">
-          <h5 class="font-weight-bold btn pl-0" (click)="addResponsibility()">+Add</h5>
-        </div>
-        <hr class="w-100">
-        <p class="col-12 pt-2 font-weight-bold mb-0">DESIGNATION : <span class="font-weight-normal">Amit Ranjan</span></p>
-        <p class="col-12 font-weight-bold">CREATED ON : <span class="font-weight-normal">01-12-2019</span></p>
-        <!-- <div class="row d-none d-lg-block"> -->
-          <div class="col-12 d-none pr-0 d-lg-block">
-            <input (click)="onSave()" type="button" value="Save" class="icon-right-side btn btn-dark mr-0"/>
-            <input (click)="isEditJd = false" type="button" value="Cancel" class="icon-right-side btn btn-secondary"/>
-          </div>
-
-        <!-- </div> -->
-
-
-        </div>
-
-      </form>
+      </div>
     </div>
-    <div class="col-md-6 d-none d-lg-block">
-      <table class="table table-bordered p-3 my-3">
-        <thead>
-          <tr>
-            <th scope="col">Candidate Count</th>
-            <th scope="col">Match Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="noBorder">
-            <td>30</td>
-            <td>100</td>
-          </tr>
-          <tr class="noBorder">
-            <td>50</td>
-            <td>90</td>
-          </tr>
-          <tr class="noBorder">
-            <td>120</td>
-            <td>80</td>
-          </tr>
-          <tr>
-            <td>1100</td>
-            <td>All</td>
-          </tr>
-        </tbody>
-      </table>
     </div>
+
+
 
   </div>
   <div *ngIf="isEditJd" class="row d-md-none" style="height: 55px;">
@@ -270,142 +280,152 @@
   </div>
 
   <!-- VIEW MODE -->
-  <div *ngIf="!isEditJd" class="row">
-    <div class="card">
-
-    </div>
+  <div *ngIf="!isEditJd" class="row bg-white pb-3">
     <div class="col-md-12 no-padding" style="padding-top: 1.4em;font-size: 13px;">
       <div class="row pt-3 d-lg-none">
       <div class="col-1">
-        <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
+        <i style="background: #979797;
+        padding: 6px;" class="fa fa-bars fa-2x text-white" aria-hidden="true"></i>
       </div>
       <div class="col-7">
-        <p style="color:black;" class="pt-2" >VIEW JDs > JD DETAILS</p>
+        <p style="color:black;" class="pl-2 mt-4 pb-0" >VIEW JDs > JD DETAILS</p>
       </div>
       <div [routerLink]="['']" class="col-4">
         <div class="dropdown dropleft float-right">
-          <button type="button" class="btn btn-secondary">
+          <button type="button" class="btn btn-secondary" style="background: #979797;">
             BACK
           </button>
         </div>
       </div>
     </div>
-    <div class="card shadow-card mt-4">
+    <div class="card shadow-card mt-3">
       <div class="card-header" style="background:#EAECEA;">
         <div class="grid">
           <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left font-weight-bold mb-0 sub-heading">JD DOCUMENT ID :</p></div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-12"><h4 class="pull-right font-weight-bold mb-0 theme-color">370</h4></div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left mb-0">XXXXX00000XX</p></div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-12"><p class="pull-right mb-0"># Candidates with 80% Match Score</p></div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6 text-left">
+              <p class="font-weight-bold mb-0 sub-heading dark-gray-theme-color" style="line-height:50%">JD DOCUMENT ID :</p><br>
+              <p class="font-weight-bold mb-0 sub-heading gray-theme-color" style="line-height:40%">XXXXX00000XX </p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6 text-right">
+              <h4 class="font-weight-bold mb-0 dark-gray-theme-color" style="line-height:50%">370</h4><br>
+              <p class="mb-0 dark-gray-theme-color" ># Candidates with 80% Match Score</p>
+            </div>
+            <!-- <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left mb-0">XXXXX00000XX</p></div> -->
+            <!-- <div class="col-lg-6 col-md-6 col-sm-6 col-12"></div> -->
           </div>
         </div>
         <!-- <a [routerLink]="['job-description', job.Id]">{{job.Name}}</a> -->
       </div>
-    </div>
-    </div>
-    <div class="col-md-6">
-      <form
-        [formGroup]="jobDescriptionForm"
-        class="container p-3 my-3 text-muted col-md-12"
-        (ngSubmit)="onSave()"
-      >
-      <div class="row">
-        <p class="col-4 pt-2 font-weight-bold">DESIGNATION</p>
-        <p class="col-8 pt-2">{{jobDescriptionForm.controls.selectedDesignation.value}}</p>
-        <p class="col-4 pt-2 font-weight-bold">EXPERIENCE</p>
-        <p class="col-8 pt-2">{{jobDescriptionForm.controls.selectedExperience.value}} YEARS</p>
-        <p class="col-4 pt-2 font-weight-bold">LOCATION</p>
-        <p class="col-8 pt-2">{{jobDescriptionForm.controls.selectedLocation.value}} YEARS</p>
-        <div class="col-12">
-          <p class="pt-2 font-weight-bold">About</p>
-        </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <form
+              [formGroup]="jobDescriptionForm"
+              class="container p-0 my-3 text-muted col-md-12"
+              (ngSubmit)="onSave()"
+            >
+            <div class="row">
+              <p class="col-4 pt-2 font-weight-bold">DESIGNATION</p>
+              <p class="col-8 pt-2">{{jobDescriptionForm.controls.selectedDesignation.value}}</p>
+              <p class="col-4 pt-2 font-weight-bold">EXPERIENCE</p>
+              <p class="col-8 pt-2">{{jobDescriptionForm.controls.selectedExperience.value}} YEARS</p>
+              <p class="col-4 pt-2 font-weight-bold">LOCATION</p>
+              <p class="col-8 pt-2">{{jobDescriptionForm.controls.selectedLocation.value}} YEARS</p>
+              <div class="col-12">
+                <p class="pt-2 font-weight-bold">About</p>
+              </div>
 
-        <div class="col-12">
-          <p style="color:gray" >{{jobDescriptionForm.controls.about.value}}</p>
-        </div>
-        <!-- <div class="col-1 p-0 pt-4"><i class="fa fa-ellipsis-v float-right" aria-hidden="true"></i></div> -->
+              <div class="col-12">
+                <p style="color:gray" >{{jobDescriptionForm.controls.about.value}}</p>
+              </div>
+              <!-- <div class="col-1 p-0 pt-4"><i class="fa fa-ellipsis-v float-right" aria-hidden="true"></i></div> -->
 
-      <!-- </div>
-      <div class="col-sm-12 pl-0"> -->
-        <p class="col-12 pt-2 font-weight-bold">TAGS</p>
-        <p class="col-12">
-          <span *ngFor="let tag of tags; let i = index">
-            {{tag.TagName}}<span *ngIf="i !== tags.length-1">,</span>
-           </span>
-        </p>
-        <p class="col-12 pt-2 font-weight-bold">MANDATORY</p>
-        <p class="col-12">
-          <span *ngFor="let skill of jobDescriptionForm.get('mandatorySkills')['controls']; let i = index;">
-            {{skill.controls.SkillName.value}}<span *ngIf="i !== tags.length-1">.</span>
-           </span>
-        </p>
+            <!-- </div>
+            <div class="col-sm-12 pl-0"> -->
+              <p class="col-12 pt-2 font-weight-bold">TAGS</p>
+              <p class="col-12">
+                <span *ngFor="let tag of tags; let i = index">
+                  {{tag.TagName}}<span *ngIf="i !== tags.length-1">,</span>
+                 </span>
+              </p>
+              <p class="col-12 pt-2 font-weight-bold">MANDATORY</p>
+              <p class="col-12">
+                <span *ngFor="let skill of jobDescriptionForm.get('mandatorySkills')['controls']; let i = index;">
+                  {{skill.controls.SkillName.value}}<span *ngIf="i !== tags.length-1">.</span>
+                 </span>
+              </p>
 
-        <p class="col-12 pt-2 font-weight-bold">DESIRED</p>
-        <p class="col-12">
-          <span *ngFor="let skill of jobDescriptionForm.get('desiredSkills')['controls']; let i = index;">
-            {{skill.controls.SkillName.value}}<span *ngIf="i !== tags.length-1">.</span>
-           </span>
-        </p>
-        <p class="col-12 pt-2 font-weight-bold">QUALIFICATION</p>
-        <p class="col-12">
-          <span *ngFor="let item of jobDescriptionForm.get('qualifications')['controls']; let i = index;">
-            {{item.controls.Name.value}}<span *ngIf="i !== tags.length-1">.</span>
-           </span>
-        </p>
-        <p class="col-12 pt-2 font-weight-bold">ROLES AND RESPONSIBILITY</p>
-        <p class="col-12">
-          <span *ngFor="let item of jobDescriptionForm.get('rolesAndResponsibility')['controls']; let i = index;">
-            {{item.controls.Responsibility.value}}<span *ngIf="i !== tags.length-1">.</span>
-           </span>
-        </p>
-        <hr class="w-100">
-        <p class="col-12 pt-2 font-weight-bold mb-0">DESIGNATION : <span class="font-weight-normal">Amit Ranjan</span></p>
-        <p class="col-12 font-weight-bold">CREATED ON : <span class="font-weight-normal">01-12-2019</span></p>
-        <div class="col-8">
-          <button >REQUEST TO ICEMS</button>
-        </div>
-        <!-- <div class="row d-none d-lg-block"> -->
-          <div class="col-12 d-none pr-0 d-lg-block">
-            <input (click)="isEditJd = true" type="button" value="EDIT JD" class="icon-right-side btn btn-dark mr-0"/>
-            <input data-toggle="modal" data-target="#myModal" type="button" value="VIEW CANDIDATES" class="icon-right-side btn btn-secondary"/>
+              <p class="col-12 pt-2 font-weight-bold">DESIRED</p>
+              <p class="col-12">
+                <span *ngFor="let skill of jobDescriptionForm.get('desiredSkills')['controls']; let i = index;">
+                  {{skill.controls.SkillName.value}}<span *ngIf="i !== tags.length-1">.</span>
+                 </span>
+              </p>
+              <p class="col-12 pt-2 font-weight-bold">QUALIFICATION</p>
+              <p class="col-12">
+                <span *ngFor="let item of jobDescriptionForm.get('qualifications')['controls']; let i = index;">
+                  {{item.controls.Name.value}}<span *ngIf="i !== tags.length-1">.</span>
+                 </span>
+              </p>
+              <p class="col-12 pt-2 font-weight-bold">ROLES AND RESPONSIBILITY</p>
+              <p class="col-12">
+                <span *ngFor="let item of jobDescriptionForm.get('rolesAndResponsibility')['controls']; let i = index;">
+                  {{item.controls.Responsibility.value}}<span *ngIf="i !== tags.length-1">.</span>
+                 </span>
+              </p>
+              <hr class="w-100">
+              <p class="col-12 pt-2 font-weight-bold mb-0">DESIGNATION : <span class="font-weight-normal">Amit Ranjan</span></p>
+              <p class="col-12 font-weight-bold">CREATED ON : <span class="font-weight-normal">01-12-2019</span></p>
+              <div class="col-8 col-lg-4">
+                <button class="bg-white p-2 w-100">REQUEST TO ICEMS</button>
+              </div>
+              <!-- <div class="row d-none d-lg-block"> -->
+                <div class="col-12 d-none pr-0 d-lg-block pt-2">
+                  <input (click)="isEditJd = true" type="button" value="EDIT JD" class="icon-right-side btn btn-dark mr-0"/>
+                  <input data-toggle="modal" data-target="#myModal" type="button" value="VIEW CANDIDATES" class="icon-right-side btn btn-secondary"/>
+                </div>
+
+              <!-- </div> -->
+
+
+              </div>
+
+            </form>
           </div>
-
-        <!-- </div> -->
-
-
+          <div class="col-md-6 d-none d-lg-block">
+            <table class="table table-bordered p-3 my-3">
+              <thead>
+                <tr>
+                  <th scope="col">Candidate Count</th>
+                  <th scope="col">Match Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="noBorder">
+                  <td>30</td>
+                  <td>100</td>
+                </tr>
+                <tr class="noBorder">
+                  <td>50</td>
+                  <td>90</td>
+                </tr>
+                <tr class="noBorder">
+                  <td>120</td>
+                  <td>80</td>
+                </tr>
+                <tr>
+                  <td>1100</td>
+                  <td>All</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
 
-      </form>
+      </div>
     </div>
-    <div class="col-md-6 d-none d-lg-block">
-      <table class="table table-bordered p-3 my-3">
-        <thead>
-          <tr>
-            <th scope="col">Candidate Count</th>
-            <th scope="col">Match Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="noBorder">
-            <td>30</td>
-            <td>100</td>
-          </tr>
-          <tr class="noBorder">
-            <td>50</td>
-            <td>90</td>
-          </tr>
-          <tr class="noBorder">
-            <td>120</td>
-            <td>80</td>
-          </tr>
-          <tr>
-            <td>1100</td>
-            <td>All</td>
-          </tr>
-        </tbody>
-      </table>
     </div>
+
 
   </div>
   <div *ngIf="!isEditJd" class="row d-md-none" style="height: 55px;">
@@ -426,8 +446,21 @@
   <div class="modal" id="myModal">
     <div class="modal-dialog">
       <div class="modal-content">
-
-        <!-- <div>
+                <!-- Modal Header -->
+        <div class="modal-header pb-0 pr-1 pt-1 border-0">
+          <h4 class="modal-title"></h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+          <!-- Modal body -->
+          <div class="modal-body pt-0">
+            <p class="mb-0">
+              Total Candidates
+            </p>
+            <h4>
+              1265
+            </h4>
+          </div>
+        <div>
           <div>
             <div class="chart">
               <canvas baseChart
@@ -441,30 +474,16 @@
               </canvas>
             </div>
           </div>
-        </div> -->
-        <div>
-          <button mat-button mat-raised-button color="primary" (click)="pieChartLegend=!pieChartLegend">Toggle Legend</button>
-          <button mat-button mat-raised-button color="primary" (click)="changeLabels()">Change Labels</button>
-          <button mat-button mat-raised-button color="primary" (click)="addSlice()">Add Slice</button>
-          <button mat-button mat-raised-button color="primary" (click)="removeSlice()">Remove Slice</button>
-          <button mat-button mat-raised-button color="primary" (click)="changeLegendPosition()">Change Legend Position</button>
         </div>
 
 
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Modal Heading</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
 
-        <!-- Modal body -->
-        <div class="modal-body">
-          Modal body..
-        </div>
+
+
 
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> -->
         </div>
 
       </div>

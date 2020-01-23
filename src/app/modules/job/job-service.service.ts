@@ -26,6 +26,7 @@ export class Job1ServiceService {
     return this.httpClient.get(`${url}/FetchTagsList`);
   }
   FetchFilteredProfiles(params) {
-    return this.httpClient.get(`${url}/FetchFilteredProfiles?experienceId=${params.experienceId}&locationId=${params.locationId}&designationId=${params.designationId}&pageSize=${params.pageSize}&pageIndex=${params.pageIndex}`);
+    console.log(params, 'paramsss')
+    return this.httpClient.get(`${url}/FetchFilteredProfiles?experienceId=${params.experienceId}&locationId=${params.locationId}&designationId=${params.designationId}&pageSize=${params.pageSize}&pageIndex=${params.pageIndex}&tagString=${params.searchString}`);
   }
 }

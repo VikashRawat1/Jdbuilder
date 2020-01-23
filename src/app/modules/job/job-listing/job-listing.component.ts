@@ -14,6 +14,7 @@ export class JobListingComponent implements OnInit {
   selectedDesignation;
   selectedLocation;
   selectedExperience;
+  searchString;
   // MatPaginator Inputs
   length = 100;
   pageSize = 2;
@@ -63,7 +64,8 @@ export class JobListingComponent implements OnInit {
       experienceId : this.selectedExperience ? this.selectedExperience : 0,
       designationId : this.selectedDesignation ? this.selectedDesignation : 0,
       pageSize: this.DefaultPageSize,
-      pageIndex: 0
+      pageIndex: 0,
+      searchString: this.searchString
     };
     this.filterProfile(paramObject);
   }
@@ -78,14 +80,15 @@ export class JobListingComponent implements OnInit {
       }
     });
   }
-  onPaginateChange(evn){
+  onPaginateChange(evn) {
     console.log(evn,'evfvvnnn', this.DefaultPageSize, "this.DefaultPageSizedd")
     const paramObject = {
       locationId : this.selectedLocation ? this.selectedLocation : 0,
       experienceId : this.selectedExperience ? this.selectedExperience : 0,
       designationId : this.selectedDesignation ? this.selectedDesignation : 0,
       pageIndex: evn.pageIndex !== undefined ? evn.pageIndex : evn - 1,
-      pageSize: evn.pageSize ? evn.pageSize : this.DefaultPageSize
+      pageSize: evn.pageSize ? evn.pageSize : this.DefaultPageSize,
+      searchString: this.searchString
     };
     this.pageSelected = evn.pageIndex !== undefined ? evn.pageIndex : evn,
     this.DefaultPageSize = evn.pageSize ? evn.pageSize : this.DefaultPageSize;

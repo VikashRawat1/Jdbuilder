@@ -268,7 +268,7 @@
   </div>
   <div *ngIf="isEditJd" class="row d-md-none" style="height: 55px;">
     <div class="col-6 p-0">
-      <button class="w-100 h-100 font-weight-bold" style="background: #D5D9D6;
+      <button (click)="onSave()" class="w-100 h-100 font-weight-bold" style="background: #D5D9D6;
       border: none;
       color: #5A5959;">SAVE AS COPY</button>
     </div>

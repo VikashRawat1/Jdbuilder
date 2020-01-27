@@ -79,13 +79,14 @@
                     {{tag.TagName}}
                     <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                   </mat-chip>
-                  <input placeholder="New tag..."
+                  <input
                           #tagInput
                          [matChipInputFor]="chipList"
                          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                          [formControl]="tagsCtrl"
                          [matAutocomplete]="auto"
-                         (matChipInputTokenEnd)="add($event,true)">
+                         (matChipInputTokenEnd)="add($event,true)"
+                         >
                 </mat-chip-list>
                 <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
                   <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">

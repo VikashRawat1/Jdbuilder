@@ -138,9 +138,18 @@ export class JobDetailComponent implements OnInit {
               }
             }
           }
-          this.filteredTags = this.tagsCtrl.valueChanges.pipe(
-            startWith(null),
-            map((tag: object | null) =>  tag ? this._filter(tag) : this.allTags.slice()));
+          // this.filteredTags = this.tagsCtrl.valueChanges.pipe(
+          //   startWith(null),
+          //   map((tag) => {
+          //     // console.log(tag, 'taggg')
+          //     tag ? this._filter(tag) : this.allTags.slice()
+          //   }
+          //   ));
+          this.filteredTags = this.tagsCtrl.valueChanges
+          .pipe(
+            startWith(''),
+            map(val => val.length >= 2 ? this._filter(val) : [])
+          );
         }
       });
     });

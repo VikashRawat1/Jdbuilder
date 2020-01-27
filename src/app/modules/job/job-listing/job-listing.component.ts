@@ -48,9 +48,9 @@ export class JobListingComponent implements OnInit {
     });
   }
   refresh() {
-    this.selectedLocation = undefined;
-    this.selectedExperience = undefined;
-    this.selectedDesignation = undefined;
+    this.selectedLocation = 0;
+    this.selectedExperience = 0;
+    this.selectedDesignation = 0;
     const pageParams = {pageSize: 2, pageIndex: 0};
     this.jobService.getAllJobs(pageParams).subscribe((jobs: any) => {
       this.jobs = jobs.ProfileList;
@@ -58,14 +58,14 @@ export class JobListingComponent implements OnInit {
     });
   }
   search() {
-    console.log(this.selectedDesignation, 'selectedselectiponnnnnn')
+    console.log(typeof this.selectedDesignation, 'selectedselectiponnnnnn')
     const paramObject = {
-      locationId : this.selectedLocation ? this.selectedLocation : 0,
-      experienceId : this.selectedExperience ? this.selectedExperience : 0,
-      designationId : this.selectedDesignation ? this.selectedDesignation : 0,
+      locationId : (this.selectedLocation && this.selectedLocation !== 'undefined') ? this.selectedLocation : 0,
+      experienceId : (this.selectedExperience && this.selectedExperience !== 'undefined') ? this.selectedExperience : 0,
+      designationId : (this.selectedDesignation && this.selectedDesignation !== 'undefined') ? this.selectedDesignation : 0,
       pageSize: this.DefaultPageSize,
       pageIndex: 0,
-      searchString: this.searchString
+      searchString: this.searchString ? this.searchString : ''
     };
     this.filterProfile(paramObject);
   }
@@ -81,14 +81,14 @@ export class JobListingComponent implements OnInit {
     });
   }
   onPaginateChange(evn) {
-    console.log(evn,'evfvvnnn', this.DefaultPageSize, "this.DefaultPageSizedd")
+    console.log(evn, 'evfvvnnn', this.DefaultPageSize, "this.DefaultPageSizedd")
     const paramObject = {
       locationId : this.selectedLocation ? this.selectedLocation : 0,
       experienceId : this.selectedExperience ? this.selectedExperience : 0,
       designationId : this.selectedDesignation ? this.selectedDesignation : 0,
       pageIndex: evn.pageIndex !== undefined ? evn.pageIndex : evn - 1,
       pageSize: evn.pageSize ? evn.pageSize : this.DefaultPageSize,
-      searchString: this.searchString
+      searchString: this.searchString ? this.searchString : ''
     };
     this.pageSelected = evn.pageIndex !== undefined ? evn.pageIndex : evn,
     this.DefaultPageSize = evn.pageSize ? evn.pageSize : this.DefaultPageSize;

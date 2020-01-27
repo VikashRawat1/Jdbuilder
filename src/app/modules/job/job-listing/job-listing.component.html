@@ -107,22 +107,20 @@
 
 
 
-  <div class="row mt-3"  style="height: 35px;">
+  <div class="row mt-3"  style="height: 30px;">
     <div class="col-md-3 d-none d-lg-block">
       <button  style="background: #9E4587;border: none;color: white;height: 100%;font-size: 13px;"><i class="fa fa-plus" style="color: white;" aria-hidden="true"></i> CREATE NEW JD</button>
     </div>
     <div class="col-md-5 d-none d-lg-block">
     </div>
-    <div class="col-md-2 d-none d-lg-block">
-      <button class="sort-btn" >SORT BY SCORE</button>
-    </div>
-    <div class="col-md-2 d-none d-lg-block">
-      <button class="sort-btn">SORT BY DATE</button>
-    </div>
+    <div class="col-md-4 d-none d-lg-block">
+      <button class="sort-btn ml-3 px-3  ">SORT BY DATE</button>
+      <button class="sort-btn px-3" >SORT BY SCORE</button>
 
+    </div>
   </div>
 
-<div *ngIf="jobs.length>0" class="list-group row pt-4">
+<div *ngIf="jobs.length>0" class="list-group row pt-3">
   <ul class="list-group centerJob">
     <li class="list-group-item col-sm-12 no-top-padding bg-transparent" style="border:none;" *ngFor="let job of jobs | paginate: { itemsPerPage: DefaultPageSize, currentPage: pageSelected,totalItems: length }">
       <div class="card shadow-card">
@@ -137,7 +135,7 @@
           </div>
           <!-- <a [routerLink]="['job-description', job.Id]">{{job.Name}}</a> -->
         </div>
-        <div class="card-body" >
+        <div class="card-body pb-0" >
           <blockquote class="blockquote mb-0">
             <!-- <div class="row">
               <div class="col-md-6 metaTags">
@@ -187,11 +185,11 @@
   <div class="col-4 d-none d-lg-block">
     <ul class="pagination pagination-sm ">
       <!-- <li class="page-item"  *ngFor="let item of pageSizeOptions" let first="first" [class.first-item]="first"><a class="page-link" href="#">{{item}}</a></li> -->
-      <li class="page-item" (click)="onPaginateChange({pageIndex:pageSelected,pageSize:2})" [ngClass]="DefaultPageSize == 2 ? 'active' : ''"><a class="page-link"  href="javascript:;">2</a></li>
-      <li class="page-item" (click)="onPaginateChange({pageIndex:pageSelected,pageSize:5})" [ngClass]="DefaultPageSize == 5 ? 'active' : ''"><a class="page-link"  href="javascript:;">5</a></li>
-      <li class="page-item" (click)="onPaginateChange({pageIndex:pageSelected,pageSize:10})" [ngClass]="DefaultPageSize == 10 ? 'active' : ''"><a class="page-link"  href="javascript:;">10</a></li>
-      <li class="page-item" (click)="onPaginateChange({pageIndex:pageSelected,pageSize:25})" [ngClass]="DefaultPageSize == 25 ? 'active' : ''"><a class="page-link"  href="javascript:;">25</a></li>
-      <li class="page-item" (click)="onPaginateChange({pageIndex:pageSelected,pageSize:100})" [ngClass]="DefaultPageSize == 100 ? 'active' : ''"><a class="page-link"  href="javascript:;">100</a></li>
+      <li class="page-item" (click)="onPaginateChange({pageIndex:0,pageSize:2})" [ngClass]="DefaultPageSize == 2 ? 'active' : ''"><a class="page-link"  href="javascript:;">2</a></li>
+      <li class="page-item" (click)="onPaginateChange({pageIndex:0,pageSize:5})" [ngClass]="DefaultPageSize == 5 ? 'active' : ''"><a class="page-link"  href="javascript:;">5</a></li>
+      <li class="page-item" (click)="onPaginateChange({pageIndex:0,pageSize:10})" [ngClass]="DefaultPageSize == 10 ? 'active' : ''"><a class="page-link"  href="javascript:;">10</a></li>
+      <li class="page-item" (click)="onPaginateChange({pageIndex:0,pageSize:25})" [ngClass]="DefaultPageSize == 25 ? 'active' : ''"><a class="page-link"  href="javascript:;">25</a></li>
+      <li class="page-item" (click)="onPaginateChange({pageIndex:0,pageSize:100})" [ngClass]="DefaultPageSize == 100 ? 'active' : ''"><a class="page-link"  href="javascript:;">100</a></li>
     </ul>
   </div>
   <div class="col-4 justify-content-center d-none d-lg-block">

@@ -41,6 +41,9 @@ export class JobDetailComponent implements OnInit {
   tags = [];
   allTags = [];
   isEditJd = false;
+  selectedDesignationName;
+  selectedLocationName;
+  selectedExperienceName;
   ////
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -111,6 +114,42 @@ export class JobDetailComponent implements OnInit {
           qualifications:  this.formBuilder.array(defaultQualification),
           rolesAndResponsibility: this.formBuilder.array(defaultResponsibility),
         });
+        this.jobService.FetchExperienceList().subscribe((experiences: any) => {
+          if (experiences.StatusCode === 200) {
+            this.experiences = experiences.ExperienceMasterList;
+            experiences.ExperienceMasterList.forEach((val) => {
+              console.log(val, 'vlauuu',this.jobDescriptionForm,"hhhh")
+              if (this.jobDescriptionForm && this.jobDescriptionForm.get('selectedExperience').value === val.Id) {
+                console.log('matchedd vlauuu', this.jobDescriptionForm);
+                this.selectedExperienceName = val.ExperienceName;
+              }
+            });
+          }
+        });
+        this.jobService.FetchLocationList().subscribe((locations: any) => {
+          if (locations.StatusCode === 200) {
+            this.locations = locations.LocationMasterList;
+            locations.LocationMasterList.forEach((val) => {
+              console.log(val, 'vlauuu',this.jobDescriptionForm,"hhhh")
+              if (this.jobDescriptionForm && this.jobDescriptionForm.get('selectedLocation').value === val.Id) {
+                console.log('matchedd vlauuu', this.jobDescriptionForm);
+                this.selectedLocationName = val.LocationName;
+              }
+            });
+          }
+        });
+        this.jobService.FetchDesignationList().subscribe((designations: any) => {
+          if (designations.StatusCode === 200) {
+            this.designations = designations.DesignationList;
+            designations.DesignationList.forEach((val) => {
+              console.log(val, 'vlauuu',this.jobDescriptionForm,"hhhh")
+              if (this.jobDescriptionForm && this.jobDescriptionForm.get('selectedDesignation').value === val.Id) {
+                console.log('matchedd vlauuu', this.jobDescriptionForm);
+                this.selectedDesignationName = val.DesignationName;
+              }
+            });
+          }
+        });
       } else {
         this.jobDescriptionForm = this.formBuilder.group({
           about: new FormControl('About the job'),
@@ -138,13 +177,6 @@ export class JobDetailComponent implements OnInit {
               }
             }
           }
-          // this.filteredTags = this.tagsCtrl.valueChanges.pipe(
-          //   startWith(null),
-          //   map((tag) => {
-          //     // console.log(tag, 'taggg')
-          //     tag ? this._filter(tag) : this.allTags.slice()
-          //   }
-          //   ));
           this.filteredTags = this.tagsCtrl.valueChanges
           .pipe(
             startWith(''),
@@ -153,21 +185,7 @@ export class JobDetailComponent implements OnInit {
         }
       });
     });
-    this.jobService.FetchExperienceList().subscribe((experiences: any) => {
-      if (experiences.StatusCode === 200) {
-        this.experiences = experiences.ExperienceMasterList;
-      }
-    });
-    this.jobService.FetchLocationList().subscribe((locations: any) => {
-      if (locations.StatusCode === 200) {
-        this.locations = locations.LocationMasterList;
-      }
-    });
-    this.jobService.FetchDesignationList().subscribe((designations: any) => {
-      if (designations.StatusCode === 200) {
-        this.designations = designations.DesignationList;
-      }
-    });
+
 
   }
   createMandatorySkill(newSkill): FormGroup {

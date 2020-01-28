@@ -357,20 +357,20 @@
                   {{tag.TagName}}<span *ngIf="i !== tags.length-1">,</span>
                  </span>
               </p>
-              <p class="col-12 pt-2 font-weight-bold">MANDATORY</p>
+              <p class="col-12 pt-2 font-weight-bold">MANDATORY SKILL</p>
               <p class="col-12">
                 <span *ngFor="let skill of jobDescriptionForm.get('mandatorySkills')['controls']; let i = index;">
                   {{skill.controls.SkillName.value}}<span *ngIf="i !== tags.length-1">.</span>
                  </span>
               </p>
 
-              <p class="col-12 pt-2 font-weight-bold">DESIRED</p>
+              <p class="col-12 pt-2 font-weight-bold">DESIRED SKILL</p>
               <p class="col-12">
                 <span *ngFor="let skill of jobDescriptionForm.get('desiredSkills')['controls']; let i = index;">
                   {{skill.controls.SkillName.value}}<span *ngIf="i !== tags.length-1">.</span>
                  </span>
               </p>
-              <p class="col-12 pt-2 font-weight-bold">QUALIFICATION</p>
+              <p class="col-12 pt-2 font-weight-bold">QUALIFICATIONS</p>
               <p class="col-12">
                 <span *ngFor="let item of jobDescriptionForm.get('qualifications')['controls']; let i = index;">
                   {{item.controls.Name.value}}<span *ngIf="i !== tags.length-1">.</span>
@@ -386,7 +386,7 @@
               <p class="col-12 pt-2 font-weight-bold mb-0">CREATED BY : <span class="font-weight-normal">Amit Ranjan</span></p>
               <p class="col-12 font-weight-bold">CREATED ON : <span class="font-weight-normal">01-12-2019</span></p>
               <div class="col-8 col-lg-4">
-                <button type="button" class="bg-white p-2 w-100">REQUEST TO ICEMS</button>
+                <button type="button" class="bg-white p-2 w-100">REQUEST TO iCIMS</button>
               </div>
               <!-- <div class="row d-none d-lg-block"> -->
                 <div class="col-12 d-none pr-0 d-lg-block pt-2">

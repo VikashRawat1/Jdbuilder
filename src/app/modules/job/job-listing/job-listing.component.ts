@@ -83,9 +83,9 @@ export class JobListingComponent implements OnInit {
   onPaginateChange(evn) {
     console.log(evn, 'evfvvnnn', this.DefaultPageSize, "this.DefaultPageSizedd")
     const paramObject = {
-      locationId : this.selectedLocation ? this.selectedLocation : 0,
-      experienceId : this.selectedExperience ? this.selectedExperience : 0,
-      designationId : this.selectedDesignation ? this.selectedDesignation : 0,
+      locationId : (this.selectedLocation && this.selectedLocation !== 'undefined') ? this.selectedLocation : 0,
+      experienceId : (this.selectedExperience && this.selectedExperience !== 'undefined') ? this.selectedExperience : 0,
+      designationId : (this.selectedDesignation && this.selectedDesignation !== 'undefined') ? this.selectedDesignation : 0,
       pageIndex: evn.pageIndex !== undefined ? evn.pageIndex : evn - 1,
       pageSize: evn.pageSize ? evn.pageSize : this.DefaultPageSize,
       searchString: this.searchString ? this.searchString : ''

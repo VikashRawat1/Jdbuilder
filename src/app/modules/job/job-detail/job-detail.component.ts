@@ -180,7 +180,13 @@ export class JobDetailComponent implements OnInit {
           this.filteredTags = this.tagsCtrl.valueChanges
           .pipe(
             startWith(''),
-            map(val => val.length >= 2 ? this._filter(val) : [])
+            map(val => {
+              if (val && val.length >= 2) {
+                return this._filter(val);
+              } else {
+                return [];
+              }
+            } )
           );
         }
       });

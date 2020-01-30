@@ -45,7 +45,7 @@ import { InsertAuthTokenInterceptor } from './shared/interceptors/insert-auth-to
   ],
   providers: [JobServiceService, LoaderService, AdalService, AdalConfigService,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: InsertAuthTokenInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: InsertAuthTokenInterceptor, multi: true },
     { provide: APP_CONFIG, useValue: {
       apiEndpoint: Config.url,
       clientId: Config.clientID,

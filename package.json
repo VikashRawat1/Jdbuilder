@@ -34,6 +34,7 @@
     "ngx-pagination": "^5.0.0",
     "ngx-toastr": "^10.1.0",
     "popper.js": "^1.16.0",
+    "raleway-webfont": "^3.0.1",
     "rxjs": "~6.3.3",
     "save": "^2.4.0",
     "tslib": "^1.9.0",

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Config } from '../config/config';
+import { Config } from '../../config/config';
 const url = Config.url;
 @Injectable({providedIn: 'root'})
 export class JobServiceService {

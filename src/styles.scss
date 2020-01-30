@@ -1,4 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+// * {
+//   font-family: Raleway /* Replace with your custom font */, sans-serif !important;
+//   /* Add !important to overwrite all elements */
+// }
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "~font-awesome/css/font-awesome.css";
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';

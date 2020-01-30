@@ -57,6 +57,7 @@ public acquireTokenResilient(resource: string): Observable<any> {
                 subscriber.next(token);
             } else {
                 console.error(message);
+                this.login();
                 subscriber.error(message);
                 // this.login();
             }

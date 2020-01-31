@@ -1,7 +1,7 @@
 <div *ngIf="isDataFetched">
   <!-- EDIT MODE -->
   <div *ngIf="isEditJd" class="row bg-white pb-3">
-    <div class="col-md-12 no-padding" style="padding-top: 1.4em;font-size: 13px;">
+    <div class="col-md-12 no-padding mb-5" style="padding-top: 1.4em;font-size: 13px;">
       <div class="row pt-3 d-lg-none">
       <div class="col-1">
         <i style="background: #979797;
@@ -108,12 +108,15 @@
                     </div>
 
                     <!-- <div class="col-1 p-0 my-auto"> -->
-                      <div class="col-1 p-0 btn dropdown dropright" data-toggle="dropdown">
-                        <i class="fa fa-ellipsis-v float-right" aria-hidden="true"></i>
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item" href="JavaScript:" (click)='skill.isEditing = true'>Edit</a>
-                          <a class="dropdown-item" href="JavaScript:" (click)="moveToDesired(skill.controls,i)">Move To Desired</a>
-                          <a class="dropdown-item" href="JavaScript:" (click)='deleteSkill(skill.controls,i)'>Delete</a>
+                      <div class="col-1 p-0" >
+
+                        <div class="dropdown dropleft float-right">
+                          <i class="fa fa-ellipsis-v float-right" data-toggle="dropdown" aria-hidden="true"></i>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="JavaScript:" (click)='skill.isEditing = true'>Edit</a>
+                            <a class="dropdown-item" href="JavaScript:" (click)="moveToDesired(skill.controls,i)">Move To Desired</a>
+                            <a class="dropdown-item" href="JavaScript:" (click)='deleteSkill(skill.controls,i)'>Delete</a>
+                          </div>
                         </div>
                       </div>
 
@@ -149,12 +152,23 @@
                       </div>
                       <p *ngIf='!skill.isEditing' style="color:gray">{{skill.controls.SkillName.value}}</p>
                     </div>
-                    <div class="col-1 p-0 btn dropdown dropright" data-toggle="dropdown">
+                    <!-- <div class="col-1 p-0 btn dropdown dropleft" data-toggle="dropdown">
                       <i class="fa fa-ellipsis-v float-right" aria-hidden="true" ></i>
                       <div class="dropdown-menu">
                         <a class="dropdown-item" href="JavaScript:" (click)='skill.isEditing = true'>Edit</a>
                         <a class="dropdown-item" href="JavaScript:" (click)="moveToMandatory(skill.controls,i)">Move To Mandatory</a>
                         <a class="dropdown-item" href="JavaScript:" (click)='deleteDesiredSkill(skill.controls,i)'>Delete</a>
+                      </div>
+                    </div> -->
+                    <div class="col-1 p-0" >
+
+                      <div class="dropdown dropleft float-right">
+                        <i class="fa fa-ellipsis-v float-right" data-toggle="dropdown" aria-hidden="true"></i>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="JavaScript:" (click)='skill.isEditing = true'>Edit</a>
+                          <a class="dropdown-item" href="JavaScript:" (click)="moveToMandatory(skill.controls,i)">Move To Mandatory</a>
+                          <a class="dropdown-item" href="JavaScript:" (click)='deleteDesiredSkill(skill.controls,i)'>Delete</a>
+                        </div>
                       </div>
                     </div>
                     <!-- <div class="col-sm-3">
@@ -177,8 +191,8 @@
 
                       <p *ngIf='!item.isEditing' style="color:gray">{{item.controls.Name.value}}</p>
                     </div>
-                    <div class="col-1 p-0 btn dropdown dropright" data-toggle="dropdown">
-                      <i class="fa fa-ellipsis-v float-right" aria-hidden="true" ></i>
+                    <div class="col-1 p-0 btn dropdown dropleft" >
+                      <i class="fa fa-ellipsis-v float-right" aria-hidden="true" data-toggle="dropdown"></i>
                       <div class="dropdown-menu">
                         <a class="dropdown-item" href="JavaScript:" (click)='item.isEditing = true'>Edit</a>
                         <a class="dropdown-item" href="JavaScript:" (click)='deleteQualification(item.controls,i)'>Delete</a>
@@ -205,8 +219,8 @@
                       </div>
                       <p *ngIf='!item.isEditing' style="color:gray">{{item.controls.Responsibility.value}}</p>
                     </div>
-                    <div class="col-1 p-0 btn dropdown dropright" data-toggle="dropdown">
-                      <i class="fa fa-ellipsis-v float-right" aria-hidden="true" ></i>
+                    <div class="col-1 p-0 btn dropdown dropleft" >
+                      <i class="fa fa-ellipsis-v float-right" aria-hidden="true" data-toggle="dropdown"></i>
                       <div class="dropdown-menu">
                         <a class="dropdown-item" href="JavaScript:" (click)='item.isEditing = true'>Edit</a>
                         <a class="dropdown-item" href="JavaScript:" (click)='deleteResponsiblity(item.controls,i)'>Delete</a>
@@ -228,7 +242,7 @@
               <p class="col-12 font-weight-bold">CREATED ON : <span class="font-weight-normal">01-12-2019</span></p>
               <!-- <div class="row d-none d-lg-block"> -->
                 <div class="col-12 d-none pr-0 d-lg-block">
-                  <input (click)="onSave()" type="button" value="Save" class="icon-right-side btn btn-dark mr-0"/>
+                  <input (click)="onSave()" type="button" value="SAVE AS COPY" class="icon-right-side btn btn-dark mr-0"/>
                   <input (click)="isEditJd = false" type="button" value="Cancel" class="icon-right-side btn btn-secondary"/>
                 </div>
 
@@ -275,7 +289,7 @@
 
 
   </div>
-  <div *ngIf="isEditJd" class="row d-md-none" style="height: 55px;">
+  <div *ngIf="isEditJd" class="row d-md-none fixed-bottom" style="height: 55px;">
     <div class="col-6 p-0">
       <button (click)="onSave()" class="w-100 h-100 font-weight-bold" style="background: #D5D9D6;
       border: none;
@@ -289,8 +303,8 @@
   </div>
 
   <!-- VIEW MODE -->
-  <div *ngIf="!isEditJd" class="row bg-white pb-3">
-    <div class="col-md-12 no-padding" style="padding-top: 1.4em;font-size: 13px;">
+  <div *ngIf="!isEditJd" class="row bg-white pb-3" >
+    <div class="col-md-12 no-padding mb-5" style="padding-top: 1.4em;font-size: 13px;">
       <div class="row pt-3 d-lg-none">
       <div class="col-1">
         <i style="background: #979797;
@@ -437,7 +451,7 @@
 
 
   </div>
-  <div *ngIf="!isEditJd" class="row d-md-none" style="height: 55px;">
+  <div *ngIf="!isEditJd" class="row d-md-none fixed-bottom" style="height: 55px;">
     <div class="col-6 p-0">
       <button (click)="isEditJd = true" class="w-100 h-100 font-weight-bold" style="background: #D5D9D6;
       border: none;

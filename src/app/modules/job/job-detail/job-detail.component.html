@@ -242,8 +242,12 @@
               <p class="col-12 font-weight-bold">CREATED ON : <span class="font-weight-normal">01-12-2019</span></p>
               <!-- <div class="row d-none d-lg-block"> -->
                 <div class="col-12 d-none pr-0 d-lg-block">
+
                   <input (click)="onSave()" type="button" value="SAVE AS COPY" class="icon-right-side btn btn-dark mr-0"/>
-                  <input (click)="isEditJd = false" type="button" value="Cancel" class="icon-right-side btn btn-secondary"/>
+                  <input data-toggle="modal" data-target="#myModal" type="button" value="VIEW CANDIDATES" class="icon-right-side btn btn-secondary"/>
+                  <input (click)="isEditJd = false" type="button" value="CANCEL" class="icon-right-side btn btn-secondary"/>
+
+
                 </div>
 
               <!-- </div> -->
@@ -306,20 +310,20 @@
   <div *ngIf="!isEditJd" class="row bg-white pb-3" >
     <div class="col-md-12 no-padding mb-5" style="padding-top: 1.4em;font-size: 13px;">
       <div class="row pt-3 d-lg-none">
-      <div class="col-1">
-        <i style="background: #979797;
-        padding: 6px;" class="fa fa-bars fa-2x text-white" aria-hidden="true"></i>
-      </div>
-      <div class="col-7">
-        <p style="color:black;" class="pl-2 mt-4 pb-0" >VIEW JDs > JD DETAILS</p>
-      </div>
-      <div [routerLink]="['']" class="col-4">
-        <div class="dropdown dropleft float-right">
-          <button type="button" class="btn btn-secondary" style="background: #979797;">
-            BACK
-          </button>
+        <div class="col-1">
+          <i style="background: #979797;
+          padding: 6px;" class="fa fa-bars fa-2x text-white" aria-hidden="true"></i>
         </div>
-      </div>
+        <div class="col-7">
+          <p style="color:black;" class="pl-2 mt-4 pb-0" >VIEW JDs > JD DETAILS</p>
+        </div>
+        <div [routerLink]="['']" class="col-4">
+          <div class="dropdown dropleft float-right">
+            <button type="button" class="btn btn-secondary" style="background: #979797;">
+              BACK
+            </button>
+          </div>
+        </div>
     </div>
     <div class="card shadow-card mt-3">
       <div class="card-header" style="background:#EAECEA;">

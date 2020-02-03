@@ -98,6 +98,12 @@
       <i class="fa fa-refresh fa-2x my-auto ml-1" (click)="refresh()" aria-hidden="true"></i>
     </div>
   </div>
+  <div class="col-12 d-lg-none pt-2">
+    <div>
+      <button class="search-btn theme-gradient" (click)="search()">SEARCH</button>
+    </div>
+  </div>
+
   <!-- <div class="col-md-1 col-6 no-padding">
     <div class="input-group mb-3">
       <button class="search-btn" (click)="refresh()" type="button">Refresh</button>
@@ -151,15 +157,15 @@
                 <i class="fa fa-user-o" aria-hidden="true"></i>
                 Created By : <cite title="Source Title">DMI</cite></div>
             </div> -->
-            <div class="row">
+            <div class="row pb-2">
               <p class="col-lg-12 pull-left font-weight-bold mb-0 sub-heading">TITLE :</p>
-              <div class="col-lg-12 pl-4 pt-2 description ">{{job.Name}}</div>
+              <div class="col-lg-12 pl-4 pt-1 description ">{{job.Name}}</div>
             </div>
             <div class="row">
               <p class="col-lg-12 pull-left font-weight-bold mb-0 sub-heading">SUMMARY :</p>
               <div class="col-lg-12 pl-4 pt-2 description ">{{job.About}}</div>
             </div>
-            <div class="row pt-2">
+            <div class="row pt-1">
               <p class="col-lg-6 description">CREATED BY: DMI<br>CREATED ON: 01-12-2019 </p>
               <div class="col-lg-6">
                 <a class=" pull-right description pt-4 theme-color" [routerLink]="['job-description', job.Id]">VIEW DETAILS</a>
@@ -214,7 +220,5 @@
   <p>No Record Found</p>
 </div>
 
-<div class="full-margin d-lg-none" >
-  <button class="search-btn theme-gradient" (click)="search()" type="button">SEARCH</button>
-</div>
+
 <!-- </div> -->

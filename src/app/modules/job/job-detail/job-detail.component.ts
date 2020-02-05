@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, ViewChild, HostListener, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Job1ServiceService } from '../job-service.service';
 import {MatChipInputEvent} from '@angular/material';
@@ -72,9 +73,28 @@ export class JobDetailComponent implements OnInit {
       backgroundColor: ['#A9A9A9', '#454545', '#989898', '#D8D8D8'],
     },
   ];
-  constructor(private formBuilder: FormBuilder, private jobService: Job1ServiceService, private toastr: ToastrService) {
+  constructor(@Inject(DOCUMENT) private document: Document, private formBuilder: FormBuilder, private jobService: Job1ServiceService, private toastr: ToastrService) {
 
    }
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    console.log(document.documentElement.scrollTop,'dkfjdfj')
+    if (document.body.scrollTop > 140 ||
+    document.documentElement.scrollTop > 140) {
+      document.getElementById('header').classList.add('fixed-header');
+      // document.getElementById('paragraph').classList.add('green');
+    }
+    if (document.documentElement.scrollTop < 1) {
+        document.getElementById('header').classList.remove('fixed-header');
+        // document.getElementById('paragraph').classList.add('green');
+      }
+  }
+  fixHeader() {
+    console.log('callledddd')
+    document.getElementById('header').classList.add('fixed-header');
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+  }
   private _filter(value: any): string[] {
     const filterValue = value.Id ? value.Id.toLowerCase() : value.toLowerCase();
     return this.allTags.filter((option, index) => {

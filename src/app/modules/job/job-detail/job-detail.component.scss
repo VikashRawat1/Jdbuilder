@@ -11,3 +11,11 @@ tr.noBorder td {
 .dark-gray-theme-color{
   color:#5A5959
 }
+.fixed-header{
+  background: white;
+  position: fixed;
+  top:0;
+  z-index:1;
+  width: 100%;
+  border-bottom: solid 1px;
+}

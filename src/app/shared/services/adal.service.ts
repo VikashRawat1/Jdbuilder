@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subscriber } from 'rxjs';
+import { Observable, Subscriber, Subject } from 'rxjs';
 import { retry } from 'rxjs/operators';
 import { AdalConfigService } from './adal-config.service';
 import { adal } from 'adal-angular';
@@ -8,6 +8,7 @@ declare var AuthenticationContext: adal.AuthenticationContextStatic;
 const createAuthContextFn: adal.AuthenticationContextStatic = AuthenticationContext;
 @Injectable()
 export class AdalService {
+  private isUserAuthenticated = new Subject<boolean>();
   private context: adal.AuthenticationContext;
   constructor(private configService: AdalConfigService) {
     this.context = new createAuthContextFn(configService.AdalSettings);
@@ -54,14 +55,19 @@ public acquireTokenResilient(resource: string): Observable<any> {
         this.context.acquireToken(resource, (message: string, token: string) => {
             console.log(token, 'tokennn')
             if (token) {
+                this.isUserAuthenticated.next(true);
                 subscriber.next(token);
             } else {
+                this.isUserAuthenticated.next(false);
                 console.error(message);
                 this.login();
                 subscriber.error(message);
                 // this.login();
             }
         })
-    ).pipe(retry(3));
+    ).pipe(retry(1));
+}
+public getUserAuthenticationStatus(): Observable<any> {
+  return this.isUserAuthenticated.asObservable();
 }
 }

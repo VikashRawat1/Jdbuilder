@@ -2,7 +2,7 @@
   <!-- EDIT MODE -->
   <div *ngIf="isEditJd" class="row bg-white pb-3">
     <div class="col-md-12 no-padding mb-5" style="padding-top: 1.4em;font-size: 13px;">
-      <div class="row pt-3 d-lg-none">
+      <div class="row pt-3 d-lg-none" id="header">
       <div class="col-1">
         <i style="background: #979797;
         padding: 6px;" class="fa fa-bars fa-2x text-white" aria-hidden="true"></i>
@@ -309,7 +309,7 @@
   <!-- VIEW MODE -->
   <div *ngIf="!isEditJd" class="row bg-white pb-3" >
     <div class="col-md-12 no-padding mb-5" style="padding-top: 1.4em;font-size: 13px;">
-      <div class="row pt-3 d-lg-none">
+      <div class="row pt-3 d-lg-none" id="header">
         <div class="col-1">
           <i style="background: #979797;
           padding: 6px;" class="fa fa-bars fa-2x text-white" aria-hidden="true"></i>
@@ -408,7 +408,7 @@
               </div>
               <!-- <div class="row d-none d-lg-block"> -->
                 <div class="col-12 d-none pr-0 d-lg-block pt-2">
-                  <input (click)="isEditJd = true" type="button" value="EDIT JD" class="icon-right-side btn btn-dark mr-0"/>
+                  <input (click)="isEditJd = true;fixHeader()" type="button" value="EDIT JD" class="icon-right-side btn btn-dark mr-0"/>
                   <input data-toggle="modal" data-target="#myModal" type="button" value="VIEW CANDIDATES" class="icon-right-side btn btn-secondary"/>
                 </div>
 
@@ -457,7 +457,7 @@
   </div>
   <div *ngIf="!isEditJd" class="row d-md-none fixed-bottom" style="height: 55px;">
     <div class="col-6 p-0">
-      <button (click)="isEditJd = true" class="w-100 h-100 font-weight-bold" style="background: #D5D9D6;
+      <button (click)="isEditJd = true;fixHeader()" class="w-100 h-100 font-weight-bold" style="background: #D5D9D6;
       border: none;
       color: #5A5959;">EDIT JD</button>
     </div>

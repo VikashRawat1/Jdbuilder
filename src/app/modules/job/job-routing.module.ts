@@ -3,8 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { JobListingComponent } from './job-listing/job-listing.component';
 import { JobDetailComponent } from './job-detail/job-detail.component';
 const routes: Routes = [
-  {path: '', component: JobListingComponent},
-  {path: 'job-description/:jobId', component: JobDetailComponent}
+  // {path: '', component: JobListingComponent},
+  {path: '', component: JobDetailComponent}
 ];
 
 @NgModule({

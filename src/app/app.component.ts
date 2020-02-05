@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   constructor(private adalService: AdalService, @Inject(APP_CONFIG) private config: AppConfig, private router: Router) { }
   ngOnInit() {
     this.adalService.handleCallback();
-    this.router.navigate(['/']);
+    // this.router.navigate(['/']);
     this.subscription = this.adalService.getUserAuthenticationStatus().subscribe(value => {
       if (value) {
         this.isAuthenticated = value;

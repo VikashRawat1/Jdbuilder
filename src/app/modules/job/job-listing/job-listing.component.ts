@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Job1ServiceService } from '../job-service.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-job-listing',
   templateUrl: './job-listing.component.html',
@@ -22,7 +23,8 @@ export class JobListingComponent implements OnInit {
   pageSelected = 0;
   DefaultPageSize = 2;
   range;
-  constructor(private jobService: Job1ServiceService, private toastr: ToastrService) { }
+  constructor(private jobService: Job1ServiceService, private toastr: ToastrService,
+    private router:Router) { }
 
   ngOnInit() {
     const pageParams = {pageSize: this.DefaultPageSize, pageIndex: this.pageSelected};
@@ -93,5 +95,9 @@ export class JobListingComponent implements OnInit {
     this.pageSelected = evn.pageIndex !== undefined ? evn.pageIndex : evn,
     this.DefaultPageSize = evn.pageSize ? evn.pageSize : this.DefaultPageSize;
     this.filterProfile(paramObject);
+  }
+
+  goToDetails(jobId) {
+    this.router.navigate(['job-description/' + jobId]);
   }
 }

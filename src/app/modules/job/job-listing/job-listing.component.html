@@ -168,7 +168,7 @@
             <div class="row pt-1">
               <p class="col-lg-6 description">CREATED BY: DMI<br>CREATED ON: 01-12-2019 </p>
               <div class="col-lg-6">
-                <a class=" pull-right description pt-4 theme-color" [routerLink]="['job-description', job.Id]">VIEW DETAILS</a>
+                <a class=" pull-right description pt-4 theme-color pointer" (click)="goToDetails(job.Id)">VIEW DETAILS</a>
                 <!-- <p class=" pull-right description pt-4">VIEW DETAILS</p> -->
               </div>
             </div>

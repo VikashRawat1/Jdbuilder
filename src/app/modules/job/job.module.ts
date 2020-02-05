@@ -21,7 +21,7 @@ import { ViewJdComponent } from './view-jd/view-jd.component';
 import { ChartsModule } from 'ng2-charts';
 @NgModule({
   declarations: [
-    JobListingComponent,
+    // JobListingComponent,
     JobDetailComponent,
     ViewJdComponent,
   ],

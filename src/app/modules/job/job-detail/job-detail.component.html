@@ -1,8 +1,71 @@
 <div *ngIf="isDataFetched">
   <!-- EDIT MODE -->
   <div *ngIf="isEditJd" class="row bg-white pb-3">
-    <div class="col-md-12 no-padding mb-5" style="padding-top: 1.4em;font-size: 13px;">
-      <div class="row pt-3 d-lg-none" id="header">
+    <div class="col-md-12 no-padding mb-5" style="font-size: 13px;">
+      <div class="row pb-3 pt-2 d-lg-none" id="header">
+        <div class="col-8">
+          <button
+          style="background: #9E4587;border-radius: 0;"
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#collapsibleNavbar"
+        >
+          <i
+            class="fa fa-bars fa-2x"
+            style="color:white"
+            aria-hidden="true"
+          ></i>
+        </button>
+        <span
+          style="color:white;position: absolute;top: 20px;"
+          class="pt-2 pl-2"
+          >EDIT JDs</span
+        >
+          <!-- <p style="color:black;" class="pl-2 mt-4 pb-0" >VIEW JDs > JD DETAILS</p> -->
+        </div>
+        <div (click)="isEditJd = false" class="col-4">
+          <div class="dropdown dropleft float-right">
+            <button type="button" class="btn theme-color-btn">
+              CANCEL
+            </button>
+          </div>
+        </div>
+                <!-- Navbar links -->
+                <div
+                class="collapse navbar-collapse"
+                style="z-index: 10;background:#333333 ;"
+                id="collapsibleNavbar"
+              >
+                <ul class="navbar-nav" style="margin-left: -15px;margin-right: -15px;">
+                  <li class="nav-item">
+                    <a
+                      href="#"
+                      class="list-group-item list-group-item-action side-tabs"
+                      style="background:#333333;color: white;border-top:0 none;"
+                      >All JDs</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      href="#"
+                      class="list-group-item list-group-item-action side-tabs active theme-color-btn"
+                      style="border-top:0 none;color: white;"
+                      >My JDs</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      href="#"
+                      class="list-group-item list-group-item-action side-tabs"
+                      style="border-top:0 none;background:#333333;color: white;"
+                      >FAQs/Help</a
+                    >
+                  </li>
+                </ul>
+              </div>
+    </div>
+      <!-- <div class="row pt-3 d-lg-none" id="header">
       <div class="col-1">
         <i style="background: #979797;
         padding: 6px;" class="fa fa-bars fa-2x text-white" aria-hidden="true"></i>
@@ -17,21 +80,18 @@
           </button>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="card shadow-card mt-3">
       <div class="card-header" style="background:#EAECEA;">
         <div class="grid">
           <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-6 text-left">
-              <p class="font-weight-bold mb-0 sub-heading dark-gray-theme-color" style="line-height:50%">JD DOCUMENT ID :</p><br>
-              <p class="font-weight-bold mb-0 sub-heading gray-theme-color" style="line-height:40%">XXXXX00000XX </p>
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-6 text-right">
-              <h4 class="font-weight-bold mb-0 dark-gray-theme-color" style="line-height:50%">370</h4><br>
-              <p class="mb-0 dark-gray-theme-color" ># Candidates with 80% Match Score</p>
-            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left font-weight-bold mb-0 sub-heading">JD DOCUMENT ID :</p></div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-12"><h4 class="pull-right font-weight-bold mb-0 theme-color">370</h4></div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left mb-0">XXXXX00000XX</p></div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-12"><p class="pull-right mb-0"># Candidates with 80% Match Score</p></div>
           </div>
         </div>
+        <!-- <a [routerLink]="['job-description', job.Id]">{{job.Name}}</a> -->
       </div>
       <div class="card-body">
         <div class="row">
@@ -42,30 +102,43 @@
               (ngSubmit)="onSave()"
             >
             <div class="row">
-              <p class="col-4 pt-2 font-weight-bold">Designation</p>
+              <p class="col-4 pt-2 font-weight-bold">DESIGNATION</p>
               <div class="form-group col-8 pl-0 pr-0">
                 <select name="demo" class="form-control" formControlName="selectedDesignation">
                   <option *ngFor = "let designation of designations" [value]="designation.Id">{{designation.DesignationName}}</option>
                 </select>
               </div>
-              <p class="col-4 pt-2 font-weight-bold">Experience</p>
+              <p class="col-4 pt-2 font-weight-bold">EXPERIENCE</p>
               <div class="form-group col-8 pl-0 pr-0">
                 <select name="demo" class="form-control" formControlName="selectedExperience">
                   <option *ngFor = "let experience of experiences" [value]="experience.Id">{{experience.ExperienceName}}</option>
                   </select>
               </div>
-              <p class="col-4 pt-2 font-weight-bold">Location</p>
+              <p class="col-4 pt-2 font-weight-bold">LOCATION</p>
               <div class="form-group col-8 pl-0 pr-0">
                 <select name="demo" class="form-control" formControlName="selectedLocation">
                   <option *ngFor = "let location of locations" [value]="location.Id">{{location.LocationName}}</option>
                   </select>
               </div>
               <div class="col-12">
-                <p class="pt-2 font-weight-bold">About</p>
+                <p class="pt-2 font-weight-bold">TITLE</p>
+              </div>
+
+              <div class="col-11">
+                <p style="color:gray" >{{jobDescriptionForm.controls.title.value}}</p>
+              </div>
+              <div class="col-12">
+                <hr>
+              </div>
+              <div class="col-12">
+                <p class="pt-2 font-weight-bold">SUMMARY</p>
               </div>
 
               <div class="col-11">
                 <p style="color:gray" >{{jobDescriptionForm.controls.about.value}}</p>
+              </div>
+              <div class="col-12">
+                <hr>
               </div>
               <!-- <div class="col-1 p-0 pt-4"><i class="fa fa-ellipsis-v float-right" aria-hidden="true"></i></div> -->
 
@@ -93,8 +166,9 @@
                     {{tag.TagName}}
                   </mat-option>
                 </mat-autocomplete>
+                <small class="form-text text-muted">*Add User name, Project, Skill, Client and future references.</small>
               </mat-form-field>
-              <p class="col-12 pt-2 font-weight-bold">MANDATORY</p>
+              <p class="col-12 pt-2 font-weight-bold">MANDATORY SKILLS</p>
               <div class="col-12" formArrayName="mandatorySkills"
               *ngFor="let skill of jobDescriptionForm.get('mandatorySkills')['controls']; let i = index;">
                 <div [formGroupName]="i">
@@ -108,7 +182,7 @@
                     </div>
 
                     <!-- <div class="col-1 p-0 my-auto"> -->
-                      <div class="col-1 p-0" >
+                      <!-- <div class="col-1 p-0" >
 
                         <div class="dropdown dropleft float-right">
                           <i class="fa fa-ellipsis-v float-right" data-toggle="dropdown" aria-hidden="true"></i>
@@ -118,8 +192,15 @@
                             <a class="dropdown-item" href="JavaScript:" (click)='deleteSkill(skill.controls,i)'>Delete</a>
                           </div>
                         </div>
+                      </div> -->
+                      <div class="col-1 p-0 btn dropdown dropleft" >
+                        <i class="fa fa-ellipsis-v float-right" aria-hidden="true" data-toggle="dropdown"></i>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="JavaScript:" (click)='skill.isEditing = true'>Edit</a>
+                          <a class="dropdown-item" href="JavaScript:" (click)="moveToDesired(skill.controls,i)">Move To Desired</a>
+                          <a class="dropdown-item" href="JavaScript:" (click)='deleteSkill(skill.controls,i)'>Delete</a>
+                        </div>
                       </div>
-
                     <!-- </div> -->
                     <!-- <div class="col-1 col-md-1 col-lg-1">
                       <i class="fa fa-angle-double-down icon-right-side" title="Move To Desired" (click)="moveToDesired(skill.controls,i)"></i>
@@ -136,12 +217,11 @@
                 aria-hidden="true"
                 title="Add more mandatory skill"
               ></i> -->
-              <h5 class="font-weight-bold" (click)="addMandatorySkill()">+Add</h5>
-              <!-- <p class="font-weight-bold col-1 pull-right">+</p> -->
-
+              <button class="btn theme-color-btn btn-sm"  (click)="addMandatorySkill()"> + Add Mandatory Skill</button>
+                <hr >
               </div>
 
-              <p class="col-12 pt-2 font-weight-bold">DESIRED</p>
+              <p class="col-12 pt-2 font-weight-bold">DESIRED SKILLS</p>
               <div class="col-12" formArrayName="desiredSkills"
               *ngFor="let skill of jobDescriptionForm.get('desiredSkills')['controls']; let i = index;">
                 <div [formGroupName]="i">
@@ -160,7 +240,7 @@
                         <a class="dropdown-item" href="JavaScript:" (click)='deleteDesiredSkill(skill.controls,i)'>Delete</a>
                       </div>
                     </div> -->
-                    <div class="col-1 p-0" >
+                    <!-- <div class="col-1 p-0" >
 
                       <div class="dropdown dropleft float-right">
                         <i class="fa fa-ellipsis-v float-right" data-toggle="dropdown" aria-hidden="true"></i>
@@ -169,6 +249,14 @@
                           <a class="dropdown-item" href="JavaScript:" (click)="moveToMandatory(skill.controls,i)">Move To Mandatory</a>
                           <a class="dropdown-item" href="JavaScript:" (click)='deleteDesiredSkill(skill.controls,i)'>Delete</a>
                         </div>
+                      </div>
+                    </div> -->
+                    <div class="col-1 p-0 btn dropdown dropleft" >
+                      <i class="fa fa-ellipsis-v float-right" aria-hidden="true" data-toggle="dropdown"></i>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="JavaScript:" (click)='skill.isEditing = true'>Edit</a>
+                        <a class="dropdown-item" href="JavaScript:" (click)="moveToMandatory(skill.controls,i)">Move To Mandatory</a>
+                        <a class="dropdown-item" href="JavaScript:" (click)='deleteDesiredSkill(skill.controls,i)'>Delete</a>
                       </div>
                     </div>
                     <!-- <div class="col-sm-3">
@@ -179,7 +267,10 @@
                   </div>
                 </div>
               </div>
-              <p class="col-12 pt-2 font-weight-bold">QUALIFICATION</p>
+              <div class="col-12">
+                <hr>
+              </div>
+              <p class="col-12 pt-2 font-weight-bold">QUALIFICATIONS</p>
               <div class="col-12" formArrayName="qualifications"
               *ngFor="let item of jobDescriptionForm.get('qualifications')['controls']; let i = index;">
                 <div [formGroupName]="i">
@@ -188,7 +279,6 @@
                       <div class="input-group">
                         <input class="form-control" *ngIf='item.isEditing' formControlName="Name" placeholder="Qualification">
                       </div>
-
                       <p *ngIf='!item.isEditing' style="color:gray">{{item.controls.Name.value}}</p>
                     </div>
                     <div class="col-1 p-0 btn dropdown dropleft" >
@@ -206,9 +296,10 @@
                 </div>
               </div>
               <div class="col-12 pr-0">
-                <h5 class="font-weight-bold btn pl-0" (click)="addQualification()">+Add</h5>
+                <button class="btn theme-color-btn btn-sm" (click)="addQualification()">+ Add Qualification</button>
+                <hr >
               </div>
-              <p class="col-12 pt-2 font-weight-bold">ROLES AND RESPONSIBILITY</p>
+              <p class="col-12 pt-2 font-weight-bold">ROLES AND RESPONSIBILITIES</p>
               <div class="col-12" formArrayName="rolesAndResponsibility"
               *ngFor="let item of jobDescriptionForm.get('rolesAndResponsibility')['controls']; let i = index;">
                 <div [formGroupName]="i">
@@ -235,17 +326,17 @@
                 aria-hidden="true"
               ></i> -->
               <div class="col-12 pr-0">
-                <h5 class="font-weight-bold btn pl-0" (click)="addResponsibility()">+Add</h5>
+                <button class="btn theme-color-btn btn-sm" (click)="addResponsibility()">+ Add Role and Responsibility</button>
+                <hr >
               </div>
-              <hr class="w-100">
-              <p class="col-12 pt-2 font-weight-bold mb-0">DESIGNATION : <span class="font-weight-normal">Amit Ranjan</span></p>
+              <p class="col-12 pt-2 font-weight-bold mb-0">CREATED BY : <span class="font-weight-normal">Amit Ranjan</span></p>
               <p class="col-12 font-weight-bold">CREATED ON : <span class="font-weight-normal">01-12-2019</span></p>
               <!-- <div class="row d-none d-lg-block"> -->
                 <div class="col-12 d-none pr-0 d-lg-block">
 
-                  <input (click)="onSave()" type="button" value="SAVE AS COPY" class="icon-right-side btn btn-dark mr-0"/>
-                  <input data-toggle="modal" data-target="#myModal" type="button" value="VIEW CANDIDATES" class="icon-right-side btn btn-secondary"/>
-                  <input (click)="isEditJd = false" type="button" value="CANCEL" class="icon-right-side btn btn-secondary"/>
+                  <input (click)="onSave()" type="button" value="SAVE AS COPY" class="icon-right-side btn theme-color-btn mr-0"/>
+                  <input data-toggle="modal" data-target="#myModal" type="button" value="VIEW CANDIDATES" class="icon-right-side btn theme-color-btn"/>
+                  <input (click)="isEditJd = false" type="button" value="CANCEL" class="icon-right-side btn theme-color-btn"/>
 
 
                 </div>
@@ -295,50 +386,89 @@
   </div>
   <div *ngIf="isEditJd" class="row d-md-none fixed-bottom" style="height: 55px;">
     <div class="col-6 p-0">
-      <button (click)="onSave()" class="w-100 h-100 font-weight-bold" style="background: #D5D9D6;
-      border: none;
-      color: #5A5959;">SAVE AS COPY</button>
+      <button (click)="onSave()" class="w-100 h-100 font-weight-bold theme-color-btn" style="
+      border: none;">SAVE AS COPY</button>
     </div>
     <div class="col-6 p-0">
-      <button data-toggle="modal" data-target="#myModal" class="w-100 h-100 font-weight-bold" style="background: #979797;
-      border: none;
-      color: #FFFFFF;">VIEW CANDIDATE</button>
+      <button data-toggle="modal" data-target="#myModal" class="w-100 h-100 font-weight-bold theme-color-btn " style="
+      border: none;">VIEW CANDIDATE</button>
     </div>
   </div>
 
   <!-- VIEW MODE -->
   <div *ngIf="!isEditJd" class="row bg-white pb-3" >
-    <div class="col-md-12 no-padding mb-5" style="padding-top: 1.4em;font-size: 13px;">
-      <div class="row pt-3 d-lg-none" id="header">
-        <div class="col-1">
-          <i style="background: #979797;
-          padding: 6px;" class="fa fa-bars fa-2x text-white" aria-hidden="true"></i>
-        </div>
-        <div class="col-7">
-          <p style="color:black;" class="pl-2 mt-4 pb-0" >VIEW JDs > JD DETAILS</p>
+    <div class="col-md-12 no-padding mb-5" style="font-size: 13px;">
+      <div class="row pt-2 pb-3 d-lg-none" id="header">
+        <div class="col-8">
+          <button
+          style="background: #9E4587;border-radius: 0;"
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#collapsibleNavbar"
+        >
+          <i
+            class="fa fa-bars fa-2x"
+            style="color:white"
+            aria-hidden="true"
+          ></i>
+        </button>
+        <span
+          style="color:white;position: absolute;top: 20px;"
+          class="pt-2 pl-2"
+          >VIEW JDs > JD DETAILS</span
+        >
+          <!-- <p style="color:black;" class="pl-2 mt-4 pb-0" >VIEW JDs > JD DETAILS</p> -->
         </div>
         <div [routerLink]="['']" class="col-4">
           <div class="dropdown dropleft float-right">
-            <button type="button" class="btn btn-secondary" style="background: #979797;">
+            <button type="button" class="btn theme-color-btn">
               BACK
             </button>
           </div>
         </div>
+                <!-- Navbar links -->
+                <div
+                class="collapse navbar-collapse"
+                style="z-index: 10;background:#333333 ;"
+                id="collapsibleNavbar"
+              >
+                <ul class="navbar-nav" style="margin-left: -15px;margin-right: -15px;">
+                  <li class="nav-item">
+                    <a
+                      href="#"
+                      class="list-group-item list-group-item-action side-tabs"
+                      style="background:#333333;color: white;border-top:0 none;"
+                      >All JDs</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      href="#"
+                      class="list-group-item list-group-item-action side-tabs active theme-color-btn"
+                      style="border-top:0 none;color: white;"
+                      >My JDs</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      href="#"
+                      class="list-group-item list-group-item-action side-tabs"
+                      style="border-top:0 none;background:#333333;color: white;"
+                      >FAQs/Help</a
+                    >
+                  </li>
+                </ul>
+              </div>
     </div>
     <div class="card shadow-card mt-3">
       <div class="card-header" style="background:#EAECEA;">
         <div class="grid">
           <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-6 text-left">
-              <p class="font-weight-bold mb-0 sub-heading dark-gray-theme-color" style="line-height:50%">JD DOCUMENT ID :</p><br>
-              <p class="font-weight-bold mb-0 sub-heading gray-theme-color" style="line-height:40%">XXXXX00000XX </p>
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-6 text-right">
-              <h4 class="font-weight-bold mb-0 dark-gray-theme-color" style="line-height:50%">370</h4><br>
-              <p class="mb-0 dark-gray-theme-color" ># Candidates with 80% Match Score</p>
-            </div>
-            <!-- <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left mb-0">XXXXX00000XX</p></div> -->
-            <!-- <div class="col-lg-6 col-md-6 col-sm-6 col-12"></div> -->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left font-weight-bold mb-0 sub-heading">JD DOCUMENT ID :</p></div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-12"><h4 class="pull-right font-weight-bold mb-0 theme-color">370</h4></div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left mb-0">XXXXX00000XX</p></div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-12"><p class="pull-right mb-0"># Candidates with 80% Match Score</p></div>
           </div>
         </div>
         <!-- <a [routerLink]="['job-description', job.Id]">{{job.Name}}</a> -->
@@ -359,11 +489,21 @@
               <p class="col-4 pt-2 font-weight-bold">LOCATION</p>
               <p class="col-8 pt-2">{{selectedLocationName}}</p>
               <div class="col-12">
-                <p class="pt-2 font-weight-bold">About</p>
+                <p class="pt-2 font-weight-bold">TITLE</p>
+
+              </div>
+
+              <div class="col-12">
+                <p style="color:gray" >{{jobDescriptionForm.controls.title.value}}</p>
+                <hr>
+              </div>
+              <div class="col-12">
+                <p class="pt-2 font-weight-bold">SUMMARY</p>
               </div>
 
               <div class="col-12">
                 <p style="color:gray" >{{jobDescriptionForm.controls.about.value}}</p>
+                <hr>
               </div>
               <!-- <div class="col-1 p-0 pt-4"><i class="fa fa-ellipsis-v float-right" aria-hidden="true"></i></div> -->
 
@@ -375,32 +515,45 @@
                   {{tag.TagName}}<span *ngIf="i !== tags.length-1">,</span>
                  </span>
               </p>
-              <p class="col-12 pt-2 font-weight-bold">MANDATORY SKILL</p>
+              <div class="col-12">
+                <hr>
+              </div>
+              <p class="col-12 pt-2 font-weight-bold">MANDATORY SKILLS</p>
               <p class="col-12">
                 <span *ngFor="let skill of jobDescriptionForm.get('mandatorySkills')['controls']; let i = index;">
                   {{skill.controls.SkillName.value}}<span *ngIf="i !== tags.length-1">.</span>
                  </span>
               </p>
-
-              <p class="col-12 pt-2 font-weight-bold">DESIRED SKILL</p>
+              <div class="col-12">
+                <hr>
+              </div>
+              <p class="col-12 pt-2 font-weight-bold">DESIRED SKILLS</p>
               <p class="col-12">
                 <span *ngFor="let skill of jobDescriptionForm.get('desiredSkills')['controls']; let i = index;">
                   {{skill.controls.SkillName.value}}<span *ngIf="i !== tags.length-1">.</span>
                  </span>
               </p>
+              <div class="col-12">
+                <hr>
+              </div>
               <p class="col-12 pt-2 font-weight-bold">QUALIFICATIONS</p>
               <p class="col-12">
                 <span *ngFor="let item of jobDescriptionForm.get('qualifications')['controls']; let i = index;">
                   {{item.controls.Name.value}}<span *ngIf="i !== tags.length-1">.</span>
                  </span>
               </p>
-              <p class="col-12 pt-2 font-weight-bold">ROLES AND RESPONSIBILITY</p>
+              <div class="col-12">
+                <hr>
+              </div>
+              <p class="col-12 pt-2 font-weight-bold">ROLES AND RESPONSIBILITIES</p>
               <p class="col-12">
                 <span *ngFor="let item of jobDescriptionForm.get('rolesAndResponsibility')['controls']; let i = index;">
                   {{item.controls.Responsibility.value}}<span *ngIf="i !== tags.length-1">.</span>
                  </span>
               </p>
-              <hr class="w-100">
+              <div class="col-12">
+                <hr>
+              </div>
               <p class="col-12 pt-2 font-weight-bold mb-0">CREATED BY : <span class="font-weight-normal">Amit Ranjan</span></p>
               <p class="col-12 font-weight-bold">CREATED ON : <span class="font-weight-normal">01-12-2019</span></p>
               <div class="col-8 col-lg-4">
@@ -408,8 +561,8 @@
               </div>
               <!-- <div class="row d-none d-lg-block"> -->
                 <div class="col-12 d-none pr-0 d-lg-block pt-2">
-                  <input (click)="isEditJd = true;fixHeader()" type="button" value="EDIT JD" class="icon-right-side btn btn-dark mr-0"/>
-                  <input data-toggle="modal" data-target="#myModal" type="button" value="VIEW CANDIDATES" class="icon-right-side btn btn-secondary"/>
+                  <input (click)="isEditJd = true;fixHeader()" type="button" value="EDIT JD" class="icon-right-side btn mr-0 theme-color-btn"/>
+                  <input data-toggle="modal" data-target="#myModal" type="button" value="VIEW CANDIDATES" class="icon-right-side btn btn-secondary theme-color-btn"/>
                 </div>
 
               <!-- </div> -->
@@ -429,23 +582,29 @@
               </thead>
               <tbody>
                 <tr class="noBorder">
-                  <td>30</td>
-                  <td>100</td>
+                  <td>300</td>
+                  <td>90-100%</td>
                 </tr>
                 <tr class="noBorder">
-                  <td>50</td>
-                  <td>90</td>
+                  <td>370</td>
+                  <td>80-90%</td>
                 </tr>
                 <tr class="noBorder">
-                  <td>120</td>
-                  <td>80</td>
+                  <td>315</td>
+                  <td>70-80%</td>
+                </tr>
+                <tr class="noBorder">
+                  <td>280</td>
+                  <td> &lt; 70% </td>
                 </tr>
                 <tr>
-                  <td>1100</td>
+                  <td>1265</td>
                   <td>All</td>
                 </tr>
               </tbody>
+
             </table>
+            <small class="form-text text-muted">*Illustrative chart.</small>
           </div>
         </div>
 
@@ -457,14 +616,12 @@
   </div>
   <div *ngIf="!isEditJd" class="row d-md-none fixed-bottom" style="height: 55px;">
     <div class="col-6 p-0">
-      <button (click)="isEditJd = true;fixHeader()" class="w-100 h-100 font-weight-bold" style="background: #D5D9D6;
-      border: none;
-      color: #5A5959;">EDIT JD</button>
+      <button (click)="isEditJd = true;fixHeader()" class="w-100 h-100 font-weight-bold theme-color-btn" style="
+      border: none;">EDIT JD</button>
     </div>
     <div class="col-6 p-0">
-      <button data-toggle="modal" data-target="#myModal" class="w-100 h-100 font-weight-bold" style="background: #979797;
-      border: none;
-      color: #FFFFFF;">VIEW CANDIDATES</button>
+      <button data-toggle="modal" data-target="#myModal" class="w-100 h-100 font-weight-bold theme-color-btn" style="
+      border: none;">VIEW CANDIDATES</button>
       <!-- The Modal -->
 
 

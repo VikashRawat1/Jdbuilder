@@ -6,7 +6,7 @@ const url = Config.url;
 export class Job1ServiceService {
   constructor(private httpClient: HttpClient) { }
   getAllJobs(pageParams) {
-    return this.httpClient.get(`${url}/FetchProfiles/?pageSize=${pageParams.pageSize}&pageIndex=${pageParams.pageIndex}`);
+    return this.httpClient.get(`${url}/FetchProfiles/?pageSize=${pageParams.pageSize}&pageIndex=${pageParams.pageIndex}&myJD=${pageParams.myJd}`);
   }
   fetchProfiles(jdId) {
     return this.httpClient.get(`${url}/FetchProfileDetails?profileId=${jdId}`);
@@ -28,6 +28,6 @@ export class Job1ServiceService {
   }
   FetchFilteredProfiles(params) {
     console.log(params, 'paramsss')
-    return this.httpClient.get(`${url}/FetchFilteredProfiles?experienceId=${params.experienceId}&locationId=${params.locationId}&designationId=${params.designationId}&pageSize=${params.pageSize}&pageIndex=${params.pageIndex}&tagString=${params.searchString}`);
+    return this.httpClient.get(`${url}/FetchFilteredProfiles?experienceId=${params.experienceId}&locationId=${params.locationId}&designationId=${params.designationId}&pageSize=${params.pageSize}&pageIndex=${params.pageIndex}&tagString=${params.searchString}&myJD=${params.myJd}`);
   }
 }

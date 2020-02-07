@@ -162,26 +162,26 @@ paginator-page-size.mat-select-trigger {
 	margin-top: 4px
 }
 
-.navbar-collapse {
-  position: absolute;
-  top: 60px;
-  right: 100%;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-bottom: 15px;
-  width: 100%;
-  transition: all 0.3s ease;
-  display: block;
-}
-.navbar-collapse.collapsing {
-  height: auto !important;
-  margin-right: 50%;
-  transition: all 0.3s ease;
-  display: block;
-}
-.navbar-collapse.show {
-  right: 0;
-}
+// .navbar-collapse {
+//   position: absolute;
+//   top: 60px;
+//   right: 100%;
+//   padding-left: 15px;
+//   padding-right: 15px;
+//   padding-bottom: 15px;
+//   width: 100%;
+//   transition: all 0.3s ease;
+//   display: block;
+// }
+// .navbar-collapse.collapsing {
+//   height: auto !important;
+//   margin-right: 50%;
+//   transition: all 0.3s ease;
+//   display: block;
+// }
+// .navbar-collapse.show {
+//   right: 0;
+// }
 
 //pagination css
 .page-item.active .page-link{

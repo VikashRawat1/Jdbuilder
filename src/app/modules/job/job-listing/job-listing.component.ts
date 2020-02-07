@@ -23,11 +23,11 @@ export class JobListingComponent implements OnInit {
   pageSelected = 0;
   DefaultPageSize = 2;
   range;
-  constructor(private jobService: Job1ServiceService, private toastr: ToastrService,
-    private router:Router) { }
+  myJd = true;
+  constructor(private jobService: Job1ServiceService, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit() {
-    const pageParams = {pageSize: this.DefaultPageSize, pageIndex: this.pageSelected};
+    const pageParams = {pageSize: this.DefaultPageSize, pageIndex: this.pageSelected, myJd: this.myJd};
     this.jobService.getAllJobs(pageParams).subscribe((jobs: any) => {
       this.jobs = jobs.ProfileList;
       this.length = jobs.TotalRecords;
@@ -67,7 +67,8 @@ export class JobListingComponent implements OnInit {
       designationId : (this.selectedDesignation && this.selectedDesignation !== 'undefined') ? this.selectedDesignation : 0,
       pageSize: this.DefaultPageSize,
       pageIndex: 0,
-      searchString: this.searchString ? this.searchString : ''
+      searchString: this.searchString ? this.searchString : '',
+      myJd: this.myJd
     };
     this.filterProfile(paramObject);
   }

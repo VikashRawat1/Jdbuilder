@@ -70,7 +70,7 @@ export class JobDetailComponent implements OnInit {
   // public pieChartPlugins = [pluginDataLabels];
   public pieChartColors = [
     {
-      backgroundColor: ['#A9A9A9', '#454545', '#989898', '#D8D8D8'],
+      backgroundColor: ['#003f5c', '#7a5195', '#ef5675', '#ffa600'],
     },
   ];
   constructor(@Inject(DOCUMENT) private document: Document, private formBuilder: FormBuilder, private jobService: Job1ServiceService, private toastr: ToastrService) {
@@ -125,6 +125,7 @@ export class JobDetailComponent implements OnInit {
       });
         this.tags = jobDetail.ProfileDetail.TagsList;
         this.jobDescriptionForm = this.formBuilder.group({
+          title: new FormControl(jobDetail.ProfileDetail.ProfileName),
           about: new FormControl(jobDetail.ProfileDetail.About),
           selectedDesignation: new FormControl(jobDetail.ProfileDetail.DesignationId),
           selectedLocation: new FormControl(jobDetail.ProfileDetail.LocationId),
@@ -172,7 +173,8 @@ export class JobDetailComponent implements OnInit {
         });
       } else {
         this.jobDescriptionForm = this.formBuilder.group({
-          about: new FormControl('About the job'),
+          title: new FormControl('Title of the job'),
+          about: new FormControl('Summary of the job'),
           desiredSkill: this.formBuilder.array([ this.formBuilder.group(
             {SkillId: 0, SkillName: 'default D skill', SkillTypeId: 2, SkillTypeName: 'Desired' }
             )
@@ -347,6 +349,7 @@ export class JobDetailComponent implements OnInit {
   onSave() {
     const jdObject = {
       ProfileId: location.pathname.split('/').pop(),
+      ProfileName: this.jobDescriptionForm.get('title').value,
       About: this.jobDescriptionForm.get('about').value,
       DesignationId: this.jobDescriptionForm.get('selectedDesignation').value,
       LocationId: this.jobDescriptionForm.get('selectedLocation').value,

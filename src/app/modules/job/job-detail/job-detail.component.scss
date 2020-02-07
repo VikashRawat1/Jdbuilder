@@ -19,3 +19,37 @@ tr.noBorder td {
   width: 100%;
   border-bottom: solid 1px;
 }
+.mat-form-field /deep/ .mat-form-field-wrapper  {
+  padding-bottom: 0;
+}
+#header{
+  background: #333333;
+}
+.theme-color-btn{
+  background: #9E4587;
+  border: none;
+  color: white;
+}
+.theme-color-lt-btn{
+  background: #D95792;
+  border: none;
+}
+/* Desktop View */
+@media only screen and (min-width: 600px) {
+  i {
+    color:#9E4587
+  }
+  .theme-color{
+    color: #D95792;
+  }
+}
+/* Mobile view */
+@media only screen and (max-width: 600px) {
+  i {
+    color:#CE353D;
+
+  }
+  .theme-color{
+    color: #CE353D;
+  }
+}

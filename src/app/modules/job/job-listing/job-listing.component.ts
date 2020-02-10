@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Job1ServiceService } from '../job-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { JobServiceService } from 'src/app/shared/services/job-service.service';
 @Component({
   selector: 'app-job-listing',
   templateUrl: './job-listing.component.html',
@@ -24,14 +25,24 @@ export class JobListingComponent implements OnInit {
   DefaultPageSize = 2;
   range;
   myJd = true;
-  constructor(private jobService: Job1ServiceService, private toastr: ToastrService, private router: Router) { }
+  sidebarIndex
+  constructor(private commongJobService: JobServiceService , private jobService: Job1ServiceService, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit() {
+    this.commongJobService.getSideBarIndex().subscribe((sidebarIndex)=>{
+      this.sidebarIndex = sidebarIndex
+      if(sidebarIndex === 2){
+        this.myJd = true
+      }else{
+        this.myJd = false
+      }
+      this.refresh();
+    })
     const pageParams = {pageSize: this.DefaultPageSize, pageIndex: this.pageSelected, myJd: this.myJd};
     this.jobService.getAllJobs(pageParams).subscribe((jobs: any) => {
       this.jobs = jobs.ProfileList;
       this.length = jobs.TotalRecords;
-      this.range = `${this.pageSelected + 1}-${this.jobs.length} of ${this.length}`;
+      this.range = `${0 + 1}-${this.jobs.length} of ${this.length}`;
     });
     this.jobService.FetchExperienceList().subscribe((experiences: any) => {
       if (experiences.StatusCode === 200) {
@@ -50,13 +61,14 @@ export class JobListingComponent implements OnInit {
     });
   }
   refresh() {
-    this.selectedLocation = 0;
-    this.selectedExperience = 0;
-    this.selectedDesignation = 0;
-    const pageParams = {pageSize: 2, pageIndex: 0};
+    this.selectedLocation = undefined;
+    this.selectedExperience = undefined;
+    this.selectedDesignation = undefined;
+    const pageParams = {pageSize: 2, pageIndex: 0, myJd: this.myJd};
     this.jobService.getAllJobs(pageParams).subscribe((jobs: any) => {
       this.jobs = jobs.ProfileList;
       this.length = jobs.TotalRecords;
+      this.range = `${this.pageSelected + 1}-${this.jobs.length} of ${this.length}`;
     });
   }
   search() {
@@ -91,7 +103,8 @@ export class JobListingComponent implements OnInit {
       designationId : (this.selectedDesignation && this.selectedDesignation !== 'undefined') ? this.selectedDesignation : 0,
       pageIndex: evn.pageIndex !== undefined ? evn.pageIndex : evn - 1,
       pageSize: evn.pageSize ? evn.pageSize : this.DefaultPageSize,
-      searchString: this.searchString ? this.searchString : ''
+      searchString: this.searchString ? this.searchString : '',
+      myJd: this.myJd
     };
     this.pageSelected = evn.pageIndex !== undefined ? evn.pageIndex : evn,
     this.DefaultPageSize = evn.pageSize ? evn.pageSize : this.DefaultPageSize;

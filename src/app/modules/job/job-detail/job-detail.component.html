@@ -86,9 +86,9 @@
         <div class="grid">
           <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left font-weight-bold mb-0 sub-heading">JD DOCUMENT ID :</p></div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-12"><h4 class="pull-right font-weight-bold mb-0 theme-color">370</h4></div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left mb-0">XXXXX00000XX</p></div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-12"><p class="pull-right mb-0"># Candidates with 80% Match Score</p></div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><h4 class="pull-right font-weight-bold mb-0 theme-color">370</h4></div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left mb-0">{{jobDetail.ProfileDetail.ProfileId | jobId}}</p></div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-right mb-0"># Candidates with 80% Match Score</p></div>
           </div>
         </div>
         <!-- <a [routerLink]="['job-description', job.Id]">{{job.Name}}</a> -->
@@ -217,7 +217,7 @@
                 aria-hidden="true"
                 title="Add more mandatory skill"
               ></i> -->
-              <button class="btn theme-color-btn btn-sm"  (click)="addMandatorySkill()"> + Add Mandatory Skill</button>
+              <button type="button" class="btn theme-color-btn btn-sm"  (click)="addMandatorySkill()"> + Add Mandatory Skill</button>
                 <hr >
               </div>
 
@@ -270,7 +270,7 @@
               <div class="col-12">
                 <hr>
               </div>
-              <p class="col-12 pt-2 font-weight-bold">QUALIFICATIONS</p>
+              <p class="col-12 pt-2 font-weight-bold">QUALIFICATION</p>
               <div class="col-12" formArrayName="qualifications"
               *ngFor="let item of jobDescriptionForm.get('qualifications')['controls']; let i = index;">
                 <div [formGroupName]="i">
@@ -296,7 +296,7 @@
                 </div>
               </div>
               <div class="col-12 pr-0">
-                <button class="btn theme-color-btn btn-sm" (click)="addQualification()">+ Add Qualification</button>
+                <button type="button" class="btn theme-color-btn btn-sm" (click)="addQualification()">+ Add Qualification</button>
                 <hr >
               </div>
               <p class="col-12 pt-2 font-weight-bold">ROLES AND RESPONSIBILITIES</p>
@@ -326,11 +326,11 @@
                 aria-hidden="true"
               ></i> -->
               <div class="col-12 pr-0">
-                <button class="btn theme-color-btn btn-sm" (click)="addResponsibility()">+ Add Role and Responsibility</button>
+                <button type="button" class="btn theme-color-btn btn-sm" (click)="addResponsibility()">+ Add Role and Responsibility</button>
                 <hr >
               </div>
-              <p class="col-12 pt-2 font-weight-bold mb-0">CREATED BY : <span class="font-weight-normal">Amit Ranjan</span></p>
-              <p class="col-12 font-weight-bold">CREATED ON : <span class="font-weight-normal">01-12-2019</span></p>
+              <p class="col-12 pt-2 font-weight-bold mb-0">CREATED BY : <span class="font-weight-normal">{{jobDetail.ProfileDetail.CreatorName}}</span></p>
+              <p class="col-12 font-weight-bold">CREATED ON : <span class="font-weight-normal">{{jobDetail.ProfileDetail.CreatedDate | date: 'dd-MM-yyyy'}}</span></p>
               <!-- <div class="row d-none d-lg-block"> -->
                 <div class="col-12 d-none pr-0 d-lg-block">
 
@@ -510,11 +510,9 @@
             <!-- </div>
             <div class="col-sm-12 pl-0"> -->
               <p class="col-12 pt-2 font-weight-bold">TAGS</p>
-              <p class="col-12">
-                <span *ngFor="let tag of tags; let i = index">
-                  {{tag.TagName}}<span *ngIf="i !== tags.length-1">,</span>
-                 </span>
-              </p>
+              <mat-chip-list class="col-12">
+                <mat-chip  *ngFor="let tag of tags">{{tag.TagName}}</mat-chip>
+              </mat-chip-list>
               <div class="col-12">
                 <hr>
               </div>
@@ -536,7 +534,7 @@
               <div class="col-12">
                 <hr>
               </div>
-              <p class="col-12 pt-2 font-weight-bold">QUALIFICATIONS</p>
+              <p class="col-12 pt-2 font-weight-bold">QUALIFICATION</p>
               <p class="col-12">
                 <span *ngFor="let item of jobDescriptionForm.get('qualifications')['controls']; let i = index;">
                   {{item.controls.Name.value}}<span *ngIf="i !== tags.length-1">.</span>
@@ -554,8 +552,8 @@
               <div class="col-12">
                 <hr>
               </div>
-              <p class="col-12 pt-2 font-weight-bold mb-0">CREATED BY : <span class="font-weight-normal">Amit Ranjan</span></p>
-              <p class="col-12 font-weight-bold">CREATED ON : <span class="font-weight-normal">01-12-2019</span></p>
+              <p class="col-12 pt-2 font-weight-bold mb-0">CREATED BY : <span class="font-weight-normal">{{jobDetail.ProfileDetail.CreatorName}}</span></p>
+              <p class="col-12 font-weight-bold">CREATED ON : <span class="font-weight-normal">{{jobDetail.ProfileDetail.CreatedDate | date: 'dd-MM-yyyy'}}</span></p>
               <div class="col-8 col-lg-4">
                 <button type="button" class="bg-white p-2 w-100">REQUEST TO iCIMS</button>
               </div>

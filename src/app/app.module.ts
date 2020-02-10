@@ -26,6 +26,7 @@ import { AdalConfigService } from './shared/services/adal-config.service';
 import { InsertAuthTokenInterceptor } from './shared/interceptors/insert-auth-token';
 import { JobListingComponent } from './modules/job/job-listing/job-listing.component';
 import { FormsModule } from '@angular/forms';
+import { PipesModule } from './shared/pipes/jobId-pipe/pipe.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,7 @@ import { FormsModule } from '@angular/forms';
     HeaderComponent,
     SidebarComponent,
     LoaderComponent,
-    JobListingComponent
+    JobListingComponent,
   ],
   imports: [
     // MaterialUiModule,
@@ -45,7 +46,8 @@ import { FormsModule } from '@angular/forms';
     NgxPaginationModule,
     ToastrModule.forRoot(),
     ChartsModule,
-    FormsModule
+    FormsModule,
+    PipesModule
   ],
   providers: [JobServiceService, LoaderService, AdalService, AdalConfigService,
     { provide: HTTP_INTERCEPTORS, useClass: InsertAuthTokenInterceptor, multi: true },

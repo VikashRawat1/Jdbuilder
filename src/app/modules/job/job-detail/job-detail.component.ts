@@ -45,6 +45,7 @@ export class JobDetailComponent implements OnInit {
   selectedDesignationName;
   selectedLocationName;
   selectedExperienceName;
+  jobDetail
   ////
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -109,6 +110,7 @@ export class JobDetailComponent implements OnInit {
         const defaultDesiredSkill = [];
         const defaultQualification = [];
         const defaultResponsibility = [];
+        this.jobDetail = jobDetail
         jobDetail.ProfileDetail.SkillList.forEach((ele) => {
           if (ele.SkillTypeId === 1) {
             defaultMandatorySkill.push(this.createMandatorySkill(ele));

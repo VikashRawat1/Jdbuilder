@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Config } from '../../config/config';
-import { Observable, Subscriber, Subject } from 'rxjs';
-const url = Config.url;
+const url = 'https://localhost:44355/api';
 @Injectable({providedIn: 'root'})
 export class JobServiceService {
-  private sideBarIndexSelected = new Subject<2>();
   constructor(private httpClient: HttpClient) { }
   getAllJobs(pageParams) {
     return this.httpClient.get(`${url}/FetchProfiles/?pageSize=${pageParams.pageSize}&pageIndex=${pageParams.pageIndex}`);
@@ -33,11 +30,5 @@ export class JobServiceService {
     return this.httpClient.get(`${url}/FetchFilteredProfiles?experienceId=${params.experienceId}&
     locationId=${params.locationId}&designationId=${params.designationId}&pageSize=${params.pageSize}&
     pageIndex=${params.pageIndex}&tagString=${params.searchString}`);
-  }
-  changeSideBarIndex(index){
-    this.sideBarIndexSelected.next(index);
-  }
-  public getSideBarIndex(): Observable<any> {
-    return this.sideBarIndexSelected.asObservable();
   }
 }

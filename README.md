@@ -52,24 +52,31 @@ disscusion point
 
 
 1) 
+Pending
 
-
-1) help text for tags to add user name (and suggestions for future reference)  project, skill, client
-ploea add askill project , clientname , project, future references
 6) Alignment create New jd and card -> p3
 7) tags should look like edit mode tag keywords-> p1
-8) color theme should same in view/edit page -> p1
+24) align id with jobid in mobile view in card -> p1
+31) check mobile view -> p1
+-need to check in phones
+
+Extra pending
+1) Deploy application on server
+
+Completed
+1) help text for tags to add user name (and suggestions for future reference)  project, skill, client
+ploea add askill project , clientname , project, future references -- Done(Only in edit mode)
 9) correct Qualification spelling-> p1 --dONE
 10) correct Roles and responsibilities spelling-> p1 --Done
 11) correct  designation spelling-> p2 -- DONE ( CREATED BY CHANGED )
 12 ) Correct Mandatory skills in view/edit/mobile spelling --Done(changed to mandatory skills)
-13) + add background -> p1
-14) add skill / add qualification etc background -> p1
-17) three dots colors differences -> p1
-19) Graph colors implementation-> p1
-20) illustrative(graph and charts) values  should be matched -> p1
-24) align id with jobid in mobile view in card -> p1
+17) three dots colors differences -> p1  -- DONE
+13) + add background -> p1 - DONE
+14) add skill / add qualification etc background -> p1  - DONE
 25) change about to title inside view/edit mode. -> p1
-28) hamburger implement in view/edit -> p1
-31) check mobile view -> p1
--need to check in phones
+20) illustrative(graph and charts) values  should be matched -> p1
+8) color theme should same in view/edit page -> p1
+19) Graph colors implementation-> p1 -- Done
+28) hamburger implement in view/edit -> p1 - Done
+
+

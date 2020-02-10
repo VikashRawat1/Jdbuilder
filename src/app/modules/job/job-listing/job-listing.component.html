@@ -58,7 +58,7 @@
         style="z-index: 10;background:#333333 ;"
         id="collapsibleNavbar"
       >
-        <ul class="navbar-nav" style="margin-left: -15px;margin-right: -15px;">
+        <ul class="navbar-nav">
           <li class="nav-item">
             <a
               href="#"
@@ -225,15 +225,15 @@
                   JD DOCUMENT ID :
                 </p>
               </div>
-              <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                 <h4 class="pull-right font-weight-bold mb-0 theme-color">
                   370
                 </h4>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                <p class="pull-left mb-0">XXXXX00000XX</p>
+                <p class="pull-left mb-0">{{job.Id | jobId}}</p>
               </div>
-              <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                 <p class="pull-right mb-0"># Candidates with 80% Match Score</p>
               </div>
             </div>
@@ -258,7 +258,7 @@
             </div>
             <div class="row pt-1">
               <p class="col-lg-6 description">
-                CREATED BY: DMI<br />CREATED ON: 01-12-2019
+                CREATED BY: {{ job.CreatorName }}<br />CREATED ON: {{ job.CreatedDate | date: 'dd-MM-yyyy'}}
               </p>
               <div class="col-lg-6">
                 <a

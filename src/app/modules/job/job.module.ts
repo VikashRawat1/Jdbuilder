@@ -19,6 +19,7 @@ import { MaterialUiModule } from '../material-ui/material-ui.module';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { ViewJdComponent } from './view-jd/view-jd.component';
 import { ChartsModule } from 'ng2-charts';
+import { PipesModule } from 'src/app/shared/pipes/jobId-pipe/pipe.module';
 @NgModule({
   declarations: [
     // JobListingComponent,
@@ -33,7 +34,8 @@ import { ChartsModule } from 'ng2-charts';
     MaterialUiModule,
     MatProgressSpinnerModule,
     NgxPaginationModule,
-    ChartsModule
+    ChartsModule,
+    PipesModule
   ],
   providers: [Job1ServiceService]
 })

@@ -27,12 +27,11 @@ import { InsertAuthTokenInterceptor } from './shared/interceptors/insert-auth-to
 import { JobListingComponent } from './modules/job/job-listing/job-listing.component';
 import { FormsModule } from '@angular/forms';
 import { PipesModule } from './shared/pipes/jobId-pipe/pipe.module';
+import { LayoutModule } from './shared/layout/layout.module';
 @NgModule({
   declarations: [
     AppComponent,
     PageNotFoundComponent,
-    HeaderComponent,
-    SidebarComponent,
     LoaderComponent,
     JobListingComponent,
   ],
@@ -47,7 +46,8 @@ import { PipesModule } from './shared/pipes/jobId-pipe/pipe.module';
     ToastrModule.forRoot(),
     ChartsModule,
     FormsModule,
-    PipesModule
+    PipesModule,
+    LayoutModule
   ],
   providers: [JobServiceService, LoaderService, AdalService, AdalConfigService,
     { provide: HTTP_INTERCEPTORS, useClass: InsertAuthTokenInterceptor, multi: true },

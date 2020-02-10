@@ -24,7 +24,7 @@
         >
           <!-- <p style="color:black;" class="pl-2 mt-4 pb-0" >VIEW JDs > JD DETAILS</p> -->
         </div>
-        <div (click)="isEditJd = false" class="col-4">
+        <div (click)="isEditJd = false" class="col-4 pt-2">
           <div class="dropdown dropleft float-right">
             <button type="button" class="btn theme-color-btn">
               CANCEL
@@ -84,10 +84,21 @@
     <div class="card shadow-card mt-3">
       <div class="card-header" style="background:#EAECEA;">
         <div class="grid">
-          <div class="row">
+          <!-- Desktop View -->
+          <div class="d-none d-lg-block">
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left font-weight-bold mb-0 sub-heading">JD DOCUMENT ID :</p></div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-12"><h4 class="pull-right font-weight-bold mb-0 theme-color">370</h4></div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left mb-0">{{jobDetail.ProfileDetail.ProfileId | jobId}}</p></div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-12"><p class="pull-right mb-0"># Candidates with 80% Match Score</p></div>
+            </div>
+          </div>
+
+          <!-- Mobile View -->
+          <div class="row d-lg-none">
             <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left font-weight-bold mb-0 sub-heading">JD DOCUMENT ID :</p></div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><h4 class="pull-right font-weight-bold mb-0 theme-color">370</h4></div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left mb-0">{{jobDetail.ProfileDetail.ProfileId | jobId}}</p></div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-right mb-0">{{jobDetail.ProfileDetail.ProfileId | jobId}}</p></div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><h4 class="pull-left font-weight-bold mb-0 theme-color">370</h4></div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-right mb-0"># Candidates with 80% Match Score</p></div>
           </div>
         </div>
@@ -203,9 +214,9 @@
                       </div>
                     <!-- </div> -->
                     <!-- <div class="col-1 col-md-1 col-lg-1">
-                      <i class="fa fa-angle-double-down icon-right-side" title="Move To Desired" (click)="moveToDesired(skill.controls,i)"></i>
-                      <i class="fa fa-trash icon-right-side" (click)='deleteSkill(skill.controls,i)' aria-hidden="true" title="Delete"></i>
-                      <i class="fa fa-pencil-square-o icon-right-side" aria-hidden="true" (click)='skill.isEditing = true' title="Edit"></i>
+                      <i class="fa fa-angle-double-down " title="Move To Desired" (click)="moveToDesired(skill.controls,i)"></i>
+                      <i class="fa fa-trash " (click)='deleteSkill(skill.controls,i)' aria-hidden="true" title="Delete"></i>
+                      <i class="fa fa-pencil-square-o " aria-hidden="true" (click)='skill.isEditing = true' title="Edit"></i>
                     </div> -->
                   </div>
                 </div>
@@ -260,9 +271,9 @@
                       </div>
                     </div>
                     <!-- <div class="col-sm-3">
-                      <i class="fa fa-angle-double-up icon-right-side" aria-hidden="true" title="Move To Desired" (click)="moveToMandatory(skill.controls,i)"></i>
-                      <i class="fa fa-trash icon-right-side" (click)='deleteDesiredSkill(skill.controls,i)' aria-hidden="true" title="Delete"></i>
-                      <i class="fa fa-pencil-square-o icon-right-side" aria-hidden="true" (click)='skill.isEditing = true' title="Edit"></i>
+                      <i class="fa fa-angle-double-up " aria-hidden="true" title="Move To Desired" (click)="moveToMandatory(skill.controls,i)"></i>
+                      <i class="fa fa-trash " (click)='deleteDesiredSkill(skill.controls,i)' aria-hidden="true" title="Delete"></i>
+                      <i class="fa fa-pencil-square-o " aria-hidden="true" (click)='skill.isEditing = true' title="Edit"></i>
                     </div> -->
                   </div>
                 </div>
@@ -290,8 +301,8 @@
                     </div>
                   </div>
 
-                  <!-- <i class="fa fa-pencil-square-o icon-right-side" aria-hidden="true" (click)='item.isEditing = true' title="Edit"></i>
-                  <i class="fa fa-trash icon-right-side" aria-hidden="true" title="Delete" (click)='deleteQualification(item.controls,i)'></i> -->
+                  <!-- <i class="fa fa-pencil-square-o " aria-hidden="true" (click)='item.isEditing = true' title="Edit"></i>
+                  <i class="fa fa-trash " aria-hidden="true" title="Delete" (click)='deleteQualification(item.controls,i)'></i> -->
 
                 </div>
               </div>
@@ -299,7 +310,7 @@
                 <button type="button" class="btn theme-color-btn btn-sm" (click)="addQualification()">+ Add Qualification</button>
                 <hr >
               </div>
-              <p class="col-12 pt-2 font-weight-bold">ROLES AND RESPONSIBILITIES</p>
+              <p class="col-12 pt-2 font-weight-bold">ROLE AND RESPONSIBILITIES</p>
               <div class="col-12" formArrayName="rolesAndResponsibility"
               *ngFor="let item of jobDescriptionForm.get('rolesAndResponsibility')['controls']; let i = index;">
                 <div [formGroupName]="i">
@@ -333,10 +344,10 @@
               <p class="col-12 font-weight-bold">CREATED ON : <span class="font-weight-normal">{{jobDetail.ProfileDetail.CreatedDate | date: 'dd-MM-yyyy'}}</span></p>
               <!-- <div class="row d-none d-lg-block"> -->
                 <div class="col-12 d-none pr-0 d-lg-block">
+                  <input (click)="isEditJd = false" type="button" value="CANCEL" class=" btn theme-color-btn mr-2"/>
+                  <input data-toggle="modal" data-target="#myModal" type="button" value="VIEW CANDIDATES" class=" btn theme-color-btn mr-2"/>
+                  <input (click)="onSave()" type="button" value="SAVE AS COPY" class=" btn theme-secondary-btn"/>
 
-                  <input (click)="onSave()" type="button" value="SAVE AS COPY" class="icon-right-side btn theme-color-btn mr-0"/>
-                  <input data-toggle="modal" data-target="#myModal" type="button" value="VIEW CANDIDATES" class="icon-right-side btn theme-color-btn"/>
-                  <input (click)="isEditJd = false" type="button" value="CANCEL" class="icon-right-side btn theme-color-btn"/>
 
 
                 </div>
@@ -358,23 +369,29 @@
               </thead>
               <tbody>
                 <tr class="noBorder">
-                  <td>30</td>
-                  <td>100</td>
+                  <td>300</td>
+                  <td>90-100%</td>
                 </tr>
                 <tr class="noBorder">
-                  <td>50</td>
-                  <td>90</td>
+                  <td>370</td>
+                  <td>80-90%</td>
                 </tr>
                 <tr class="noBorder">
-                  <td>120</td>
-                  <td>80</td>
+                  <td>315</td>
+                  <td>70-80%</td>
+                </tr>
+                <tr class="noBorder">
+                  <td>280</td>
+                  <td> &lt; 70% </td>
                 </tr>
                 <tr>
-                  <td>1100</td>
+                  <td>1265</td>
                   <td>All</td>
                 </tr>
               </tbody>
+
             </table>
+            <small class="form-text text-muted">*Illustrative chart.</small>
           </div>
         </div>
       </div>
@@ -386,12 +403,11 @@
   </div>
   <div *ngIf="isEditJd" class="row d-md-none fixed-bottom" style="height: 55px;">
     <div class="col-6 p-0">
-      <button (click)="onSave()" class="w-100 h-100 font-weight-bold theme-color-btn" style="
-      border: none;">SAVE AS COPY</button>
-    </div>
-    <div class="col-6 p-0">
       <button data-toggle="modal" data-target="#myModal" class="w-100 h-100 font-weight-bold theme-color-btn " style="
       border: none;">VIEW CANDIDATE</button>
+    </div>
+    <div class="col-6 p-0">
+      <button (click)="onSave()" class="w-100 h-100 font-weight-bold theme-secondary-btn">SAVE AS COPY</button>
     </div>
   </div>
 
@@ -420,7 +436,7 @@
         >
           <!-- <p style="color:black;" class="pl-2 mt-4 pb-0" >VIEW JDs > JD DETAILS</p> -->
         </div>
-        <div [routerLink]="['']" class="col-4">
+        <div [routerLink]="['']" class="col-4 pt-2">
           <div class="dropdown dropleft float-right">
             <button type="button" class="btn theme-color-btn">
               BACK
@@ -464,11 +480,22 @@
     <div class="card shadow-card mt-3">
       <div class="card-header" style="background:#EAECEA;">
         <div class="grid">
-          <div class="row">
+          <!-- Desktop View -->
+          <div class="d-none d-lg-block">
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left font-weight-bold mb-0 sub-heading">JD DOCUMENT ID :</p></div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-12"><h4 class="pull-right font-weight-bold mb-0 theme-color">370</h4></div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left mb-0">{{jobDetail.ProfileDetail.ProfileId | jobId}}</p></div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-12"><p class="pull-right mb-0"># Candidates with 80% Match Score</p></div>
+            </div>
+          </div>
+
+          <!-- Mobile View -->
+          <div class="row d-lg-none">
             <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left font-weight-bold mb-0 sub-heading">JD DOCUMENT ID :</p></div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-12"><h4 class="pull-right font-weight-bold mb-0 theme-color">370</h4></div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left mb-0">XXXXX00000XX</p></div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-12"><p class="pull-right mb-0"># Candidates with 80% Match Score</p></div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-right mb-0">{{jobDetail.ProfileDetail.ProfileId | jobId}}</p></div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><h4 class="pull-left font-weight-bold mb-0 theme-color">370</h4></div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-right mb-0"># Candidates with 80% Match Score</p></div>
           </div>
         </div>
         <!-- <a [routerLink]="['job-description', job.Id]">{{job.Name}}</a> -->
@@ -543,7 +570,7 @@
               <div class="col-12">
                 <hr>
               </div>
-              <p class="col-12 pt-2 font-weight-bold">ROLES AND RESPONSIBILITIES</p>
+              <p class="col-12 pt-2 font-weight-bold">ROLE AND RESPONSIBILITIES</p>
               <p class="col-12">
                 <span *ngFor="let item of jobDescriptionForm.get('rolesAndResponsibility')['controls']; let i = index;">
                   {{item.controls.Responsibility.value}}<span *ngIf="i !== tags.length-1">.</span>
@@ -558,9 +585,9 @@
                 <button type="button" class="bg-white p-2 w-100">REQUEST TO iCIMS</button>
               </div>
               <!-- <div class="row d-none d-lg-block"> -->
-                <div class="col-12 d-none pr-0 d-lg-block pt-2">
-                  <input (click)="isEditJd = true;fixHeader()" type="button" value="EDIT JD" class="icon-right-side btn mr-0 theme-color-btn"/>
-                  <input data-toggle="modal" data-target="#myModal" type="button" value="VIEW CANDIDATES" class="icon-right-side btn btn-secondary theme-color-btn"/>
+                <div class="col-12 d-none pr-0 d-lg-block pt-4">
+                  <input data-toggle="modal" data-target="#myModal" type="button" value="VIEW CANDIDATES" class=" mr-2 btn theme-color-btn"/>
+                  <input (click)="isEditJd = true;fixHeader()" type="button" value="EDIT JD" class="btn theme-secondary-btn"/>
                 </div>
 
               <!-- </div> -->
@@ -613,16 +640,16 @@
 
   </div>
   <div *ngIf="!isEditJd" class="row d-md-none fixed-bottom" style="height: 55px;">
-    <div class="col-6 p-0">
-      <button (click)="isEditJd = true;fixHeader()" class="w-100 h-100 font-weight-bold theme-color-btn" style="
-      border: none;">EDIT JD</button>
-    </div>
+
     <div class="col-6 p-0">
       <button data-toggle="modal" data-target="#myModal" class="w-100 h-100 font-weight-bold theme-color-btn" style="
       border: none;">VIEW CANDIDATES</button>
       <!-- The Modal -->
 
 
+    </div>
+    <div class="col-6 p-0">
+      <button (click)="isEditJd = true;fixHeader()" class="w-100 h-100 font-weight-bold theme-secondary-btn">EDIT JD</button>
     </div>
   </div>
   <div class="modal" id="myModal">

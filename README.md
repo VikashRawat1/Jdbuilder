@@ -54,9 +54,7 @@ disscusion point
 1) 
 Pending
 
-6) Alignment create New jd and card -> p3
-7) tags should look like edit mode tag keywords-> p1
-24) align id with jobid in mobile view in card -> p1
+
 31) check mobile view -> p1
 -need to check in phones
 
@@ -78,5 +76,17 @@ ploea add askill project , clientname , project, future references -- Done(Only 
 8) color theme should same in view/edit page -> p1
 19) Graph colors implementation-> p1 -- Done
 28) hamburger implement in view/edit -> p1 - Done
+6) Alignment create New jd and card -> p3 - Done
+7) tags should look like edit mode tag keywords-> p1 - Done
+24) align id with jobid in mobile view in card -> p1 - Done
 
-
+Yogender's feedback point
+i) After click on add new mandatory/desired input it should open in edit mode.
+ii) all button(Cancel,back,save as draft etc) in  should alligned right and add more space should be there from above content.
+iii) Buttons in view/edit page should be square button.
+iv) secondary button(Save As draft/ Edit jd) background should be white and outline/text color should be purple
+v) After save as copy it should redirect to listing jd page(show relevant data).
+vi) user profile image should not be distorted in mobile view.
+vii) dmi logo should be left alligned in mobile view also.
+viii) Cancel and back button in view/edit jd should be allign center.
+ix) Implement auto suggestion in mandatory and desired skill.

@@ -10,6 +10,8 @@ import {map, startWith} from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { ChartType, ChartOptions } from 'chart.js';
 import { Label } from 'ng2-charts';
+import { Router } from '@angular/router';
+import { JobServiceService } from '../../../shared/services/job-service.service';
 // import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 @Component({
   selector: 'app-job-detail',
@@ -74,7 +76,7 @@ export class JobDetailComponent implements OnInit {
       backgroundColor: ['#003f5c', '#7a5195', '#ef5675', '#ffa600'],
     },
   ];
-  constructor(@Inject(DOCUMENT) private document: Document, private formBuilder: FormBuilder, private jobService: Job1ServiceService, private toastr: ToastrService) {
+  constructor(@Inject(DOCUMENT) private document: Document, private formBuilder: FormBuilder, private jobService: Job1ServiceService, private toastr: ToastrService,private router: Router, private commonJobService: JobServiceService ) {
 
    }
   @HostListener('window:scroll', [])
@@ -369,6 +371,8 @@ export class JobDetailComponent implements OnInit {
       if (updatedData.StatusCode === 200){
         this.toastr.success(updatedData.Message, 'Success');
         // location.reload();
+        this.commonJobService.changeSideBarIndex(2)
+        this.router.navigate(['job']);
       }
     });
   }

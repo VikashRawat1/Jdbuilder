@@ -34,6 +34,14 @@ tr.noBorder td {
   background: #D95792;
   border: none;
 }
+.theme-secondary-btn{
+  border: 1px solid;
+  color: #9E4587;
+  background: white;
+}
+.btn{
+  border-radius: inherit
+}
 /* Desktop View */
 @media only screen and (min-width: 600px) {
   i {

@@ -5,14 +5,17 @@ import { JobServiceService } from '../../services/job-service.service';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent implements OnInit { 
+export class SidebarComponent implements OnInit {
 
   constructor(private jobService: JobServiceService) { }
   selectedIndex = 2
   ngOnInit() {
+    this.jobService.getSideBarIndex().subscribe((sidebarIndex)=>{
+      this.selectedIndex = sidebarIndex
+    })
   }
   activateClass(index){
-    this.jobService.changeSideBarIndex(index)  
+    this.jobService.changeSideBarIndex(index)
   }
 
 }

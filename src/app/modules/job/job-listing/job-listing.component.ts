@@ -31,6 +31,7 @@ export class JobListingComponent implements OnInit {
   ngOnInit() {
     this.commongJobService.getSideBarIndex().subscribe((sidebarIndex)=>{
       this.sidebarIndex = sidebarIndex
+      alert(sidebarIndex)
       if(sidebarIndex === 2){
         this.myJd = true
       }else{

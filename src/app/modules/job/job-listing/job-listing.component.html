@@ -219,23 +219,22 @@
       <div class="card shadow-card">
         <div class="card-header" style="background:#EAECEA;">
           <div class="grid">
-            <div class="row">
-              <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                <p class="pull-left font-weight-bold mb-0 sub-heading">
-                  JD DOCUMENT ID :
-                </p>
+            <!-- Desktop View -->
+            <div class="d-none d-lg-block">
+              <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left font-weight-bold mb-0 sub-heading">JD DOCUMENT ID :</p></div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-12"><h4 class="pull-right font-weight-bold mb-0 theme-color">370</h4></div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left mb-0">{{job.Id | jobId}}</p></div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-12"><p class="pull-right mb-0"># Candidates with 80% Match Score</p></div>
               </div>
-              <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                <h4 class="pull-right font-weight-bold mb-0 theme-color">
-                  370
-                </h4>
-              </div>
-              <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                <p class="pull-left mb-0">{{job.Id | jobId}}</p>
-              </div>
-              <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                <p class="pull-right mb-0"># Candidates with 80% Match Score</p>
-              </div>
+            </div>
+
+            <!-- Mobile View -->
+            <div class="row d-lg-none">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left font-weight-bold mb-0 sub-heading">JD DOCUMENT ID :</p></div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-right mb-0">{{job.Id | jobId}}</p></div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-6"><h4 class="pull-left font-weight-bold mb-0 theme-color">370</h4></div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-right mb-0"># Candidates with 80% Match Score</p></div>
             </div>
           </div>
           <!-- <a [routerLink]="['job-description', job.Id]">{{job.Name}}</a> -->
@@ -337,7 +336,7 @@
         previousLabel=""
         nextLabel=""
         class="my-pagination"
-        (pageChange)="onPaginateChange($event); p = $event"
+        (pageChange)="onPaginateChange($event);"
       ></pagination-controls>
     </div>
   </div>

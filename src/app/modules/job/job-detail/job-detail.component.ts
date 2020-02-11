@@ -47,9 +47,11 @@ export class JobDetailComponent implements OnInit {
   selectedDesignationName;
   selectedLocationName;
   selectedExperienceName;
-  jobDetail
+  jobDetail;
+  suggestedSkill = [];
   ////
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
+  @ViewChild('suggestedInput') suggestedInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
   // Pie
   public pieChartOptions: ChartOptions = {
@@ -92,7 +94,6 @@ export class JobDetailComponent implements OnInit {
       }
   }
   fixHeader() {
-    console.log('callledddd')
     document.getElementById('header').classList.add('fixed-header');
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
@@ -126,6 +127,7 @@ export class JobDetailComponent implements OnInit {
             defaultQualification.push(this.createQualification(ele));
         });
         jobDetail.ProfileDetail.ResponsibilityList.forEach((ele) => {
+          ele.isEditing = false
           defaultResponsibility.push(this.formBuilder.group(ele));
       });
         this.tags = jobDetail.ProfileDetail.TagsList;
@@ -154,9 +156,7 @@ export class JobDetailComponent implements OnInit {
           if (locations.StatusCode === 200) {
             this.locations = locations.LocationMasterList;
             locations.LocationMasterList.forEach((val) => {
-              console.log(val, 'vlauuu',this.jobDescriptionForm,"hhhh")
               if (this.jobDescriptionForm && this.jobDescriptionForm.get('selectedLocation').value === val.Id) {
-                console.log('matchedd vlauuu', this.jobDescriptionForm);
                 this.selectedLocationName = val.LocationName;
               }
             });
@@ -166,9 +166,7 @@ export class JobDetailComponent implements OnInit {
           if (designations.StatusCode === 200) {
             this.designations = designations.DesignationList;
             designations.DesignationList.forEach((val) => {
-              console.log(val, 'vlauuu',this.jobDescriptionForm,"hhhh")
               if (this.jobDescriptionForm && this.jobDescriptionForm.get('selectedDesignation').value === val.Id) {
-                console.log('matchedd vlauuu', this.jobDescriptionForm);
                 this.selectedDesignationName = val.DesignationName;
               }
             });
@@ -258,7 +256,7 @@ export class JobDetailComponent implements OnInit {
   }
   addResponsibility(): void {
     this.rolesAndResponsibility = this.jobDescriptionForm.get('rolesAndResponsibility') as FormArray;
-    const obj = {Id: '', Responsibility: 'New Responsibility'};
+    const obj = {Id: '', Responsibility: 'New Responsibility',isEditing:true};
     this.rolesAndResponsibility.push(this.formBuilder.group(obj));
   }
   deleteSkill(deletedSkill, index) {
@@ -353,7 +351,32 @@ export class JobDetailComponent implements OnInit {
     });
     this.tagsCtrl.setValue(null);
   }
+  selectedSkill(event: MatAutocompleteSelectedEvent,index,isMandatory): void{
+    console.log(event,'eventt')
+    console.log(this.jobDescriptionForm.controls['mandatorySkills'].value[index],'dsdfdfdfd')
+    if(isMandatory){
+      this.jobDescriptionForm.controls['mandatorySkills'].value[index].SkillName = event.option.value
+    }else{
+      this.jobDescriptionForm.controls['desiredSkills'].value[index].SkillName = event.option.value
+    }
+
+  }
+  getSkill(event){
+    console.log(event.target.value, 'event')
+    if(event.target.value.length >2){
+      this.jobService.FetchAllSkills(event.target.value).subscribe((skillData: any)=>{
+        console.log(skillData, 'skllls')
+        if(skillData.StatusCode){
+          this.suggestedSkill = skillData.Skills;
+          console.log(this.suggestedSkill, 'sillllllll')
+        }
+      })
+    }
+  }
   onSave() {
+    console.log(this.jobDescriptionForm.get('mandatorySkills').value,'mandatoryryyy valuee')
+    console.log(this.jobDescriptionForm.get('desiredSkills').value,'desiredSkills valuee')
+    // return
     const jdObject = {
       ProfileId: location.pathname.split('/').pop(),
       ProfileName: this.jobDescriptionForm.get('title').value,
@@ -375,7 +398,7 @@ export class JobDetailComponent implements OnInit {
         this.toastr.success(updatedData.Message, 'Success');
         // location.reload();
         this.commonJobService.changeSideBarIndex(2)
-        this.router.navigate(['job']);
+        // this.router.navigate(['job']);
       }
     });
   }

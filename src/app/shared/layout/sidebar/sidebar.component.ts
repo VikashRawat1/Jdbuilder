@@ -17,5 +17,4 @@ export class SidebarComponent implements OnInit {
   activateClass(index){
     this.jobService.changeSideBarIndex(index)
   }
-
 }

@@ -25,13 +25,15 @@ export class JobListingComponent implements OnInit {
   DefaultPageSize = 2;
   range;
   myJd = true;
-  sidebarIndex
+  sidebarIndex = 2
+  userList
+  sortByDate = 'dsc'
   constructor(private commongJobService: JobServiceService , private jobService: Job1ServiceService, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit() {
     this.commongJobService.getSideBarIndex().subscribe((sidebarIndex)=>{
       this.sidebarIndex = sidebarIndex
-      alert(sidebarIndex)
+      // alert(sidebarIndex)
       if(sidebarIndex === 2){
         this.myJd = true
       }else{
@@ -39,7 +41,7 @@ export class JobListingComponent implements OnInit {
       }
       this.refresh();
     })
-    const pageParams = {pageSize: this.DefaultPageSize, pageIndex: this.pageSelected, myJd: this.myJd};
+    const pageParams = {pageSize: this.DefaultPageSize, pageIndex: this.pageSelected, myJd: this.myJd,sortByDate: this.sortByDate};
     this.jobService.getAllJobs(pageParams).subscribe((jobs: any) => {
       this.jobs = jobs.ProfileList;
       this.length = jobs.TotalRecords;
@@ -60,6 +62,11 @@ export class JobListingComponent implements OnInit {
         this.designations = designations.DesignationList;
       }
     });
+    this.jobService.FetchUserDetails().subscribe((usersData: any)=>{
+      if (usersData.StatusCode === 200) {
+        this.userList = usersData.UsersList;
+      }
+    })
   }
   refresh() {
     this.selectedLocation = undefined;
@@ -87,6 +94,7 @@ export class JobListingComponent implements OnInit {
   }
   filterProfile(paramObject) {
     console.log(paramObject,'paramobject')
+    paramObject.sortByDate = this.sortByDate;
     this.jobService.FetchFilteredProfiles(paramObject).subscribe((FilteredList: any) => {
       if (FilteredList.StatusCode === 200) {
         this.jobs = FilteredList.ProfileList;

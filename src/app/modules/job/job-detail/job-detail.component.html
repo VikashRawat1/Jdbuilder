@@ -179,6 +179,7 @@
                 </mat-autocomplete>
                 <small class="form-text text-muted">*Add User name, Project, Skill, Client and future references.</small>
               </mat-form-field>
+
               <p class="col-12 pt-2 font-weight-bold">MANDATORY SKILLS</p>
               <div class="col-12" formArrayName="mandatorySkills"
               *ngFor="let skill of jobDescriptionForm.get('mandatorySkills')['controls']; let i = index;">
@@ -186,10 +187,23 @@
                   <div class="row pb-2">
                     <div class="col-11 col-md-11 col-lg-11">
                       <div class="input-group">
-                        <input class="form-control" *ngIf='skill.controls.isEditing.value' formControlName="SkillName" placeholder="Item name">
+                        <!-- <input (keyup)="getSkill($event)" class="form-control" *ngIf='skill.controls.isEditing.value' formControlName="SkillName" placeholder="New Mandatory skill"> -->
+                        <mat-form-field *ngIf='skill.controls.isEditing.value' class="col-12 px-0">
+                          <input type="text"
+                          (keyup)="getSkill($event)"
+                          placeholder="Mandatory Skill"
+                          aria-label="Number"
+                          matInput
+                          formControlName="SkillName"
+                          [matAutocomplete]="auto">
+                          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedSkill($event,i)">
+                            <mat-option *ngFor="let suggestion of suggestedSkill; let i = index;" [value]="suggestion.SkillName">
+                              {{suggestion.SkillName}}
+                            </mat-option>
+                          </mat-autocomplete>
+                        </mat-form-field>
                       </div>
-                      {{skill.controls.isEditing.value}}++
-                      <p *ngIf='!skill.isEditing' class="my-auto" style="color:gray">{{skill.controls.SkillName.value}}</p>
+                      <p *ngIf='!skill.controls.isEditing.value' class="my-auto" style="color:gray">{{skill.controls.SkillName.value}}</p>
                     </div>
 
                     <!-- <div class="col-1 p-0 my-auto"> -->
@@ -239,9 +253,23 @@
                   <div class="row pb-2">
                     <div class="col-11 col-md-11 col-lg-11">
                       <div class="input-group">
-                        <input class="form-control" *ngIf='skill.controls.isEditing.value' formControlName="SkillName" placeholder="Item name">
+                        <!-- <input class="form-control" *ngIf='skill.controls.isEditing.value' formControlName="SkillName" placeholder="Item name"> -->
+                        <mat-form-field *ngIf='skill.controls.isEditing.value' class="col-12 px-0">
+                          <input type="text"
+                          (keyup)="getSkill($event)"
+                          placeholder="Desired Skill"
+                          aria-label="Number"
+                          matInput
+                          formControlName="SkillName"
+                          [matAutocomplete]="auto">
+                          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedSkill($event,i)">
+                            <mat-option *ngFor="let suggestion of suggestedSkill; let i = index;" [value]="suggestion.SkillName">
+                              {{suggestion.SkillName}}
+                            </mat-option>
+                          </mat-autocomplete>
+                        </mat-form-field>
                       </div>
-                      <p *ngIf='!skill.isEditing' style="color:gray">{{skill.controls.SkillName.value}}</p>
+                      <p *ngIf='!skill.controls.isEditing.value' style="color:gray">{{skill.controls.SkillName.value}}</p>
                     </div>
                     <!-- <div class="col-1 p-0 btn dropdown dropleft" data-toggle="dropdown">
                       <i class="fa fa-ellipsis-v float-right" aria-hidden="true" ></i>
@@ -290,7 +318,7 @@
                       <div class="input-group">
                         <input class="form-control" *ngIf='item.controls.isEditing.value' formControlName="Name" placeholder="Qualification">
                       </div>
-                      <p *ngIf='!item.isEditing' style="color:gray">{{item.controls.Name.value}}</p>
+                      <p *ngIf='!item.controls.isEditing.value' style="color:gray">{{item.controls.Name.value}}</p>
                     </div>
                     <div class="col-1 p-0 btn dropdown dropleft" >
                       <i class="fa fa-ellipsis-v float-right" aria-hidden="true" data-toggle="dropdown"></i>
@@ -317,14 +345,14 @@
                   <div class="row pb-2">
                     <div class="col-11 col-md-11 col-lg-11">
                       <div class="form-group">
-                        <input type="text" class="form-control" *ngIf='item.isEditing' formControlName="Responsibility" placeholder="Role and Responsibility">
+                        <input type="text" class="form-control" *ngIf='item.controls.isEditing.value' formControlName="Responsibility" placeholder="Role and Responsibility">
                       </div>
-                      <p *ngIf='!item.isEditing' style="color:gray">{{item.controls.Responsibility.value}}</p>
+                      <p *ngIf='!item.controls.isEditing.value' style="color:gray">{{item.controls.Responsibility.value}}</p>
                     </div>
                     <div class="col-1 p-0 btn dropdown dropleft" >
                       <i class="fa fa-ellipsis-v float-right" aria-hidden="true" data-toggle="dropdown"></i>
                       <div class="dropdown-menu">
-                        <a class="dropdown-item" href="JavaScript:" (click)='item.isEditing = true'>Edit</a>
+                        <a class="dropdown-item" href="JavaScript:" (click)='item.controls.isEditing.value = true'>Edit</a>
                         <a class="dropdown-item" href="JavaScript:" (click)='deleteResponsiblity(item.controls,i)'>Delete</a>
                       </div>
                     </div>

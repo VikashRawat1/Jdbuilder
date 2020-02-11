@@ -81,12 +81,15 @@ ploea add askill project , clientname , project, future references -- Done(Only 
 24) align id with jobid in mobile view in card -> p1 - Done
 
 Yogender's feedback point
-i) After click on add new mandatory/desired input it should open in edit mode.
-ii) all button(Cancel,back,save as draft etc) in  should alligned right and add more space should be there from above content.
-iii) Buttons in view/edit page should be square button.
-iv) secondary button(Save As draft/ Edit jd) background should be white and outline/text color should be purple
-v) After save as copy it should redirect to listing jd page(show relevant data).
-vi) user profile image should not be distorted in mobile view.
-vii) dmi logo should be left alligned in mobile view also.
-viii) Cancel and back button in view/edit jd should be allign center.
-ix) Implement auto suggestion in mandatory and desired skill.
+i) After click on add new mandatory/desired input it should open in edit mode.30-40 min
+
+ix) Implement auto suggestion in mandatory and desired skill. 3,4 hours
+
+Completed
+iv) secondary button(Save As draft/ Edit jd) background should be white and outline/text color should be purple -- 20 min
+iii) Buttons in view/edit page should be square button.10 min
+ii) all button(Cancel,back,save as draft etc) in  should alligned right and add more space should be there from above content. 30 min
+viii) Cancel and back button in view/edit jd should be allign center. 20 min
+v) After save as copy it should redirect to listing jd page(show relevant data). 30 min
+vi) user profile image should not be distorted in mobile view. 30min 
+vii) dmi logo should be left alligned in mobile view also. 20 min

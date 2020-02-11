@@ -81,7 +81,6 @@ export class JobDetailComponent implements OnInit {
    }
   @HostListener('window:scroll', [])
   onWindowScroll() {
-    console.log(document.documentElement.scrollTop,'dkfjdfj')
     if (document.body.scrollTop > 140 ||
     document.documentElement.scrollTop > 140) {
       document.getElementById('header').classList.add('fixed-header');
@@ -122,6 +121,8 @@ export class JobDetailComponent implements OnInit {
         }
         );
         jobDetail.ProfileDetail.QualificationList.forEach((ele) => {
+            console.log(ele, 'elee')
+            ele.isEditing = false
             defaultQualification.push(this.createQualification(ele));
         });
         jobDetail.ProfileDetail.ResponsibilityList.forEach((ele) => {
@@ -143,9 +144,7 @@ export class JobDetailComponent implements OnInit {
           if (experiences.StatusCode === 200) {
             this.experiences = experiences.ExperienceMasterList;
             experiences.ExperienceMasterList.forEach((val) => {
-              console.log(val, 'vlauuu',this.jobDescriptionForm,"hhhh")
               if (this.jobDescriptionForm && this.jobDescriptionForm.get('selectedExperience').value === val.Id) {
-                console.log('matchedd vlauuu', this.jobDescriptionForm);
                 this.selectedExperienceName = val.ExperienceName;
               }
             });
@@ -222,6 +221,7 @@ export class JobDetailComponent implements OnInit {
   }
   createMandatorySkill(newSkill): FormGroup {
     return this.formBuilder.group({
+        isEditing: newSkill.isEditing?newSkill.isEditing:false,
         SkillId: newSkill.SkillId,
         SkillName: newSkill.SkillName,
         SkillTypeId: newSkill.SkillTypeId,
@@ -229,10 +229,12 @@ export class JobDetailComponent implements OnInit {
     });
   }
   createQualification(qualificationObj): FormGroup {
+    console.log(qualificationObj, 'qualificaddfd')
     return this.formBuilder.group(qualificationObj);
   }
   createDesiredSkill(desiredSkill): FormGroup {
     return this.formBuilder.group({
+      isEditing:false,
       SkillId: desiredSkill.SkillId,
       SkillName: desiredSkill.SkillName,
       SkillTypeId: 2,
@@ -242,6 +244,7 @@ export class JobDetailComponent implements OnInit {
   addMandatorySkill(): void {
     this.mandatorySkills = this.jobDescriptionForm.get('mandatorySkills') as FormArray;
     const newSkill = {
+      isEditing:true,
       SkillId: 0,
       SkillName: 'New Mandatory skill',
       SkillTypeId: 1,
@@ -250,7 +253,7 @@ export class JobDetailComponent implements OnInit {
   }
   addQualification(): void {
     this.qualifications = this.jobDescriptionForm.get('qualifications') as FormArray;
-    const obj = {Id: 0, Name: 'New Qualification'};
+    const obj = {Id: 0, Name: 'New Qualification',isEditing:true};
     this.qualifications.push(this.createQualification(obj));
   }
   addResponsibility(): void {

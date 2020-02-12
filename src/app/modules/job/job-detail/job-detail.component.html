@@ -37,32 +37,32 @@
                 style="z-index: 10;background:#333333 ;"
                 id="collapsibleNavbar"
               >
-                <ul class="navbar-nav" style="margin-left: -15px;margin-right: -15px;">
-                  <li class="nav-item">
-                    <a
-                      href="#"
-                      class="list-group-item list-group-item-action side-tabs"
-                      style="background:#333333;color: white;border-top:0 none;"
-                      >All JDs</a
-                    >
-                  </li>
-                  <li class="nav-item">
-                    <a
-                      href="#"
-                      class="list-group-item list-group-item-action side-tabs active theme-color-btn"
-                      style="border-top:0 none;color: white;"
-                      >My JDs</a
-                    >
-                  </li>
-                  <li class="nav-item">
-                    <a
-                      href="#"
-                      class="list-group-item list-group-item-action side-tabs"
-                      style="border-top:0 none;background:#333333;color: white;"
-                      >FAQs/Help</a
-                    >
-                  </li>
-                </ul>
+              <ul class="navbar-nav" style="margin-left: -15px;margin-right: -15px;">
+                <li class="nav-item">
+                  <a
+                  [routerLink]="['/job']" (click)="selectedIndex =1;activateClass(1)" [ngClass]="{'active': selectedIndex == 1}" href="javascript:"
+                    class="list-group-item list-group-item-action side-tabs"
+                    style="background:#333333;color: white;border-top:0 none;"
+                    >All JDs</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a
+                  [routerLink]="['/job']" (click)="selectedIndex =2;activateClass(2)" [ngClass]="{'active': selectedIndex == 2}" href="javascript:"
+                    class="list-group-item list-group-item-action side-tabs active theme-color-btn"
+                    style="border-top:0 none;color: white;"
+                    >My JDs</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a
+                    [routerLink]="['/job']" (click)="selectedIndex =3;activateClass(3)" [ngClass]="{'active': selectedIndex == 3}"  href="javascript:"
+                    class="list-group-item list-group-item-action side-tabs"
+                    style="border-top:0 none;background:#333333;color: white;"
+                    >FAQs/Help</a
+                  >
+                </li>
+              </ul>
               </div>
     </div>
       <!-- <div class="row pt-3 d-lg-none" id="header">
@@ -98,8 +98,9 @@
           <div class="row d-lg-none">
             <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left font-weight-bold mb-0 sub-heading">JD DOCUMENT ID :</p></div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-right mb-0">{{jobDetail.ProfileDetail.ProfileId | jobId}}</p></div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><h4 class="pull-left font-weight-bold mb-0 theme-color">370</h4></div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-right mb-0"># Candidates with 80% Match Score</p></div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left mb-0"># Candidates with 80% Match Score</p></div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><h4 class="pull-right font-weight-bold mb-0 theme-color">370</h4></div>
+
           </div>
         </div>
         <!-- <a [routerLink]="['job-description', job.Id]">{{job.Name}}</a> -->
@@ -419,7 +420,7 @@
               </tbody>
 
             </table>
-            <small class="form-text text-muted">*Illustrative chart.</small>
+            <small class="form-text text-muted">&lt; Illustrative &gt; chart.</small>
           </div>
         </div>
       </div>
@@ -480,7 +481,7 @@
                 <ul class="navbar-nav" style="margin-left: -15px;margin-right: -15px;">
                   <li class="nav-item">
                     <a
-                      href="#"
+                    [routerLink]="['/job']" (click)="selectedIndex =1;activateClass(1)" [ngClass]="{'active': selectedIndex == 1}" href="javascript:"
                       class="list-group-item list-group-item-action side-tabs"
                       style="background:#333333;color: white;border-top:0 none;"
                       >All JDs</a
@@ -488,7 +489,7 @@
                   </li>
                   <li class="nav-item">
                     <a
-                      href="#"
+                    [routerLink]="['/job']" (click)="selectedIndex =2;activateClass(2)" [ngClass]="{'active': selectedIndex == 2}" href="javascript:"
                       class="list-group-item list-group-item-action side-tabs active theme-color-btn"
                       style="border-top:0 none;color: white;"
                       >My JDs</a
@@ -496,7 +497,7 @@
                   </li>
                   <li class="nav-item">
                     <a
-                      href="#"
+                      [routerLink]="['/job']" (click)="selectedIndex =3;activateClass(3)" [ngClass]="{'active': selectedIndex == 3}"  href="javascript:"
                       class="list-group-item list-group-item-action side-tabs"
                       style="border-top:0 none;background:#333333;color: white;"
                       >FAQs/Help</a
@@ -522,8 +523,8 @@
           <div class="row d-lg-none">
             <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left font-weight-bold mb-0 sub-heading">JD DOCUMENT ID :</p></div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-right mb-0">{{jobDetail.ProfileDetail.ProfileId | jobId}}</p></div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><h4 class="pull-left font-weight-bold mb-0 theme-color">370</h4></div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-right mb-0"># Candidates with 80% Match Score</p></div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left mb-0"># Candidates with 80% Match Score</p></div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><h4 class="pull-right font-weight-bold mb-0 theme-color">370</h4></div>
           </div>
         </div>
         <!-- <a [routerLink]="['job-description', job.Id]">{{job.Name}}</a> -->
@@ -657,7 +658,7 @@
               </tbody>
 
             </table>
-            <small class="form-text text-muted">*Illustrative chart.</small>
+            <small class="form-text text-muted">&lt; Illustrative &gt; chart.</small>
           </div>
         </div>
 

@@ -25,12 +25,11 @@ export class JobListingComponent implements OnInit {
   DefaultPageSize = 2;
   range;
   myJd = true;
-  sidebarIndex = 2
   userList
+  selectedUserId = ''
   sortByDate = 'dsc'
-  constructor(private commongJobService: JobServiceService , private jobService: Job1ServiceService, private toastr: ToastrService, private router: Router) { }
-
-  ngOnInit() {
+  sidebarIndex = 2
+  constructor(private commongJobService: JobServiceService , private jobService: Job1ServiceService, private toastr: ToastrService, private router: Router) {
     this.commongJobService.getSideBarIndex().subscribe((sidebarIndex)=>{
       this.sidebarIndex = sidebarIndex
       // alert(sidebarIndex)
@@ -41,6 +40,9 @@ export class JobListingComponent implements OnInit {
       }
       this.refresh();
     })
+  }
+  ngOnInit() {
+
     const pageParams = {pageSize: this.DefaultPageSize, pageIndex: this.pageSelected, myJd: this.myJd,sortByDate: this.sortByDate};
     this.jobService.getAllJobs(pageParams).subscribe((jobs: any) => {
       this.jobs = jobs.ProfileList;
@@ -88,13 +90,14 @@ export class JobListingComponent implements OnInit {
       pageSize: this.DefaultPageSize,
       pageIndex: 0,
       searchString: this.searchString ? this.searchString : '',
-      myJd: this.myJd
+      myJd: this.myJd,
+      sortByDate: this.sortByDate,
+      selectedUserId: this.selectedUserId
     };
     this.filterProfile(paramObject);
   }
   filterProfile(paramObject) {
     console.log(paramObject,'paramobject')
-    paramObject.sortByDate = this.sortByDate;
     this.jobService.FetchFilteredProfiles(paramObject).subscribe((FilteredList: any) => {
       if (FilteredList.StatusCode === 200) {
         this.jobs = FilteredList.ProfileList;
@@ -103,6 +106,9 @@ export class JobListingComponent implements OnInit {
         this.range = `${previousRecord + 1}-${previousRecord + this.jobs.length} of ${this.length}`;
       }
     });
+  }
+  onUserChange(evn){
+    console.log(evn, 'evnnnnn',this.selectedUserId, 'selected userrrr')
   }
   onPaginateChange(evn) {
     console.log(evn, 'evfvvnnn', this.DefaultPageSize, "this.DefaultPageSizedd")
@@ -119,7 +125,9 @@ export class JobListingComponent implements OnInit {
     this.DefaultPageSize = evn.pageSize ? evn.pageSize : this.DefaultPageSize;
     this.filterProfile(paramObject);
   }
-
+  activateClass(index){
+    this.commongJobService.changeSideBarIndex(index)
+  }
   goToDetails(jobId) {
     this.router.navigate(['job-description/' + jobId]);
   }

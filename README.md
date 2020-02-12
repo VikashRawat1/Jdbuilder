@@ -100,3 +100,17 @@ ii) sidepanel not working in mobile view.
 iii) created by user not working.
 iv) sorting functionality.
 v) 
+
+
+
+save as copy functionality - p2 - 
+created by filter 
+sort by filter 
+all jd is not clickable - p1 - Done (click from)
+browser compatibility in mobile and desktop - p1 internet explorer is pending
+ 
+completed
+i) illustrative should be in angular bracket -p1 - Done
+desigantion -p1 - Done
+graph color green theme  - p1  - Done
+mobile view jd header card jd - p1 - Done

@@ -49,6 +49,7 @@ export class JobDetailComponent implements OnInit {
   selectedExperienceName;
   jobDetail;
   suggestedSkill = [];
+  selectedIndex = 2
   ////
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('suggestedInput') suggestedInput: ElementRef<HTMLInputElement>;
@@ -75,7 +76,7 @@ export class JobDetailComponent implements OnInit {
   // public pieChartPlugins = [pluginDataLabels];
   public pieChartColors = [
     {
-      backgroundColor: ['#003f5c', '#7a5195', '#ef5675', '#ffa600'],
+      backgroundColor: ['#264d00', '#66cc00', '#b3ff66', '#ffa600'],
     },
   ];
   constructor(@Inject(DOCUMENT) private document: Document, private formBuilder: FormBuilder, private jobService: Job1ServiceService, private toastr: ToastrService,private router: Router, private commonJobService: JobServiceService ) {
@@ -105,6 +106,9 @@ export class JobDetailComponent implements OnInit {
     });
   }
   ngOnInit() {
+    this.commonJobService.getSideBarIndex().subscribe((sidebarIndex)=>{
+      this.selectedIndex = sidebarIndex;
+    })
     this.jobService.fetchProfiles(location.pathname.split('/').pop()).subscribe((jobDetail: any) => {
       if (jobDetail.StatusCode === 200) {
         this.isDataFetched = true;
@@ -372,6 +376,9 @@ export class JobDetailComponent implements OnInit {
         }
       })
     }
+  }
+  activateClass(index){
+    this.commonJobService.changeSideBarIndex(index)
   }
   onSave() {
     console.log(this.jobDescriptionForm.get('mandatorySkills').value,'mandatoryryyy valuee')

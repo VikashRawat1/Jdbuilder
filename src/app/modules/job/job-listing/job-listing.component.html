@@ -62,7 +62,7 @@
         <ul class="navbar-nav">
           <li class="nav-item">
             <a
-              href="#"
+            [routerLink]="['/job']" (click)="sidebarIndex =1;activateClass(1)" [ngClass]="{'active': sidebarIndex == 1}" href="javascript:"
               class="list-group-item list-group-item-action side-tabs"
               style="background:#333333;color: white;border-top:0 none;"
               >All JDs</a
@@ -70,7 +70,7 @@
           </li>
           <li class="nav-item">
             <a
-              href="#"
+              [routerLink]="['/job']" (click)="sidebarIndex =2;activateClass(2)" [ngClass]="{'active': sidebarIndex == 2}" href="javascript:"
               class="list-group-item list-group-item-action side-tabs active theme-color-btn"
               style="border-top:0 none;color: white;"
               >My JDs</a
@@ -78,7 +78,7 @@
           </li>
           <li class="nav-item">
             <a
-              href="#"
+            [routerLink]="['/job']" (click)="sidebarIndex =3;activateClass(3)" [ngClass]="{'active': sidebarIndex == 3}"  href="javascript:"
               class="list-group-item list-group-item-action side-tabs"
               style="border-top:0 none;background:#333333;color: white;"
               >FAQs/Help</a
@@ -107,7 +107,7 @@
   </div>
   <div class="col-md-2 col-6 input-padding mo-trb-padding">
     <div class="input-group">
-      <label class="input-label">ROLES</label>
+      <label class="input-label">DESIGNATION</label>
       <select
         class="form-control input-design"
         (change)="selectedDesignation = $event.target.value"
@@ -138,8 +138,8 @@
   <div class="col-md-2 col-6 input-padding mo-trb-padding">
     <div class="input-group">
       <label class="input-label">CREATED BY</label>
-      <select class="form-control input-design">
-        <option value="undefined">All</option>
+      <select class="form-control input-design" [ngModel]="selectedUserId" (ngModelChange)="selectedUserId = $event;onUserChange($event)">
+        <option value="undefined" >All</option>
         <ng-container *ngIf="sidebarIndex !== 2">
           <option  *ngFor="let item of userList" [value]="item.Id">{{item.UserName}}</option>
         </ng-container>
@@ -200,8 +200,8 @@
   </div>
   <div class="col-md-5 d-none d-lg-block"></div>
   <div class="col-md-4 d-none d-lg-block">
-    <button *ngIf="sortByDate === 'dsc'" class="sort-btn ml-3 px-3  " (click)="sortByDate = 'asc';">SORT BY OLDEST DATE</button>
-    <button *ngIf="sortByDate === 'asc'" class="sort-btn ml-3 px-3  " (click)="sortByDate = 'dsc'">SORT BY NEWEST DATE</button>
+    <button *ngIf="sortByDate === 'dsc'" class="sort-btn ml-3 px-3  " (click)="sortByDate = 'asc';search()">SORT BY OLDEST DATE</button>
+    <button *ngIf="sortByDate === 'asc'" class="sort-btn ml-3 px-3  " (click)="sortByDate = 'dsc';search()">SORT BY NEWEST DATE</button>
     <button class="sort-btn px-3">SORT BY SCORE</button>
   </div>
 </div>
@@ -238,8 +238,9 @@
             <div class="row d-lg-none">
               <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left font-weight-bold mb-0 sub-heading">JD DOCUMENT ID :</p></div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-right mb-0">{{job.Id | jobId}}</p></div>
-              <div class="col-lg-6 col-md-6 col-sm-6 col-6"><h4 class="pull-left font-weight-bold mb-0 theme-color">370</h4></div>
-              <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-right mb-0"># Candidates with 80% Match Score</p></div>
+
+              <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left mb-0"># Candidates with 80% Match Score</p></div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-6"><h4 class="pull-right font-weight-bold mb-0 theme-color">370</h4></div>
             </div>
           </div>
           <!-- <a [routerLink]="['job-description', job.Id]">{{job.Name}}</a> -->

@@ -12,7 +12,9 @@ import { ChartType, ChartOptions } from 'chart.js';
 import { Label } from 'ng2-charts';
 import { Router } from '@angular/router';
 import { JobServiceService } from '../../../shared/services/job-service.service';
+import { AdalService } from 'src/app/shared/services/adal.service';
 // import * as pluginDataLabels from 'chartjs-plugin-datalabels';
+
 @Component({
   selector: 'app-job-detail',
   templateUrl: './job-detail.component.html',
@@ -50,6 +52,7 @@ export class JobDetailComponent implements OnInit {
   jobDetail;
   suggestedSkill = [];
   selectedIndex = 2
+  isSameUser = false
   ////
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('suggestedInput') suggestedInput: ElementRef<HTMLInputElement>;
@@ -79,7 +82,7 @@ export class JobDetailComponent implements OnInit {
       backgroundColor: ['#264d00', '#66cc00', '#b3ff66', '#ffa600'],
     },
   ];
-  constructor(@Inject(DOCUMENT) private document: Document, private formBuilder: FormBuilder, private jobService: Job1ServiceService, private toastr: ToastrService,private router: Router, private commonJobService: JobServiceService ) {
+  constructor(@Inject(DOCUMENT) private document: Document, private formBuilder: FormBuilder, private jobService: Job1ServiceService, private toastr: ToastrService,private router: Router, private commonJobService: JobServiceService, private adalService:AdalService ) {
 
    }
   @HostListener('window:scroll', [])
@@ -111,6 +114,9 @@ export class JobDetailComponent implements OnInit {
     })
     this.jobService.fetchProfiles(location.pathname.split('/').pop()).subscribe((jobDetail: any) => {
       if (jobDetail.StatusCode === 200) {
+        if(this.adalService.userInfo.profile.oid === jobDetail.ProfileDetail.CreatedBy){
+          this.isSameUser = true
+        }
         this.isDataFetched = true;
         const defaultMandatorySkill = [];
         const defaultDesiredSkill = [];
@@ -404,8 +410,13 @@ export class JobDetailComponent implements OnInit {
       if (updatedData.StatusCode === 200){
         this.toastr.success(updatedData.Message, 'Success');
         // location.reload();
-        this.commonJobService.changeSideBarIndex(2)
-        // this.router.navigate(['job']);
+        if(this.isSameUser){
+          this.isEditJd = false
+        }else{
+          this.commonJobService.changeSideBarIndex(2)
+          this.router.navigate(['job']);
+        }
+
       }
     });
   }

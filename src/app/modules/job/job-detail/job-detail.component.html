@@ -219,7 +219,7 @@
                           </div>
                         </div>
                       </div> -->
-                      <div class="col-1 p-0 btn dropdown dropleft" >
+                      <div class="col-1 p-0 btn dropdown dropleft">
                         <i class="fa fa-ellipsis-v float-right" aria-hidden="true" data-toggle="dropdown"></i>
                         <div class="dropdown-menu">
                           <a class="dropdown-item" href="JavaScript:" (click)='skill.controls.isEditing.value = true'>Edit</a>
@@ -375,8 +375,8 @@
                 <div class="col-12 d-none pr-0 d-lg-block">
                   <input (click)="isEditJd = false" type="button" value="CANCEL" class=" btn theme-color-btn mr-2"/>
                   <input data-toggle="modal" data-target="#myModal" type="button" value="VIEW CANDIDATES" class=" btn theme-color-btn mr-2"/>
-                  <input (click)="onSave()" type="button" value="SAVE AS COPY" class=" btn theme-secondary-btn"/>
-
+                  <input *ngIf="isSameUser" (click)="onSave()" type="button" value="SAVE" class=" btn theme-secondary-btn"/>
+                  <input *ngIf="!isSameUser" (click)="onSave()" type="button" value="SAVE AS COPY" class=" btn theme-secondary-btn"/>
 
 
                 </div>
@@ -436,7 +436,9 @@
       border: none;">VIEW CANDIDATE</button>
     </div>
     <div class="col-6 p-0">
-      <button (click)="onSave()" class="w-100 h-100 font-weight-bold theme-secondary-btn">SAVE AS COPY</button>
+      <button *ngIf="isSameUser" (click)="onSave()" class="w-100 h-100 font-weight-bold theme-secondary-btn">SAVE</button>
+      <button *ngIf="!isSameUser" (click)="onSave()" class="w-100 h-100 font-weight-bold theme-secondary-btn">SAVE AS COPY</button>
+
     </div>
   </div>
 
@@ -575,7 +577,7 @@
               <p class="col-12 pt-2 font-weight-bold">MANDATORY SKILLS</p>
               <p class="col-12">
                 <span *ngFor="let skill of jobDescriptionForm.get('mandatorySkills')['controls']; let i = index;">
-                  {{skill.controls.SkillName.value}}<span *ngIf="i !== tags.length-1">.</span>
+                  {{skill.controls.SkillName.value}}<span *ngIf="i !== tags.length-1">.<br /></span>
                  </span>
               </p>
               <div class="col-12">
@@ -584,7 +586,7 @@
               <p class="col-12 pt-2 font-weight-bold">DESIRED SKILLS</p>
               <p class="col-12">
                 <span *ngFor="let skill of jobDescriptionForm.get('desiredSkills')['controls']; let i = index;">
-                  {{skill.controls.SkillName.value}}<span *ngIf="i !== tags.length-1">.</span>
+                  {{skill.controls.SkillName.value}}<span *ngIf="i !== tags.length-1">.<br /></span>
                  </span>
               </p>
               <div class="col-12">
@@ -593,7 +595,7 @@
               <p class="col-12 pt-2 font-weight-bold">QUALIFICATION</p>
               <p class="col-12">
                 <span *ngFor="let item of jobDescriptionForm.get('qualifications')['controls']; let i = index;">
-                  {{item.controls.Name.value}}<span *ngIf="i !== tags.length-1">.</span>
+                  {{item.controls.Name.value}}<span *ngIf="i !== tags.length-1">.<br /></span>
                  </span>
               </p>
               <div class="col-12">
@@ -602,7 +604,7 @@
               <p class="col-12 pt-2 font-weight-bold">ROLE AND RESPONSIBILITIES</p>
               <p class="col-12">
                 <span *ngFor="let item of jobDescriptionForm.get('rolesAndResponsibility')['controls']; let i = index;">
-                  {{item.controls.Responsibility.value}}<span *ngIf="i !== tags.length-1">.</span>
+                  {{item.controls.Responsibility.value}}<span *ngIf="i !== tags.length-1">.<br /></span>
                  </span>
               </p>
               <div class="col-12">

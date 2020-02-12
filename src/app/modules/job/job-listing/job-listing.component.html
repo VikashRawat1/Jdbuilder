@@ -47,8 +47,8 @@
           <div class="dropdown-menu">
             <a class="dropdown-item" href="#">CREATE NEW JD</a>
             <a class="dropdown-item" href="#">SORT BY SCORE</a>
-            <a class="dropdown-item" href="#">SORT BY OLDEST DATE</a>
-            <a class="dropdown-item" href="#">SORT BY NEWEST DATE</a>
+            <a *ngIf="sortByDate === 'desc'" class="sort-btn ml-3 px-3  " (click)="sortByDate = 'asc';search()" class="dropdown-item" href="javascript:">SORT BY OLDEST DATE</a>
+            <a *ngIf="sortByDate === 'asc'" class="sort-btn ml-3 px-3  " (click)="sortByDate = 'desc';search()" class="dropdown-item" href="javascript:">SORT BY NEWEST DATE</a>
           </div>
         </div>
       </div>
@@ -138,10 +138,11 @@
   <div class="col-md-2 col-6 input-padding mo-trb-padding">
     <div class="input-group">
       <label class="input-label">CREATED BY</label>
-      <select class="form-control input-design" [ngModel]="selectedUserId" (ngModelChange)="selectedUserId = $event;onUserChange($event)">
-        <option value="undefined" >All</option>
+      <select class="form-control input-design" (change)="selectedUserId = $event.target.value;onUserChange($event)"
+      [(ngModel)]="selectedUserId">
+        <option value="" >All</option>
         <ng-container *ngIf="sidebarIndex !== 2">
-          <option  *ngFor="let item of userList" [value]="item.Id">{{item.UserName}}</option>
+          <option  *ngFor="let item of userList" [value]="item.UserId">{{item.UserName}}</option>
         </ng-container>
       </select>
     </div>
@@ -200,8 +201,8 @@
   </div>
   <div class="col-md-5 d-none d-lg-block"></div>
   <div class="col-md-4 d-none d-lg-block">
-    <button *ngIf="sortByDate === 'dsc'" class="sort-btn ml-3 px-3  " (click)="sortByDate = 'asc';search()">SORT BY OLDEST DATE</button>
-    <button *ngIf="sortByDate === 'asc'" class="sort-btn ml-3 px-3  " (click)="sortByDate = 'dsc';search()">SORT BY NEWEST DATE</button>
+    <button *ngIf="sortByDate === 'desc'" class="sort-btn ml-3 px-3  " (click)="sortByDate = 'asc';search()">SORT BY OLDEST DATE</button>
+    <button *ngIf="sortByDate === 'asc'" class="sort-btn ml-3 px-3  " (click)="sortByDate = 'desc';search()">SORT BY NEWEST DATE</button>
     <button class="sort-btn px-3">SORT BY SCORE</button>
   </div>
 </div>

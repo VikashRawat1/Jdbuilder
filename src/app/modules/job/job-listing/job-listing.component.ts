@@ -27,7 +27,7 @@ export class JobListingComponent implements OnInit {
   myJd = true;
   userList
   selectedUserId = ''
-  sortByDate = 'dsc'
+  sortByDate = 'desc'
   sidebarIndex = 2
   constructor(private commongJobService: JobServiceService , private jobService: Job1ServiceService, private toastr: ToastrService, private router: Router) {
     this.commongJobService.getSideBarIndex().subscribe((sidebarIndex)=>{
@@ -94,6 +94,7 @@ export class JobListingComponent implements OnInit {
       sortByDate: this.sortByDate,
       selectedUserId: this.selectedUserId
     };
+    this.pageSelected = 0
     this.filterProfile(paramObject);
   }
   filterProfile(paramObject) {
@@ -119,7 +120,9 @@ export class JobListingComponent implements OnInit {
       pageIndex: evn.pageIndex !== undefined ? evn.pageIndex : evn - 1,
       pageSize: evn.pageSize ? evn.pageSize : this.DefaultPageSize,
       searchString: this.searchString ? this.searchString : '',
-      myJd: this.myJd
+      myJd: this.myJd,
+      selectedUserId:this.selectedUserId?this.selectedUserId:"",
+      sortByDate:this.sortByDate
     };
     this.pageSelected = evn.pageIndex !== undefined ? evn.pageIndex : evn,
     this.DefaultPageSize = evn.pageSize ? evn.pageSize : this.DefaultPageSize;

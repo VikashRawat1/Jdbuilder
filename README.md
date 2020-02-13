@@ -61,56 +61,42 @@ Pending
 Extra pending
 1) Deploy application on server
 
-Completed
-1) help text for tags to add user name (and suggestions for future reference)  project, skill, client
-ploea add askill project , clientname , project, future references -- Done(Only in edit mode)
-9) correct Qualification spelling-> p1 --dONE
-10) correct Roles and responsibilities spelling-> p1 --Done
-11) correct  designation spelling-> p2 -- DONE ( CREATED BY CHANGED )
-12 ) Correct Mandatory skills in view/edit/mobile spelling --Done(changed to mandatory skills)
-17) three dots colors differences -> p1  -- DONE
-13) + add background -> p1 - DONE
-14) add skill / add qualification etc background -> p1  - DONE
-25) change about to title inside view/edit mode. -> p1
-20) illustrative(graph and charts) values  should be matched -> p1
-8) color theme should same in view/edit page -> p1
-19) Graph colors implementation-> p1 -- Done
-28) hamburger implement in view/edit -> p1 - Done
-6) Alignment create New jd and card -> p3 - Done
-7) tags should look like edit mode tag keywords-> p1 - Done
-24) align id with jobid in mobile view in card -> p1 - Done
-
-Yogender's feedback point
-
-
-Completed
-iv) secondary button(Save As draft/ Edit jd) background should be white and outline/text color should be purple -- 20 min
-iii) Buttons in view/edit page should be square button.10 min
-ii) all button(Cancel,back,save as draft etc) in  should alligned right and add more space should be there from above content. 30 min
-viii) Cancel and back button in view/edit jd should be allign center. 20 min
-v) After save as copy it should redirect to listing jd page(show relevant data). 30 min
-vi) user profile image should not be distorted in mobile view. 30min 
-vii) dmi logo should be left alligned in mobile view also. 20 min
-i) After click on add new mandatory/desired input it should open in edit mode.30-40 min
-ix) Implement auto suggestion in mandatory and desired skill. 3,4 hours
-
-New points
-i) align loader in center in mobile view.
-ii) sidepanel not working in mobile view.
-iii) created by user not working.
-iv) sorting functionality.
-v) 
-
-
 
 save as copy functionality - p2 - 
-created by filter 
-sort by filter 
+created by filter - 
+sort by filter - dONE
 all jd is not clickable - p1 - Done (click from)
 browser compatibility in mobile and desktop - p1 internet explorer is pending
- 
-completed
-i) illustrative should be in angular bracket -p1 - Done
-desigantion -p1 - Done
-graph color green theme  - p1  - Done
-mobile view jd header card jd - p1 - Done
+Disclaimer of tag is overlapping
+Alignment is wrong in "Roles & Respopnsibility" with 3 dots
+Update successful message should be shown clearly
+Loader orientation should be centered
+(Only in Safari) "3 dot" click scope should be increase
+
+
+i) auto suggest in all -- 
+
+Integrate with sharepoint for request to icims
+
+Add desired skills
+
+highlight the searched keyword
+
+create JD - pocket recuiter
+
+hamburger menu - Left side open
+
+tags getting cut in mobile view
+
+text wrapping
+
+clean the text field
+
+Updated on 
+
+After save, focus on top of the page
+
+Percentage as bar
+i) suggested input should be fully visible
+vi) scrollable paginagtion
+- 

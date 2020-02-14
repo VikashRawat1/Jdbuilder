@@ -58,10 +58,6 @@ Pending
 31) check mobile view -> p1
 -need to check in phones
 
-Extra pending
-1) Deploy application on server
-
-
 save as copy functionality - p2 - 
 created by filter - 
 sort by filter - dONE
@@ -74,29 +70,23 @@ Loader orientation should be centered
 (Only in Safari) "3 dot" click scope should be increase
 
 
-i) auto suggest in all -- 
-
+Pending task
 Integrate with sharepoint for request to icims
-
-Add desired skills
-
 highlight the searched keyword
-
 create JD - pocket recuiter
-
 hamburger menu - Left side open
-
-tags getting cut in mobile view
-
-text wrapping
-
-clean the text field
-
-Updated on 
-
-After save, focus on top of the page
-
 Percentage as bar
 i) suggested input should be fully visible
 vi) scrollable paginagtion
-- 
+-Subhi's testing point
+
+
+Completed task
+--------------------------
+- clean the text field - Done
+- Updated on -- Done
+- Add desired skills - Done
+- auto suggest in all -- Done(auto suggestion added to qualification and responsibility)
+- tags getting cut in mobile view - Done
+- After save, focus on top of the page - Done
+- text wrapping (Done)

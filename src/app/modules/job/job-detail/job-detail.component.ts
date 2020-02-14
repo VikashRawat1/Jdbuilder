@@ -51,6 +51,8 @@ export class JobDetailComponent implements OnInit {
   selectedExperienceName;
   jobDetail;
   suggestedSkill = [];
+  suggestedQualification = [];
+  suggestedResponsibilities = [];
   selectedIndex = 2
   isSameUser = false
   ////
@@ -242,7 +244,7 @@ export class JobDetailComponent implements OnInit {
   }
   createDesiredSkill(desiredSkill): FormGroup {
     return this.formBuilder.group({
-      isEditing:false,
+      isEditing:desiredSkill.isEditing?desiredSkill.isEditing:false,
       SkillId: desiredSkill.SkillId,
       SkillName: desiredSkill.SkillName,
       SkillTypeId: 2,
@@ -254,19 +256,29 @@ export class JobDetailComponent implements OnInit {
     const newSkill = {
       isEditing:true,
       SkillId: 0,
-      SkillName: 'New Mandatory skill',
+      SkillName: '',
       SkillTypeId: 1,
       SkillTypeName : 'Mandatory'};
     this.mandatorySkills.push(this.createMandatorySkill(newSkill));
   }
+  addDesiredSkill(): void {
+    this.mandatorySkills = this.jobDescriptionForm.get('desiredSkills') as FormArray;
+    const newSkill = {
+      isEditing:true,
+      SkillId: 0,
+      SkillName: '',
+      SkillTypeId: 1,
+      SkillTypeName : 'Desired'};
+    this.mandatorySkills.push(this.createDesiredSkill(newSkill));
+  }
   addQualification(): void {
     this.qualifications = this.jobDescriptionForm.get('qualifications') as FormArray;
-    const obj = {Id: 0, Name: 'New Qualification',isEditing:true};
+    const obj = {Id: 0, Name: '',isEditing:true};
     this.qualifications.push(this.createQualification(obj));
   }
   addResponsibility(): void {
     this.rolesAndResponsibility = this.jobDescriptionForm.get('rolesAndResponsibility') as FormArray;
-    const obj = {Id: '', Responsibility: 'New Responsibility',isEditing:true};
+    const obj = {Id: '', Responsibility: '',isEditing:true};
     this.rolesAndResponsibility.push(this.formBuilder.group(obj));
   }
   deleteSkill(deletedSkill, index) {
@@ -369,26 +381,68 @@ export class JobDetailComponent implements OnInit {
     }else{
       this.jobDescriptionForm.controls['desiredSkills'].value[index].SkillName = event.option.value
     }
-
+  }
+  selectQualification(event: MatAutocompleteSelectedEvent,index,isMandatory): void{
+    console.log(event,'eventt')
+    console.log(this.jobDescriptionForm.controls['qualifications'].value[index],'dsdfdfdfd')
+      this.jobDescriptionForm.controls['qualifications'].value[index].Name = event.option.value
+  }
+  selectResponsibility(event: MatAutocompleteSelectedEvent,index,isMandatory): void{
+    console.log(event,'eventt')
+    console.log(this.jobDescriptionForm.controls['rolesAndResponsibility'].value[index],'dsdfdfdfd')
+      this.jobDescriptionForm.controls['rolesAndResponsibility'].value[index].Responsibility = event.option.value
   }
   getSkill(event){
-    console.log(event.target.value, 'event')
+    console.log(event, 'event')
     if(event.target.value.length >2){
-      this.jobService.FetchAllSkills(event.target.value).subscribe((skillData: any)=>{
-        console.log(skillData, 'skllls')
-        if(skillData.StatusCode){
-          this.suggestedSkill = skillData.Skills;
-          console.log(this.suggestedSkill, 'sillllllll')
-        }
-      })
+      // check for letter and numbers
+      if((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 65 && event.keyCode <= 90)){
+        this.jobService.FetchAllSkills(event.target.value).subscribe((skillData: any)=>{
+          console.log(skillData, 'skllls')
+          if(skillData.StatusCode){
+            this.suggestedSkill = skillData.Skills;
+            console.log(this.suggestedSkill, 'sillllllll')
+          }
+        })
+      }
+    }
+  }
+  getQualifications(event){
+    console.log(event, 'event')
+    if(event.target.value.length >1){
+      // check for letter and numbers
+      if((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 65 && event.keyCode <= 90)){
+        this.jobService.FetchAllQualifications(event.target.value).subscribe((Data: any)=>{
+          console.log(Data, 'skllls')
+          if(Data.StatusCode){
+            this.suggestedQualification = Data.ProfileQualifications;
+            console.log(this.suggestedQualification, 'sillllllll')
+          }
+        })
+      }
+    }
+  }
+  getResponsibilities(event){
+    console.log(event, 'event')
+    if(event.target.value.length >1){
+      // check for letter and numbers
+      if((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 65 && event.keyCode <= 90)){
+        this.jobService.FetchAllResponsibilities(event.target.value).subscribe((Data: any)=>{
+          console.log(Data, 'skllls')
+          if(Data.StatusCode){
+            this.suggestedResponsibilities = Data.ProfileResponsibilities;
+            console.log(this.suggestedResponsibilities, 'sillllllll')
+          }
+        })
+      }
     }
   }
   activateClass(index){
     this.commonJobService.changeSideBarIndex(index)
   }
   onSave() {
-    console.log(this.jobDescriptionForm.get('mandatorySkills').value,'mandatoryryyy valuee')
-    console.log(this.jobDescriptionForm.get('desiredSkills').value,'desiredSkills valuee')
+    console.log(this.jobDescriptionForm.get('qualifications').value,'qualifications valuee')
+    console.log(this.jobDescriptionForm.get('rolesAndResponsibility').value,'rolesAndResponsibility valuee')
     // return
     const jdObject = {
       ProfileId: location.pathname.split('/').pop(),
@@ -408,10 +462,13 @@ export class JobDetailComponent implements OnInit {
     };
     this.jobService.saveJd(jdObject).subscribe((updatedData: any) => {
       if (updatedData.StatusCode === 200){
+
         this.toastr.success(updatedData.Message, 'Success');
         // location.reload();
         if(this.isSameUser){
           this.isEditJd = false
+          document.body.scrollTop = 0; // For Safari
+          document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
         }else{
           this.commonJobService.changeSideBarIndex(2)
           this.router.navigate(['job']);

@@ -110,7 +110,7 @@
           <div class="col-md-6">
             <form
               [formGroup]="jobDescriptionForm"
-              class="container p-3 my-3 text-muted col-md-12"
+              class="container p-0 my-3 text-muted col-md-12"
               (ngSubmit)="onSave()"
             >
             <div class="row">
@@ -190,13 +190,15 @@
                       <div class="input-group">
                         <!-- <input (keyup)="getSkill($event)" class="form-control" *ngIf='skill.controls.isEditing.value' formControlName="SkillName" placeholder="New Mandatory skill"> -->
                         <mat-form-field *ngIf='skill.controls.isEditing.value' class="col-12 px-0">
-                          <input type="text"
+                          <textarea style="overflow:hidden" type="text"
+                          cdkTextareaAutosize
+                          #autosize="cdkTextareaAutosize"
                           (keyup)="getSkill($event)"
                           placeholder="Mandatory Skill"
                           aria-label="Number"
                           matInput
                           formControlName="SkillName"
-                          [matAutocomplete]="auto">
+                          [matAutocomplete]="auto"></textarea>
                           <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedSkill($event,i)">
                             <mat-option *ngFor="let suggestion of suggestedSkill; let i = index;" [value]="suggestion.SkillName">
                               {{suggestion.SkillName}}
@@ -256,13 +258,15 @@
                       <div class="input-group">
                         <!-- <input class="form-control" *ngIf='skill.controls.isEditing.value' formControlName="SkillName" placeholder="Item name"> -->
                         <mat-form-field *ngIf='skill.controls.isEditing.value' class="col-12 px-0">
-                          <input type="text"
+                          <textarea style="overflow:hidden" type="text"
+                          cdkTextareaAutosize
+                          #autosize="cdkTextareaAutosize"
                           (keyup)="getSkill($event)"
                           placeholder="Desired Skill"
                           aria-label="Number"
                           matInput
                           formControlName="SkillName"
-                          [matAutocomplete]="auto">
+                          [matAutocomplete]="auto"></textarea>
                           <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedSkill($event,i)">
                             <mat-option *ngFor="let suggestion of suggestedSkill; let i = index;" [value]="suggestion.SkillName">
                               {{suggestion.SkillName}}
@@ -307,8 +311,15 @@
                   </div>
                 </div>
               </div>
-              <div class="col-12">
-                <hr>
+              <div class="col-12 pr-0">
+                <!-- <i
+                (click)="addMandatorySkill()"
+                class="fa fa-plus fa-lg pull-right"
+                aria-hidden="true"
+                title="Add more mandatory skill"
+              ></i> -->
+              <button type="button" class="btn theme-color-btn btn-sm"  (click)="addDesiredSkill()"> + Add Desired Skill</button>
+                <hr >
               </div>
               <p class="col-12 pt-2 font-weight-bold">QUALIFICATION</p>
               <div class="col-12" formArrayName="qualifications"
@@ -317,7 +328,23 @@
                   <div class="row pb-2">
                     <div class="col-11 col-md-11 col-lg-11">
                       <div class="input-group">
-                        <input class="form-control" *ngIf='item.controls.isEditing.value' formControlName="Name" placeholder="Qualification">
+                        <!-- <input class="form-control" *ngIf='item.controls.isEditing.value' formControlName="Name" placeholder="Qualification"> -->
+                        <mat-form-field *ngIf='item.controls.isEditing.value' class="col-12 px-0">
+                          <textarea style="overflow:hidden" type="text"
+                          cdkTextareaAutosize
+                          #autosize="cdkTextareaAutosize"
+                          (keyup)="getQualifications($event)"
+                          placeholder="Qualification"
+                          aria-label="Number"
+                          matInput
+                          formControlName="Name"
+                          [matAutocomplete]="auto"></textarea>
+                          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectQualification($event,i)">
+                            <mat-option *ngFor="let qualification of suggestedQualification; let i = index;" [value]="qualification.Name">
+                              {{qualification.Name}}
+                            </mat-option>
+                          </mat-autocomplete>
+                        </mat-form-field>
                       </div>
                       <p *ngIf='!item.controls.isEditing.value' style="color:gray">{{item.controls.Name.value}}</p>
                     </div>
@@ -346,7 +373,23 @@
                   <div class="row pb-2">
                     <div class="col-11 col-md-11 col-lg-11">
                       <div class="form-group">
-                        <input type="text" class="form-control" *ngIf='item.controls.isEditing.value' formControlName="Responsibility" placeholder="Role and Responsibility">
+                        <!-- <input type="text" class="form-control" *ngIf='item.controls.isEditing.value' formControlName="Responsibility" placeholder="Role and Responsibility"> -->
+                        <mat-form-field *ngIf='item.controls.isEditing.value' class="col-12 px-0">
+                          <textarea style="overflow:hidden" type="text"
+                          cdkTextareaAutosize
+                          #autosize="cdkTextareaAutosize"
+                          (keyup)="getResponsibilities($event)"
+                          placeholder="Role And Responsibility"
+                          aria-label="Number"
+                          matInput
+                          formControlName="Responsibility"
+                          [matAutocomplete]="auto"></textarea>
+                          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectResponsibility($event,i)">
+                            <mat-option *ngFor="let responsibility of suggestedResponsibilities; let i = index;" [value]="responsibility.Responsibility">
+                              {{responsibility.Responsibility}}
+                            </mat-option>
+                          </mat-autocomplete>
+                        </mat-form-field>
                       </div>
                       <p *ngIf='!item.controls.isEditing.value' style="color:gray">{{item.controls.Responsibility.value}}</p>
                     </div>
@@ -370,6 +413,7 @@
                 <hr >
               </div>
               <p class="col-12 pt-2 font-weight-bold mb-0">CREATED BY : <span class="font-weight-normal">{{jobDetail.ProfileDetail.CreatorName}}</span></p>
+              <p class="col-12 font-weight-bold mb-0">UPDATED ON : <span class="font-weight-normal">{{jobDetail.ProfileDetail.UpdatedDate | date: 'dd-MM-yyyy'}}</span></p>
               <p class="col-12 font-weight-bold">CREATED ON : <span class="font-weight-normal">{{jobDetail.ProfileDetail.CreatedDate | date: 'dd-MM-yyyy'}}</span></p>
               <!-- <div class="row d-none d-lg-block"> -->
                 <div class="col-12 d-none pr-0 d-lg-block">
@@ -611,6 +655,8 @@
                 <hr>
               </div>
               <p class="col-12 pt-2 font-weight-bold mb-0">CREATED BY : <span class="font-weight-normal">{{jobDetail.ProfileDetail.CreatorName}}</span></p>
+
+              <p class="col-12 font-weight-bold mb-0">UPDATED ON : <span class="font-weight-normal">{{jobDetail.ProfileDetail.UpdatedDate | date: 'dd-MM-yyyy'}}</span></p>
               <p class="col-12 font-weight-bold">CREATED ON : <span class="font-weight-normal">{{jobDetail.ProfileDetail.CreatedDate | date: 'dd-MM-yyyy'}}</span></p>
               <div class="col-8 col-lg-4">
                 <button type="button" class="bg-white p-2 w-100">REQUEST TO iCIMS</button>

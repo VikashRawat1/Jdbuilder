@@ -37,4 +37,12 @@ export class Job1ServiceService {
   FetchUserDetails(){
     return this.httpClient.get(`${url}/FetchUserDetails`);
   }
+  FetchAllResponsibilities(searchString) {
+    return this.httpClient.get(`${url}/FetchAllResponsibilities?searchString=${searchString}
+    `);
+  }
+  FetchAllQualifications(searchString) {
+    return this.httpClient.get(`${url}/FetchAllQualifications?searchString=${searchString}
+    `);
+  }
 }

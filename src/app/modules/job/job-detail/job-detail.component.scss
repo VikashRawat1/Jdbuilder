@@ -51,6 +51,9 @@ tr.noBorder td {
 .btn{
   border-radius: inherit
 }
+.mat-standard-chip{
+  height: inherit;
+}
 /* Desktop View */
 @media only screen and (min-width: 600px) {
   i {

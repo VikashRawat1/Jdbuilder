@@ -54,6 +54,16 @@ tr.noBorder td {
 .mat-standard-chip{
   height: inherit;
 }
+/deep/ .mat-option-text
+{
+    line-height: initial;
+    white-space: initial;
+    overflow: initial;
+    text-overflow: initial;
+}
+.mat-option.mat-active {
+  background: darkgray;
+}
 /* Desktop View */
 @media only screen and (min-width: 600px) {
   i {

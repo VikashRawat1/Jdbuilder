@@ -45,8 +45,8 @@
             data-toggle="dropdown"
           ></i>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">CREATE NEW JD</a>
-            <a class="dropdown-item" href="#">SORT BY SCORE</a>
+            <a class="dropdown-item" href="#">Create New JD</a>
+            <a class="dropdown-item" href="#">Sort By Score</a>
             <a *ngIf="sortByDate === 'desc'" class="sort-btn ml-3 px-3  " (click)="sortByDate = 'asc';search()" class="dropdown-item" href="javascript:">SORT BY OLDEST DATE</a>
             <a *ngIf="sortByDate === 'asc'" class="sort-btn ml-3 px-3  " (click)="sortByDate = 'desc';search()" class="dropdown-item" href="javascript:">SORT BY NEWEST DATE</a>
           </div>
@@ -54,7 +54,7 @@
       </div>
 
       <!-- Navbar links -->
-      <div
+      <!-- <div
         class="collapse navbar-collapse"
         style="z-index: 10;background:#333333 ;"
         id="collapsibleNavbar"
@@ -85,7 +85,7 @@
             >
           </li>
         </ul>
-      </div>
+      </div> -->
     </div>
   </div>
   <div class="col-md-2 input-padding mo-b-padding">
@@ -165,7 +165,7 @@
   <div class="col-md-2 col-12 no-padding d-none d-lg-block">
     <div class="input-group">
       <button class="search-btn" (click)="search()" type="button">
-        SEARCH
+        Search
       </button>
       <i
         class="fa fa-refresh fa-2x my-auto ml-1 pointer"
@@ -195,15 +195,15 @@
     <button
       style="background: #9E4587;border: none;color: white;height: 100%;font-size: 13px;"
     >
-      <i class="fa fa-plus" style="color: white;" aria-hidden="true"></i> CREATE
-      NEW JD
+      <i class="fa fa-plus" style="color: white;" aria-hidden="true"></i> Create
+      New JD
     </button>
   </div>
   <div class="col-md-5 d-none d-lg-block"></div>
   <div class="col-md-4 d-none d-lg-block">
-    <button *ngIf="sortByDate === 'desc'" class="sort-btn ml-3 px-3  " (click)="sortByDate = 'asc';search()">SORT BY OLDEST DATE</button>
-    <button *ngIf="sortByDate === 'asc'" class="sort-btn ml-3 px-3  " (click)="sortByDate = 'desc';search()">SORT BY NEWEST DATE</button>
-    <button class="sort-btn px-3">SORT BY SCORE</button>
+    <button *ngIf="sortByDate === 'desc'" class="sort-btn ml-3 px-3  " (click)="sortByDate = 'asc';search()">Sort BY Oldest Date</button>
+    <button *ngIf="sortByDate === 'asc'" class="sort-btn ml-3 px-3  " (click)="sortByDate = 'desc';search()">Sort By Newest Date</button>
+    <button class="sort-btn px-3">Sort By Score</button>
   </div>
 </div>
 

@@ -20,50 +20,17 @@
         <span
           style="color:white;position: absolute;top: 20px;"
           class="pt-2 pl-2"
-          >EDIT JDs</span
+          >Edit JDs</span
         >
           <!-- <p style="color:black;" class="pl-2 mt-4 pb-0" >VIEW JDs > JD DETAILS</p> -->
         </div>
         <div (click)="isEditJd = false" class="col-4 pt-2">
           <div class="dropdown dropleft float-right">
             <button type="button" class="btn theme-color-btn">
-              CANCEL
+              Cancel
             </button>
           </div>
         </div>
-                <!-- Navbar links -->
-                <div
-                class="collapse navbar-collapse"
-                style="z-index: 10;background:#333333 ;"
-                id="collapsibleNavbar"
-              >
-              <ul class="navbar-nav" style="margin-left: -15px;margin-right: -15px;">
-                <li class="nav-item">
-                  <a
-                  [routerLink]="['/job']" (click)="selectedIndex =1;activateClass(1)" [ngClass]="{'active': selectedIndex == 1}" href="javascript:"
-                    class="list-group-item list-group-item-action side-tabs"
-                    style="background:#333333;color: white;border-top:0 none;"
-                    >All JDs</a
-                  >
-                </li>
-                <li class="nav-item">
-                  <a
-                  [routerLink]="['/job']" (click)="selectedIndex =2;activateClass(2)" [ngClass]="{'active': selectedIndex == 2}" href="javascript:"
-                    class="list-group-item list-group-item-action side-tabs active theme-color-btn"
-                    style="border-top:0 none;color: white;"
-                    >My JDs</a
-                  >
-                </li>
-                <li class="nav-item">
-                  <a
-                    [routerLink]="['/job']" (click)="selectedIndex =3;activateClass(3)" [ngClass]="{'active': selectedIndex == 3}"  href="javascript:"
-                    class="list-group-item list-group-item-action side-tabs"
-                    style="border-top:0 none;background:#333333;color: white;"
-                    >FAQs/Help</a
-                  >
-                </li>
-              </ul>
-              </div>
     </div>
       <!-- <div class="row pt-3 d-lg-none" id="header">
       <div class="col-1">
@@ -417,10 +384,10 @@
               <p class="col-12 font-weight-bold">CREATED ON : <span class="font-weight-normal">{{jobDetail.ProfileDetail.CreatedDate | date: 'dd-MM-yyyy'}}</span></p>
               <!-- <div class="row d-none d-lg-block"> -->
                 <div class="col-12 d-none pr-0 d-lg-block">
-                  <input (click)="isEditJd = false" type="button" value="CANCEL" class=" btn theme-color-btn mr-2"/>
-                  <input data-toggle="modal" data-target="#myModal" type="button" value="VIEW CANDIDATES" class=" btn theme-color-btn mr-2"/>
-                  <input *ngIf="isSameUser" (click)="onSave()" type="button" value="SAVE" class=" btn theme-secondary-btn"/>
-                  <input *ngIf="!isSameUser" (click)="onSave()" type="button" value="SAVE AS COPY" class=" btn theme-secondary-btn"/>
+                  <input (click)="isEditJd = false" type="button" value="Cancel" class=" btn theme-color-btn mr-2"/>
+                  <input data-toggle="modal" data-target="#myModal" type="button" value="View Candidates" class=" btn theme-color-btn mr-2"/>
+                  <input *ngIf="isSameUser" (click)="onSave()" type="button" value="Save" class=" btn theme-secondary-btn"/>
+                  <input *ngIf="!isSameUser" (click)="onSave()" type="button" value="Save As Copy" class=" btn theme-secondary-btn"/>
 
 
                 </div>
@@ -477,11 +444,11 @@
   <div *ngIf="isEditJd" class="row d-md-none fixed-bottom" style="height: 55px;">
     <div class="col-6 p-0">
       <button data-toggle="modal" data-target="#myModal" class="w-100 h-100 font-weight-bold theme-color-btn " style="
-      border: none;">VIEW CANDIDATE</button>
+      border: none;">View Candidate</button>
     </div>
     <div class="col-6 p-0">
-      <button *ngIf="isSameUser" (click)="onSave()" class="w-100 h-100 font-weight-bold theme-secondary-btn">SAVE</button>
-      <button *ngIf="!isSameUser" (click)="onSave()" class="w-100 h-100 font-weight-bold theme-secondary-btn">SAVE AS COPY</button>
+      <button *ngIf="isSameUser" (click)="onSave()" class="w-100 h-100 font-weight-bold theme-secondary-btn">Save</button>
+      <button *ngIf="!isSameUser" (click)="onSave()" class="w-100 h-100 font-weight-bold theme-secondary-btn">Save As Copy</button>
 
     </div>
   </div>
@@ -514,43 +481,10 @@
         <div [routerLink]="['']" class="col-4 pt-2">
           <div class="dropdown dropleft float-right">
             <button type="button" class="btn theme-color-btn">
-              BACK
+              Back
             </button>
           </div>
         </div>
-                <!-- Navbar links -->
-                <div
-                class="collapse navbar-collapse"
-                style="z-index: 10;background:#333333 ;"
-                id="collapsibleNavbar"
-              >
-                <ul class="navbar-nav" style="margin-left: -15px;margin-right: -15px;">
-                  <li class="nav-item">
-                    <a
-                    [routerLink]="['/job']" (click)="selectedIndex =1;activateClass(1)" [ngClass]="{'active': selectedIndex == 1}" href="javascript:"
-                      class="list-group-item list-group-item-action side-tabs"
-                      style="background:#333333;color: white;border-top:0 none;"
-                      >All JDs</a
-                    >
-                  </li>
-                  <li class="nav-item">
-                    <a
-                    [routerLink]="['/job']" (click)="selectedIndex =2;activateClass(2)" [ngClass]="{'active': selectedIndex == 2}" href="javascript:"
-                      class="list-group-item list-group-item-action side-tabs active theme-color-btn"
-                      style="border-top:0 none;color: white;"
-                      >My JDs</a
-                    >
-                  </li>
-                  <li class="nav-item">
-                    <a
-                      [routerLink]="['/job']" (click)="selectedIndex =3;activateClass(3)" [ngClass]="{'active': selectedIndex == 3}"  href="javascript:"
-                      class="list-group-item list-group-item-action side-tabs"
-                      style="border-top:0 none;background:#333333;color: white;"
-                      >FAQs/Help</a
-                    >
-                  </li>
-                </ul>
-              </div>
     </div>
     <div class="card shadow-card mt-3">
       <div class="card-header" style="background:#EAECEA;">
@@ -659,12 +593,12 @@
               <p class="col-12 font-weight-bold mb-0">UPDATED ON : <span class="font-weight-normal">{{jobDetail.ProfileDetail.UpdatedDate | date: 'dd-MM-yyyy'}}</span></p>
               <p class="col-12 font-weight-bold">CREATED ON : <span class="font-weight-normal">{{jobDetail.ProfileDetail.CreatedDate | date: 'dd-MM-yyyy'}}</span></p>
               <div class="col-8 col-lg-4">
-                <button type="button" class="bg-white p-2 w-100">REQUEST TO iCIMS</button>
+                <button type="button" class="bg-white p-2 w-100">Request To iCIMS</button>
               </div>
               <!-- <div class="row d-none d-lg-block"> -->
                 <div class="col-12 d-none pr-0 d-lg-block pt-4">
-                  <input data-toggle="modal" data-target="#myModal" type="button" value="VIEW CANDIDATES" class=" mr-2 btn theme-color-btn"/>
-                  <input (click)="isEditJd = true;fixHeader()" type="button" value="EDIT JD" class="btn theme-secondary-btn"/>
+                  <input data-toggle="modal" data-target="#myModal" type="button" value="View Candidates" class=" mr-2 btn theme-color-btn"/>
+                  <input (click)="isEditJd = true;fixHeader()" type="button" value="Edit JD" class="btn theme-secondary-btn"/>
                 </div>
 
               <!-- </div> -->
@@ -720,13 +654,13 @@
 
     <div class="col-6 p-0">
       <button data-toggle="modal" data-target="#myModal" class="w-100 h-100 font-weight-bold theme-color-btn" style="
-      border: none;">VIEW CANDIDATES</button>
+      border: none;">View Candidates</button>
       <!-- The Modal -->
 
 
     </div>
     <div class="col-6 p-0">
-      <button (click)="isEditJd = true;fixHeader()" class="w-100 h-100 font-weight-bold theme-secondary-btn">EDIT JD</button>
+      <button (click)="isEditJd = true;fixHeader()" class="w-100 h-100 font-weight-bold theme-secondary-btn">Edit JD</button>
     </div>
   </div>
   <div class="modal" id="myModal">

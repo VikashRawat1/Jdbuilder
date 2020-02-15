@@ -34,10 +34,10 @@ export class JobServiceService {
     locationId=${params.locationId}&designationId=${params.designationId}&pageSize=${params.pageSize}&
     pageIndex=${params.pageIndex}&tagString=${params.searchString}`);
   }
-  changeSideBarIndex(index){
-    this.sideBarIndexSelected.next(index);
-  }
-  public getSideBarIndex(): Observable<any> {
-    return this.sideBarIndexSelected.asObservable();
-  }
+  // changeSideBarIndex(index){
+  //   this.sideBarIndexSelected.next(index);
+  // }
+  // public getSideBarIndex(): Observable<any> {
+  //   return this.sideBarIndexSelected.asObservable();
+  // }
 }

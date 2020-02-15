@@ -30,19 +30,23 @@ export class JobListingComponent implements OnInit {
   sortByDate = 'desc'
   sidebarIndex = 2
   constructor(private commongJobService: JobServiceService , private jobService: Job1ServiceService, private toastr: ToastrService, private router: Router) {
-    this.commongJobService.getSideBarIndex().subscribe((sidebarIndex)=>{
-      this.sidebarIndex = sidebarIndex
-      // alert(sidebarIndex)
-      if(sidebarIndex === 2){
-        this.myJd = true
-      }else{
-        this.myJd = false
-      }
-      this.refresh();
-    })
+    // this.commongJobService.getSideBarIndex().subscribe((sidebarIndex)=>{
+    //   this.sidebarIndex = sidebarIndex
+    //   alert(sidebarIndex)
+    //   if(sidebarIndex === 2){
+    //     this.myJd = true
+    //   }else{
+    //     this.myJd = false
+    //   }
+    //   this.refresh();
+    // })
   }
   ngOnInit() {
-
+    if(location.pathname == '/myJd'){
+      this.myJd = true
+    }else{
+      this.myJd = false
+    }
     const pageParams = {pageSize: this.DefaultPageSize, pageIndex: this.pageSelected, myJd: this.myJd,sortByDate: this.sortByDate};
     this.jobService.getAllJobs(pageParams).subscribe((jobs: any) => {
       this.jobs = jobs.ProfileList;
@@ -128,9 +132,9 @@ export class JobListingComponent implements OnInit {
     this.DefaultPageSize = evn.pageSize ? evn.pageSize : this.DefaultPageSize;
     this.filterProfile(paramObject);
   }
-  activateClass(index){
-    this.commongJobService.changeSideBarIndex(index)
-  }
+  // activateClass(index){
+  //   this.commongJobService.changeSideBarIndex(index)
+  // }
   goToDetails(jobId) {
     this.router.navigate(['job-description/' + jobId]);
   }

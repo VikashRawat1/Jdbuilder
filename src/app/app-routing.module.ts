@@ -4,10 +4,11 @@ import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.co
 import { JobListingComponent } from './modules/job/job-listing/job-listing.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'job', pathMatch: 'full'},
+  {path: '', redirectTo: 'myJd', pathMatch: 'full'},
   // {path: 'job', loadChildren: './modules/job/job.module#JobModule'},
   {path: 'job-description/:jobId', loadChildren: './modules/job/job.module#JobModule'},
-  {path: 'job', component: JobListingComponent},
+  {path: 'allJd', component: JobListingComponent},
+  {path: 'myJd', component: JobListingComponent},
   {path: '**', component: PageNotFoundComponent}
 ];
 

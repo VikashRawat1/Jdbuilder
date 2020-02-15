@@ -36,7 +36,15 @@ export class AppComponent implements OnInit {
   }
   // console.log(element,'element');
   // isCollapseOn = this.element.classList.contains("show");
-  constructor(private jobService:JobServiceService, private eRef: ElementRef, private adalService: AdalService, @Inject(APP_CONFIG) private config: AppConfig, private router: Router) { }
+  constructor(private jobService:JobServiceService, private eRef: ElementRef, private adalService: AdalService, @Inject(APP_CONFIG) private config: AppConfig, private router: Router) {
+    router.events.subscribe(val => {
+      if (location.pathname === "/myJd") {
+        this.selectedIndex = 2;
+      } else {
+        this.selectedIndex = 1;
+      }
+    });
+   }
   ngOnInit() {;
     this.adalService.handleCallback();
     // this.router.navigate(['/']);
@@ -51,11 +59,11 @@ export class AppComponent implements OnInit {
     this.adalService.acquireTokenResilient(this.config.resource).subscribe((token) => {
       console.log(token,'token inside app component')
     });
-    this.jobService.getSideBarIndex().subscribe((sidebarIndex)=>{
-      this.selectedIndex = sidebarIndex
-    })
+    // this.jobService.getSideBarIndex().subscribe((sidebarIndex)=>{
+    //   this.selectedIndex = sidebarIndex
+    // })
   }
-  activateClass(index){
-    this.jobService.changeSideBarIndex(index)
-  }
+  // activateClass(index){
+  //   this.jobService.changeSideBarIndex(index)
+  // }
 }

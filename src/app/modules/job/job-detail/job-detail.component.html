@@ -157,7 +157,7 @@
                       <div class="input-group">
                         <!-- <input (keyup)="getSkill($event)" class="form-control" *ngIf='skill.controls.isEditing.value' formControlName="SkillName" placeholder="New Mandatory skill"> -->
                         <mat-form-field *ngIf='skill.controls.isEditing.value' class="col-12 px-0">
-                          <textarea style="overflow:hidden" type="text"
+                          <textarea style="overflow:hidden"
                           cdkTextareaAutosize
                           #autosize="cdkTextareaAutosize"
                           (keyup)="getSkill($event)"

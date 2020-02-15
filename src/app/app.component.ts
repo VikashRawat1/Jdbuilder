@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
   // isCollapseOn = this.element.classList.contains("show");
   constructor(private jobService:JobServiceService, private eRef: ElementRef, private adalService: AdalService, @Inject(APP_CONFIG) private config: AppConfig, private router: Router) {
     router.events.subscribe(val => {
-      if (location.pathname === "/myJd") {
+      if (location.pathname.indexOf("myJd") > 0) {
         this.selectedIndex = 2;
       } else {
         this.selectedIndex = 1;

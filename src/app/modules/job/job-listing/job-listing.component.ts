@@ -136,6 +136,11 @@ export class JobListingComponent implements OnInit {
   //   this.commongJobService.changeSideBarIndex(index)
   // }
   goToDetails(jobId) {
-    this.router.navigate(['job-description/' + jobId]);
+    if(location.pathname.indexOf('myJd') > 0){
+      this.router.navigate(['myJd/job-description/' + jobId]);
+    }else{
+      this.router.navigate(['allJd/job-description/' + jobId]);
+    }
+
   }
 }

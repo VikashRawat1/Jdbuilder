@@ -89,12 +89,12 @@ export class JobDetailComponent implements OnInit {
    }
   @HostListener('window:scroll', [])
   onWindowScroll() {
-    if (document.body.scrollTop > 140 ||
-    document.documentElement.scrollTop > 140) {
+    if ((document.body.scrollTop > 140 ||
+    document.documentElement.scrollTop > 140) && document.getElementById('header')) {
       document.getElementById('header').classList.add('fixed-header');
       // document.getElementById('paragraph').classList.add('green');
     }
-    if (document.documentElement.scrollTop < 1) {
+    if (document.documentElement.scrollTop < 1 && document.getElementById('header')) {
         document.getElementById('header').classList.remove('fixed-header');
         // document.getElementById('paragraph').classList.add('green');
       }
@@ -111,9 +111,9 @@ export class JobDetailComponent implements OnInit {
     });
   }
   ngOnInit() {
-    this.commonJobService.getSideBarIndex().subscribe((sidebarIndex)=>{
-      this.selectedIndex = sidebarIndex;
-    })
+    // this.commonJobService.getSideBarIndex().subscribe((sidebarIndex)=>{
+    //   this.selectedIndex = sidebarIndex;
+    // })
     this.jobService.fetchProfiles(location.pathname.split('/').pop()).subscribe((jobDetail: any) => {
       if (jobDetail.StatusCode === 200) {
         if(this.adalService.userInfo.profile.oid === jobDetail.ProfileDetail.CreatedBy){
@@ -437,9 +437,9 @@ export class JobDetailComponent implements OnInit {
       }
     }
   }
-  activateClass(index){
-    this.commonJobService.changeSideBarIndex(index)
-  }
+  // activateClass(index){
+  //   this.commonJobService.changeSideBarIndex(index)
+  // }
   onSave() {
     console.log(this.jobDescriptionForm.get('qualifications').value,'qualifications valuee')
     console.log(this.jobDescriptionForm.get('rolesAndResponsibility').value,'rolesAndResponsibility valuee')
@@ -470,7 +470,7 @@ export class JobDetailComponent implements OnInit {
           document.body.scrollTop = 0; // For Safari
           document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
         }else{
-          this.commonJobService.changeSideBarIndex(2)
+          // this.commonJobService.changeSideBarIndex(2)
           this.router.navigate(['job']);
         }
 

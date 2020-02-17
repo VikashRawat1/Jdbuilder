@@ -13,7 +13,7 @@ import { AdalService } from 'src/app/shared/services/adal.service';
 @Component({
   selector: 'app-create-jd',
   templateUrl: './create-jd.component.html',
-  styleUrls: ['./create-jd.component.scss']
+  styleUrls: ['../job-detail/job-detail.component.scss']
 })
 export class CreateJdComponent implements OnInit {
   jobDescriptionForm: FormGroup;

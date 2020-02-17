@@ -9,6 +9,7 @@ const routes: Routes = [
   // {path: 'job', loadChildren: './modules/job/job.module#JobModule'},
   {path: 'allJd/job-description/:jobId', loadChildren: './modules/job/job.module#JobModule'},
   {path: 'myJd/job-description/:jobId', loadChildren: './modules/job/job.module#JobModule'},
+  // {path: 'createJD', loadChildren: './modules/job/job.module#JobModule'},
   {path: 'createJD', component: CreateJdComponent},
   {path: 'allJd', component: JobListingComponent},
   {path: 'myJd', component: JobListingComponent},

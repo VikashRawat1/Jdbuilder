@@ -20,11 +20,13 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { ViewJdComponent } from './view-jd/view-jd.component';
 import { ChartsModule } from 'ng2-charts';
 import { PipesModule } from 'src/app/shared/pipes/jobId-pipe/pipe.module';
+import { CreateJdComponent } from './create-jd/create-jd.component';
 @NgModule({
   declarations: [
     // JobListingComponent,
     JobDetailComponent,
     ViewJdComponent,
+    // CreateJdComponent,
   ],
   imports: [
     CommonModule,

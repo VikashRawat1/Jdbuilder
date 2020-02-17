@@ -19,17 +19,17 @@
         <span
           style="color:white;position: absolute;top: 20px;"
           class="pt-2 pl-2"
-          >Edit JDs</span
+          >Create New JD</span
         >
           <!-- <p style="color:black;" class="pl-2 mt-4 pb-0" >VIEW JDs > JD DETAILS</p> -->
         </div>
-        <div (click)="isEditJd = false" class="col-4 pt-2">
+        <!-- <div (click)="isEditJd = false" class="col-4 pt-2">
           <div class="dropdown dropleft float-right">
             <button type="button" class="btn theme-color-btn">
               Cancel
             </button>
           </div>
-        </div>
+        </div> -->
     </div>
       <!-- <div class="row pt-3 d-lg-none" id="header">
       <div class="col-1">
@@ -407,9 +407,9 @@
               <p class="col-12 font-weight-bold">CREATED ON : <span class="font-weight-normal">dd-MMM-yyyy</span></p>
               <!-- <div class="row d-none d-lg-block"> -->
                 <div class="col-12 d-none pr-0 d-lg-block">
-                  <input (click)="isEditJd = false" type="button" value="Cancel" class=" btn theme-color-btn mr-2"/>
-                  <input data-toggle="modal" data-target="#myModal" type="button" value="View Candidates" class=" btn theme-color-btn mr-2"/>
-                  <input *ngIf="isSameUser" (click)="onSave()" type="button" value="Save" class=" btn theme-secondary-btn"/>
+                  <input [routerLink]="['/myJd']" type="button" value="Cancel" class=" btn theme-color-btn mr-2"/>
+                  <!-- <input data-toggle="modal" data-target="#myModal" type="button" value="View Candidates" class=" btn theme-color-btn mr-2"/> -->
+                  <input *ngIf="isSameUser" (click)="onSave()" type="button" value="Create" class=" btn theme-secondary-btn"/>
                   <input *ngIf="!isSameUser" (click)="onSave()" type="button" value="Create" class=" btn theme-secondary-btn"/>
 
 
@@ -466,12 +466,12 @@
   </div>
   <div class="row d-md-none fixed-bottom" style="height: 55px;">
     <div class="col-6 p-0">
-      <button data-toggle="modal" data-target="#myModal" class="w-100 h-100 font-weight-bold theme-color-btn " style="
-      border: none;">View Candidate</button>
+      <button [routerLink]="['/myJd']"  class="w-100 h-100 font-weight-bold theme-color-btn " style="
+      border: none;">Cancel</button>
     </div>
     <div class="col-6 p-0">
       <button *ngIf="isSameUser" (click)="onSave()" class="w-100 h-100 font-weight-bold theme-secondary-btn">Save</button>
-      <button *ngIf="!isSameUser" (click)="onSave()" class="w-100 h-100 font-weight-bold theme-secondary-btn">Save As Copy</button>
+      <button *ngIf="!isSameUser" (click)="onSave()" class="w-100 h-100 font-weight-bold theme-secondary-btn">Create</button>
 
     </div>
   </div>

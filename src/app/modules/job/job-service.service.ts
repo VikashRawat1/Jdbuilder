@@ -45,4 +45,8 @@ export class Job1ServiceService {
     return this.httpClient.get(`${url}/FetchAllQualifications?searchString=${searchString}
     `);
   }
+  CreateProfile(jobDetail) {
+    return this.httpClient.post(`${url}/CreateProfile`,jobDetail);
+  }
+
 }

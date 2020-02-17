@@ -483,7 +483,7 @@ export class JobDetailComponent implements OnInit {
           document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
         }else{
           // this.commonJobService.changeSideBarIndex(2)
-          this.router.navigate(['job']);
+          this.router.navigate(['myJd']);
         }
 
       }

@@ -25,15 +25,18 @@ import { AdalService } from './shared/services/adal.service';
 import { AdalConfigService } from './shared/services/adal-config.service';
 import { InsertAuthTokenInterceptor } from './shared/interceptors/insert-auth-token';
 import { JobListingComponent } from './modules/job/job-listing/job-listing.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PipesModule } from './shared/pipes/jobId-pipe/pipe.module';
 import { LayoutModule } from './shared/layout/layout.module';
+import { CreateJdComponent } from './modules/job/create-jd/create-jd.component';
+import { MaterialUiModule } from './modules/material-ui/material-ui.module';
 @NgModule({
   declarations: [
     AppComponent,
     PageNotFoundComponent,
     LoaderComponent,
     JobListingComponent,
+    CreateJdComponent
   ],
   imports: [
     // MaterialUiModule,
@@ -47,7 +50,9 @@ import { LayoutModule } from './shared/layout/layout.module';
     ChartsModule,
     FormsModule,
     PipesModule,
-    LayoutModule
+    LayoutModule,
+    ReactiveFormsModule,
+    MaterialUiModule
   ],
   providers: [JobServiceService, LoaderService, AdalService, AdalConfigService,
     { provide: HTTP_INTERCEPTORS, useClass: InsertAuthTokenInterceptor, multi: true },

@@ -55,6 +55,7 @@ export class JobDetailComponent implements OnInit {
   suggestedResponsibilities = [];
   selectedIndex = 2
   isSameUser = false
+  submitted = false;
   ////
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('suggestedInput') suggestedInput: ElementRef<HTMLInputElement>;
@@ -138,14 +139,16 @@ export class JobDetailComponent implements OnInit {
             ele.isEditing = false
             defaultQualification.push(this.createQualification(ele));
         });
+        console.log(defaultQualification, 'default qualificationnnn')
         jobDetail.ProfileDetail.ResponsibilityList.forEach((ele) => {
           ele.isEditing = false
+          ele.Responsibility = [ele.Responsibility,Validators.required]
           defaultResponsibility.push(this.formBuilder.group(ele));
       });
         this.tags = jobDetail.ProfileDetail.TagsList;
         this.jobDescriptionForm = this.formBuilder.group({
           title: new FormControl(jobDetail.ProfileDetail.ProfileName),
-          about: new FormControl(jobDetail.ProfileDetail.About),
+          about: new FormControl(jobDetail.ProfileDetail.About, Validators.required),
           selectedDesignation: new FormControl(jobDetail.ProfileDetail.DesignationId),
           selectedLocation: new FormControl(jobDetail.ProfileDetail.LocationId),
           selectedExperience: new FormControl(jobDetail.ProfileDetail.ExperienceId),
@@ -184,6 +187,7 @@ export class JobDetailComponent implements OnInit {
             });
           }
         });
+
       } else {
         this.jobDescriptionForm = this.formBuilder.group({
           title: new FormControl('Title of the job'),
@@ -199,6 +203,7 @@ export class JobDetailComponent implements OnInit {
           qualifications:  this.formBuilder.array([ this.formBuilder.group({Id: 0, Name: 'default qualification'})]),
         });
       }
+      console.log(this.jobDescriptionForm, 'dfdfdfdf')
       this.jobService.FetchTagsList().subscribe((tags: any) => {
         if (tags.StatusCode === 200) {
           this.allTags = tags.ProfileTagsList;
@@ -233,20 +238,21 @@ export class JobDetailComponent implements OnInit {
     return this.formBuilder.group({
         isEditing: newSkill.isEditing?newSkill.isEditing:false,
         SkillId: newSkill.SkillId,
-        SkillName: newSkill.SkillName,
+        SkillName: [newSkill.SkillName,Validators.required],
         SkillTypeId: newSkill.SkillTypeId,
         SkillTypeName : newSkill.SkillTypeName,
     });
   }
   createQualification(qualificationObj): FormGroup {
     console.log(qualificationObj, 'qualificaddfd')
+    qualificationObj.Name = [qualificationObj.Name,Validators.required]
     return this.formBuilder.group(qualificationObj);
   }
   createDesiredSkill(desiredSkill): FormGroup {
     return this.formBuilder.group({
       isEditing:desiredSkill.isEditing?desiredSkill.isEditing:false,
       SkillId: desiredSkill.SkillId,
-      SkillName: desiredSkill.SkillName,
+      SkillName: [desiredSkill.SkillName,Validators.required],
       SkillTypeId: 2,
       SkillTypeName : 'Desired'
     });
@@ -278,7 +284,7 @@ export class JobDetailComponent implements OnInit {
   }
   addResponsibility(): void {
     this.rolesAndResponsibility = this.jobDescriptionForm.get('rolesAndResponsibility') as FormArray;
-    const obj = {Id: '', Responsibility: '',isEditing:true};
+    const obj = {Id: '', Responsibility: ['',Validators.required],isEditing:true};
     this.rolesAndResponsibility.push(this.formBuilder.group(obj));
   }
   deleteSkill(deletedSkill, index) {
@@ -441,6 +447,12 @@ export class JobDetailComponent implements OnInit {
   //   this.commonJobService.changeSideBarIndex(index)
   // }
   onSave() {
+    this.submitted = true;
+    console.log(this.jobDescriptionForm,"formdetialll",this.jobDescriptionForm.invalid,"dddddddd")
+          // stop here if form is invalid
+          if (this.jobDescriptionForm.invalid) {
+            return;
+        }
     console.log(this.jobDescriptionForm.get('qualifications').value,'qualifications valuee')
     console.log(this.jobDescriptionForm.get('rolesAndResponsibility').value,'rolesAndResponsibility valuee')
     // return

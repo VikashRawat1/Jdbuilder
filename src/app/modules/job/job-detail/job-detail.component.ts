@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, ViewChild, HostListener, Inject } from '@angular/core';
+import { Component, OnInit, Directive, ChangeDetectorRef, ElementRef, ViewChild, HostListener, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Job1ServiceService } from '../job-service.service';
@@ -63,16 +63,90 @@ export class JobDetailComponent implements OnInit {
   @ViewChild('suggestedInput') suggestedInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
   @ViewChild('content', {}) content: ElementRef;
+  capturedImage;
 
   public downloadPDF() {
-    html2canvas(document.getElementById('content')).then(function(canvas) {
+    window.scrollTo()
+  //   html2canvas(document.querySelector("#content"),{scrollY: -window.scrollY}).then(canvas => {
+
+  //     // debugger;
+
+  //    /// document.body.appendChild(canvas);
+  //    this.capturedImage = canvas.toDataURL();
+  //    console.log("canvas.toDataURL() -->" + this.capturedImage);
+  //    // this will contain something like (note the ellipses for brevity), console.log cuts it off
+  //    // "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAa0AAAB3CAYAAACwhB/KAAAXr0lEQVR4Xu2dCdiNZf7HP/ZQkpQtaUxDjYYoTSYlURMhGlmKa..."
+
+
+  //    canvas.toBlob(function (blob) {
+
+  //      //  just pass blob to something expecting a blob
+  //      // somfunc(blob);
+
+  //      // Same as canvas.toDataURL(), just longer way to do it.
+  //      var reader = new FileReader();
+  //     //  debugger;
+  //      reader.readAsDataURL(blob);
+  //      reader.onloadend = function () {
+  //        let base64data = reader.result;
+  //        console.log("Base64--> " + base64data);
+  //      }
+
+  //    });
+
+
+  //  });
+    let quotes = document.getElementById('content-pdf');
+    html2canvas(document.getElementById('content-pdf'),{scrollY: -window.scrollY}).then(function(canvas) {
 
       var img = canvas.toDataURL("image/png");
       console.log(canvas, 'canvass')
-      window.open(img);
-      // var doc = new JSPdf();
-      // doc.addImage(img,'JPEG',0,0,100,100,'','NONE');
-      // doc.save('testCanvas.pdf');
+      // window.open(img);
+      var doc = new JSPdf('p', 'pt', 'letter');
+      for (var i = 0; i <= quotes.clientHeight/1450; i++) {
+        //! This is all just html2canvas stuff
+        var srcImg  = canvas;
+        var sX      = 0;
+        var sY      = 1450 *i; // start 980 pixels down for every new page
+        var sWidth  = 1100;
+        var sHeight = 1450;
+        var dX      = 0;
+        var dY      = 0;
+        var dWidth  = 1100;
+        var dHeight = 1450;
+
+        let onePageCanvas = document.createElement("canvas");
+        onePageCanvas.setAttribute('width', "1100");
+        onePageCanvas.setAttribute('height', "1450");
+        var ctx = onePageCanvas.getContext('2d');
+        // details on this usage of this function:
+        // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images#Slicing
+        ctx.drawImage(srcImg,sX,sY,sWidth,sHeight,dX,dY,dWidth,dHeight);
+
+        // document.body.appendChild(canvas);
+        var canvasDataURL = onePageCanvas.toDataURL("image/png", 1.0);
+
+        var width         = onePageCanvas.width;
+        var height        = onePageCanvas.clientHeight;
+
+        //! If we're on anything other than the first page,
+        // add another page
+        if (i > 0) {
+            doc.addPage(612, 791); //8.5" x 11" in pts (in*72)
+        }
+        //! now we declare that we're working on that page
+        doc.setPage(i+1);
+        //! now we add content to that page!
+        doc.addImage(canvasDataURL, 'PNG', 25, 20, (width*0.5), (height*0.5));
+
+    }
+    //! after the for loop is finished running, we save the pdf.
+      // doc.addImage(img,'JPEG',0,0,200,0);
+      doc.save('testCanvas.pdf');
+      // this.canvas.nativeElement.src = canvas.toDataURL();
+      // this.downloadLink.nativeElement.href = canvas.toDataURL('image/png');
+      // this.downloadLink.nativeElement.download = 'marble-diagram.png';
+      // this.downloadLink.nativeElement.click();
       });
   }
   // Pie
@@ -493,6 +567,7 @@ export class JobDetailComponent implements OnInit {
         this.toastr.success(updatedData.Message, 'Success');
         // location.reload();
         if(this.isSameUser){
+          this.jobDetail.ProfileDetail.UpdatedDate = updatedData.ProfileDetail.UpdatedDate
           this.isEditJd = false
           document.body.scrollTop = 0; // For Safari
           document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera

@@ -21,11 +21,13 @@ import { ViewJdComponent } from './view-jd/view-jd.component';
 import { ChartsModule } from 'ng2-charts';
 import { PipesModule } from 'src/app/shared/pipes/jobId-pipe/pipe.module';
 import { CreateJdComponent } from './create-jd/create-jd.component';
+import { ContentPdfComponent } from './content-pdf/content-pdf.component';
 @NgModule({
   declarations: [
     // JobListingComponent,
     JobDetailComponent,
     ViewJdComponent,
+    ContentPdfComponent,
     // CreateJdComponent,
   ],
   imports: [

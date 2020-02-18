@@ -69,32 +69,14 @@ Update successful message should be shown clearly
 Loader orientation should be centered
 (Only in Safari) "3 dot" click scope should be increase
 
-
-Pending task
-Integrate with sharepoint for request to icims
-highlight the searched keyword
-create JD - pocket recuiter
-hamburger menu - Left side open
-Percentage as bar
-i) suggested input should be fully visible
-vi) scrollable paginagtion
--Subhi's testing point
-
-
 Completed task
 --------------------------
-- clean the text field - Done
-- Updated on -- Done
-- Add desired skills - Done
-- auto suggest in all -- Done(auto suggestion added to qualification and responsibility)
-- tags getting cut in mobile view - Done
-- After save, focus on top of the page - Done
-- text wrapping (Done)
+- Add designation while adding JD
+- Auto suggest in summary
+- Last updated on Last updated by - dONE
+- Limit out the summary text
+- Se to Software Engineer and so on..
+- 
 
-
-      <div class="col-6 col-lg-4">
-        <button (click)="downloadPDF()" type="button" class="bg-white p-2 w-100">Export as Pdf</button>
-      </div>
-      <div class="col-6 col-lg-4">
-        <button type="button" class="bg-white p-2 w-100">Request To iCIMS</button>
-      </div>
+- Roles & Responsibility text
+- While listing updated date was not shown after created new one - Done

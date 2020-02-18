@@ -74,6 +74,18 @@ tr.noBorder td {
   height: 1px;
   top: 90%;
 }
+// .ellipsis {
+//   white-space: nowrap;
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+//   -webkit-line-clamp: 2;
+//   -webkit-box-orient: vertical;
+// }
+
+// p.block {
+//   height: 20%;
+// }
+.html2canvas-container { width: 3000px !important; height: 3000px !important; }
 /* Desktop View */
 @media only screen and (min-width: 600px) {
   i {
@@ -93,3 +105,17 @@ tr.noBorder td {
     color: #CE353D;
   }
 }
+
+
+
+
+
+//Pdf css
+#content-pdf h2{
+  color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none
+}
+#content-pdf p{
+  font-size:25px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none
+}
+
+

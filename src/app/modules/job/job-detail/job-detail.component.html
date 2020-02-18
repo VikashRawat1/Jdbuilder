@@ -399,9 +399,9 @@
                 <button type="button" class="btn theme-color-btn btn-sm" (click)="addResponsibility()">+ Add</button>
                 <hr >
               </div>
-              <p class="col-12 pt-2 font-weight-bold mb-0">CREATED BY : <span class="font-weight-normal">{{jobDetail.ProfileDetail.CreatorName}}</span></p>
-              <p class="col-12 font-weight-bold mb-0">UPDATED ON : <span class="font-weight-normal">{{jobDetail.ProfileDetail.UpdatedDate | date: 'dd-MMM-yyyy'}}</span></p>
-              <p class="col-12 font-weight-bold">CREATED ON : <span class="font-weight-normal">{{jobDetail.ProfileDetail.CreatedDate | date: 'dd-MMM-yyyy'}}</span></p>
+              <p class="col-12 pt-2 font-weight-bold mb-0">LAST UPDATED BY : <span class="font-weight-normal">{{jobDetail.ProfileDetail.CreatorName}}</span></p>
+              <p class="col-12 font-weight-bold mb-0">LAST UPDATED ON : <span class="font-weight-normal">{{jobDetail.ProfileDetail.UpdatedDate | date: 'dd-MMM-yyyy'}}</span></p>
+              <!-- <p class="col-12 font-weight-bold">CREATED ON : <span class="font-weight-normal">{{jobDetail.ProfileDetail.CreatedDate | date: 'dd-MMM-yyyy'}}</span></p> -->
               <!-- <div class="row d-none d-lg-block"> -->
                 <div class="col-12 d-none pr-0 d-lg-block">
                   <input (click)="isEditJd = false" type="button" value="Cancel" class=" btn theme-color-btn mr-2"/>
@@ -549,7 +549,7 @@
               </div>
 
               <div class="col-12">
-                <p style="color:gray" >{{jobDescriptionForm.controls.about.value}}</p>
+                <p class="ellipsis" style="color:gray" >{{jobDescriptionForm.controls.about.value}}</p>
                 <hr>
               </div>
               <!-- <div class="col-1 p-0 pt-4"><i class="fa fa-ellipsis-v float-right" aria-hidden="true"></i></div> -->
@@ -599,10 +599,10 @@
               <div class="col-12">
                 <hr>
               </div>
-              <p class="col-12 pt-2 font-weight-bold mb-0">CREATED BY : <span class="font-weight-normal">{{jobDetail.ProfileDetail.CreatorName}}</span></p>
+              <p class="col-12 pt-2 font-weight-bold mb-0">LAST UPDATED BY : <span class="font-weight-normal">{{jobDetail.ProfileDetail.CreatorName}}</span></p>
 
-              <p class="col-12 font-weight-bold mb-0">UPDATED ON : <span class="font-weight-normal">{{jobDetail.ProfileDetail.UpdatedDate | date: 'dd-MMM-yyyy'}}</span></p>
-              <p class="col-12 font-weight-bold">CREATED ON : <span class="font-weight-normal">{{jobDetail.ProfileDetail.CreatedDate | date: 'dd-MMM-yyyy'}}</span></p>
+              <p class="col-12 font-weight-bold mb-0">LAST UPDATED ON : <span class="font-weight-normal">{{jobDetail.ProfileDetail.UpdatedDate | date: 'dd-MMM-yyyy'}}</span></p>
+              <!-- <p class="col-12 font-weight-bold">CREATED ON : <span class="font-weight-normal">{{jobDetail.ProfileDetail.CreatedDate | date: 'dd-MMM-yyyy'}}</span></p> -->
 
               <div class="col-6 col-lg-4">
                 <button (click)="downloadPDF()" type="button" class="bg-white p-2 w-100">Export as Pdf</button>
@@ -724,4 +724,96 @@
       </div>
     </div>
   </div>
+
+
+
+  <div style="overflow: hidden; height: 0;">
+    <div #screen id="content-pdf" class="row bg-white pb-3">
+      <img src="../../../../assets/images/pdf-header.png">
+      <div class="col-md-12 no-padding mb-5">
+      <div class="card shadow-card mt-3" style="border:none">
+        <div class="card-body" >
+          <div class="row">
+            <div class="col-md-12">
+              <form
+                [formGroup]="jobDescriptionForm"
+                class="container p-0 my-3 text-muted col-md-12"
+                (ngSubmit)="onSave()"
+              >
+              <div class="row">
+                <p class="col-12 pt-2 font-weight-bold">DESIGNATION</p>
+                <p class="col-12 pt-2">{{selectedDesignationName}}</p>
+                <p class="col-12 pt-2 font-weight-bold">EXPERIENCE</p>
+                <p class="col-12 pt-2">{{selectedExperienceName}}</p>
+                <p class="col-12 pt-2 font-weight-bold">LOCATION</p>
+                <p class="col-12 pt-2">{{selectedLocationName}}</p>
+                <p class="col-12 pt-2 font-weight-bold">SUMMARY</p>
+
+                <div class="col-12">
+                  <p >{{jobDescriptionForm.controls.about.value}}</p>
+                  <hr>
+                </div>
+                <!-- <div class="col-1 p-0 pt-4"><i class="fa fa-ellipsis-v float-right" aria-hidden="true"></i></div> -->
+
+              <!-- </div>
+              <div class="col-sm-12 pl-0"> -->
+                <p class="col-12 pt-2 font-weight-bold">TAGS</p>
+                <mat-chip-list class="col-12">
+                  <mat-chip  *ngFor="let tag of tags">{{tag.TagName}}</mat-chip>
+                </mat-chip-list>
+                <div class="col-12">
+                  <hr>
+                </div>
+                <p class="col-12 pt-2 font-weight-bold">MANDATORY SKILLS</p>
+                <p class="col-12">
+                  <span *ngFor="let skill of jobDescriptionForm.get('mandatorySkills')['controls']; let i = index;">
+                    {{skill.controls.SkillName.value}}<span *ngIf="i !== tags.length-1">.<br /></span>
+                   </span>
+                </p>
+                <div class="col-12">
+                  <hr>
+                </div>
+                <p class="col-12 pt-2 font-weight-bold">DESIRED SKILLS</p>
+                <p class="col-12">
+                  <span *ngFor="let skill of jobDescriptionForm.get('desiredSkills')['controls']; let i = index;">
+                    {{skill.controls.SkillName.value}}<span *ngIf="i !== tags.length-1">.<br /></span>
+                   </span>
+                </p>
+                <div class="col-12">
+                  <hr>
+                </div>
+                <p class="col-12 pt-2 font-weight-bold">QUALIFICATION</p>
+                <p class="col-12">
+                  <span *ngFor="let item of jobDescriptionForm.get('qualifications')['controls']; let i = index;">
+                    {{item.controls.Name.value}}<span *ngIf="i !== tags.length-1">.<br /></span>
+                   </span>
+                </p>
+                <div class="col-12">
+                  <hr>
+                </div>
+                <p class="col-12 pt-2 font-weight-bold">ROLE AND RESPONSIBILITIES</p>
+                <p class="col-12">
+                  <span *ngFor="let item of jobDescriptionForm.get('rolesAndResponsibility')['controls']; let i = index;">
+                    {{item.controls.Responsibility.value}}<span *ngIf="i !== tags.length-1">.<br /></span>
+                   </span>
+                </p>
+                <div class="col-12">
+                  <hr>
+                </div>
+                <p class="col-12 pt-2 font-weight-bold mb-0">CREATED BY : <span class="font-weight-normal">{{jobDetail.ProfileDetail.CreatorName}}</span></p>
+
+                <p class="col-12 font-weight-bold mb-0">UPDATED ON : <span class="font-weight-normal">{{jobDetail.ProfileDetail.UpdatedDate | date: 'dd-MMM-yyyy'}}</span></p>
+                <p class="col-12 font-weight-bold">CREATED ON : <span class="font-weight-normal">{{jobDetail.ProfileDetail.CreatedDate | date: 'dd-MMM-yyyy'}}</span></p>
+                </div>
+
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+
 </div>

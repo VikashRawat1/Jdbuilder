@@ -53,20 +53,13 @@
           <!-- Desktop View -->
           <div class="d-none d-lg-block">
             <div class="row">
-              <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left font-weight-bold mb-0 sub-heading">JD DOCUMENT ID :</p></div>
-              <div class="col-lg-6 col-md-6 col-sm-6 col-12"><h4 class="pull-right font-weight-bold mb-0 theme-color">370</h4></div>
-              <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left mb-0">XXXXX00000XX</p></div>
-              <div class="col-lg-6 col-md-6 col-sm-6 col-12"><p class="pull-right mb-0"># Candidates with 80% Match Score</p></div>
+              &nbsp;
             </div>
           </div>
 
           <!-- Mobile View -->
           <div class="row d-lg-none">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left font-weight-bold mb-0 sub-heading">JD DOCUMENT ID :</p></div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-right mb-0">XXXXX00000XX</p></div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><p class="pull-left mb-0"># Candidates with 80% Match Score</p></div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><h4 class="pull-right font-weight-bold mb-0 theme-color">370</h4></div>
-
+            &nbsp;
           </div>
         </div>
         <!-- <a [routerLink]="['job-description', job.Id]">{{job.Name}}</a> -->
@@ -109,7 +102,7 @@
                 <p class="pt-2 font-weight-bold">SUMMARY</p>
               </div>
 
-              <div class="col-11">
+              <div class="col-12">
                 <!-- <p style="color:gray" >{{jobDescriptionForm.controls.about.value}}</p> -->
                 <mat-form-field class="col-12 px-0">
                   <textarea style="overflow:hidden" type="text"
@@ -124,9 +117,9 @@
                   <span *ngIf="!jobDescriptionForm.get('about').valid && jobDescriptionForm.get('about').touched">Please enter summary !!!</span>
               </mat-error>
               </div>
-              <div class="col-12">
+              <!-- <div class="col-12">
                 <hr>
-              </div>
+              </div> -->
               <!-- <div class="col-1 p-0 pt-4"><i class="fa fa-ellipsis-v float-right" aria-hidden="true"></i></div> -->
 
             <!-- </div>
@@ -402,9 +395,6 @@
                 <button type="button" class="btn theme-color-btn btn-sm" (click)="addResponsibility()">+ Add</button>
                 <hr >
               </div>
-              <p class="col-12 pt-2 font-weight-bold mb-0">CREATED BY : <span class="font-weight-normal">XXXX</span></p>
-              <p class="col-12 font-weight-bold mb-0">UPDATED ON : <span class="font-weight-normal">dd-MMM-yyyy</span></p>
-              <p class="col-12 font-weight-bold">CREATED ON : <span class="font-weight-normal">dd-MMM-yyyy</span></p>
               <!-- <div class="row d-none d-lg-block"> -->
                 <div class="col-12 d-none pr-0 d-lg-block">
                   <input [routerLink]="['/myJd']" type="button" value="Cancel" class=" btn theme-color-btn mr-2"/>

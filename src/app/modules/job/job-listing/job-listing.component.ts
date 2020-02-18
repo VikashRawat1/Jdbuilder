@@ -22,7 +22,7 @@ export class JobListingComponent implements OnInit {
   pageSize = 2;
   pageSizeOptions: number[] = [2, 5, 10, 25, 100];
   pageSelected = 0;
-  DefaultPageSize = 2;
+  DefaultPageSize = 5;
   range;
   myJd = true;
   userList

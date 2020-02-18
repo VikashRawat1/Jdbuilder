@@ -64,6 +64,16 @@ tr.noBorder td {
 .mat-option.mat-active {
   background: darkgray;
 }
+/deep/ textarea.mat-input-element{
+  height: auto;
+  page-break-inside: avoid !important;
+  overflow: hidden !important;
+  line-height: 16px;
+}
+ /deep/ .mat-form-field-underline {
+  height: 1px;
+  top: 90%;
+}
 /* Desktop View */
 @media only screen and (min-width: 600px) {
   i {

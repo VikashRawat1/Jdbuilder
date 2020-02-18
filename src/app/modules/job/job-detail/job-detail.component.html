@@ -106,10 +106,10 @@
                 <p class="pt-2 font-weight-bold">SUMMARY</p>
               </div>
 
-              <div class="col-11">
+              <div class="col-12">
                 <!-- <p style="color:gray" >{{jobDescriptionForm.controls.about.value}}</p> -->
                 <mat-form-field class="col-12 px-0">
-                  <textarea style="overflow:hidden" type="text"
+                  <textarea  type="text"
                   cdkTextareaAutosize
                   placeholder=""
                   aria-label="Number"
@@ -121,9 +121,9 @@
                   <span *ngIf="!jobDescriptionForm.get('about').valid && jobDescriptionForm.get('about').touched">Please enter summary !!!</span>
               </mat-error>
               </div>
-              <div class="col-12">
+              <!-- <div class="col-12">
                 <hr>
-              </div>
+              </div> -->
               <!-- <div class="col-1 p-0 pt-4"><i class="fa fa-ellipsis-v float-right" aria-hidden="true"></i></div> -->
 
             <!-- </div>
@@ -474,7 +474,7 @@
   </div>
 
   <!-- VIEW MODE -->
-  <div *ngIf="!isEditJd" class="row bg-white pb-3" >
+  <div  id="content" [hidden]="isEditJd" class="row bg-white pb-3" >
     <div class="col-md-12 no-padding mb-5" style="font-size: 13px;">
       <div class="row pt-2 pb-3 d-lg-none" id="header">
         <div class="col-8">
@@ -603,7 +603,11 @@
 
               <p class="col-12 font-weight-bold mb-0">UPDATED ON : <span class="font-weight-normal">{{jobDetail.ProfileDetail.UpdatedDate | date: 'dd-MMM-yyyy'}}</span></p>
               <p class="col-12 font-weight-bold">CREATED ON : <span class="font-weight-normal">{{jobDetail.ProfileDetail.CreatedDate | date: 'dd-MMM-yyyy'}}</span></p>
-              <div class="col-8 col-lg-4">
+
+              <div class="col-6 col-lg-4">
+                <button (click)="downloadPDF()" type="button" class="bg-white p-2 w-100">Export as Pdf</button>
+              </div>
+              <div class="col-6 col-lg-4">
                 <button type="button" class="bg-white p-2 w-100">Request To iCIMS</button>
               </div>
               <!-- <div class="row d-none d-lg-block"> -->

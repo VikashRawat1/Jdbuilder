@@ -14,6 +14,8 @@ import { Router } from '@angular/router';
 import { JobServiceService } from '../../../shared/services/job-service.service';
 import { AdalService } from 'src/app/shared/services/adal.service';
 // import * as pluginDataLabels from 'chartjs-plugin-datalabels';
+import * as JSPdf from 'jspdf';
+import * as html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-job-detail',
@@ -60,6 +62,19 @@ export class JobDetailComponent implements OnInit {
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('suggestedInput') suggestedInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
+  @ViewChild('content', {}) content: ElementRef;
+
+  public downloadPDF() {
+    html2canvas(document.getElementById('content')).then(function(canvas) {
+
+      var img = canvas.toDataURL("image/png");
+      console.log(canvas, 'canvass')
+      window.open(img);
+      // var doc = new JSPdf();
+      // doc.addImage(img,'JPEG',0,0,100,100,'','NONE');
+      // doc.save('testCanvas.pdf');
+      });
+  }
   // Pie
   public pieChartOptions: ChartOptions = {
     responsive: true,

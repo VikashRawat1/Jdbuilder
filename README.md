@@ -90,3 +90,11 @@ Completed task
 - tags getting cut in mobile view - Done
 - After save, focus on top of the page - Done
 - text wrapping (Done)
+
+
+      <div class="col-6 col-lg-4">
+        <button (click)="downloadPDF()" type="button" class="bg-white p-2 w-100">Export as Pdf</button>
+      </div>
+      <div class="col-6 col-lg-4">
+        <button type="button" class="bg-white p-2 w-100">Request To iCIMS</button>
+      </div>

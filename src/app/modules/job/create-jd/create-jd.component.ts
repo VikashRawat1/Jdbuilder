@@ -383,6 +383,7 @@ export class CreateJdComponent implements OnInit {
   checkDuplicateDesignation(event){
     console.log(event, 'checkDuplicateDesignation eventttt',this.jobDescriptionForm.get('selectedDesignation').value,"designationvalue")
     if(isNaN(this.jobDescriptionForm.get('selectedDesignation').value)){
+      this.FetchProfileSummary({value:0,name:event.target.value})
       let isChecked = false
       this.designations.forEach((designation:any) => {
 

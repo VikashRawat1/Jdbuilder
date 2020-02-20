@@ -15,8 +15,8 @@ import { JobServiceService } from '../../../shared/services/job-service.service'
 import { AdalService } from 'src/app/shared/services/adal.service';
 // import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import * as JSPdf from 'jspdf';
-import * as html2canvas from 'html2canvas';
-
+// import * as html2canvas from 'html2canvas';
+import html2canvas from 'html2canvas';
 @Component({
   selector: 'app-job-detail',
   templateUrl: './job-detail.component.html',

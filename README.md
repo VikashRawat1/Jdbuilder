@@ -71,12 +71,29 @@ Loader orientation should be centered
 
 Completed task
 --------------------------
-- Add designation while adding JD
-- Auto suggest in summary
+- Add designation while adding JD - Backend pending
+- Auto suggest in summary - backend api pending
 - Last updated on Last updated by - dONE
 - Limit out the summary text
 - Se to Software Engineer and so on..
 - 
-
 - Roles & Responsibility text
 - While listing updated date was not shown after created new one - Done
+
+
+
+        //! This is all just html2canvas stuff
+        var srcImg  = canvas;
+        var sX      = 0;
+        var sY      = 980*i; // start 980 pixels down for every new page
+        var sWidth  = 900;
+        var sHeight = 980;
+        var dX      = 0;
+        var dY      = 0;
+        var dWidth  = 900;
+        var dHeight = 980;
+
+        let onePageCanvas = document.createElement("canvas");
+        onePageCanvas.setAttribute('width', "900");
+        onePageCanvas.setAttribute('height', "980");
+        var ctx = onePageCanvas.getContext('2d');

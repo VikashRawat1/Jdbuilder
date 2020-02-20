@@ -72,6 +72,12 @@ export class CreateJdComponent implements OnInit {
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   }
+  cla(evn){
+    console.log(evn, 'evnnn')
+  };
+  cla2(evn){
+    console.log(evn, 'evnnn')
+  };
   private _filter(value: any): string[] {
     const filterValue = value.Id ? value.Id.toLowerCase() : value.toLowerCase();
     return this.allTags.filter((option, index) => {
@@ -104,14 +110,16 @@ export class CreateJdComponent implements OnInit {
     this.jobDescriptionForm = this.formBuilder.group({
       title: new FormControl(''),
       about: new FormControl('', Validators.required),
-      selectedDesignation: new FormControl(''),
-      selectedLocation: new FormControl(''),
-      selectedExperience: new FormControl(''),
+      selectedDesignation: new FormControl('',Validators.required),
+      selectedLocation: new FormControl('',Validators.required),
+      selectedExperience: new FormControl('',Validators.required),
+      tagsCtrl: new FormControl(''),
       desiredSkills: this.formBuilder.array(defaultDesiredSkill),
       mandatorySkills: this.formBuilder.array(defaultMandatorySkill),
       qualifications:  this.formBuilder.array(defaultQualification),
       rolesAndResponsibility: this.formBuilder.array(defaultResponsibility),
     });
+    console.log(this.jobDescriptionForm, 'jobdescripptionfrommmm')
     this.jobService.FetchExperienceList().subscribe((experiences: any) => {
       if (experiences.StatusCode === 200) {
         this.experiences = experiences.ExperienceMasterList;
@@ -370,17 +378,16 @@ export class CreateJdComponent implements OnInit {
     this.submitted = true;
     console.log(this.jobDescriptionForm,"formdetialll",this.jobDescriptionForm.invalid,"dddddddd")
           // stop here if form is invalid
-          if (this.jobDescriptionForm.invalid) {
+          if (this.jobDescriptionForm.invalid || this.tags.length<1) {
             return;
         }
     console.log(this.jobDescriptionForm.get('qualifications').value,'qualifications valuee')
     console.log(this.jobDescriptionForm.get('rolesAndResponsibility').value,'rolesAndResponsibility valuee')
-    // return
     const jdObject = {
       // ProfileId: location.pathname.split('/').pop(),
       ProfileName: this.jobDescriptionForm.get('title').value,
       About: this.jobDescriptionForm.get('about').value,
-      DesignationId: this.jobDescriptionForm.get('selectedDesignation').value,
+      DesignationId: isNaN(this.jobDescriptionForm.get('selectedDesignation').value)?0:this.jobDescriptionForm.get('selectedDesignation').value,
       LocationId: this.jobDescriptionForm.get('selectedLocation').value,
       ExperienceId: this.jobDescriptionForm.get('selectedExperience').value,
       SkillList: [...this.jobDescriptionForm.get('mandatorySkills').value, ...this.jobDescriptionForm.get('desiredSkills').value],
@@ -390,7 +397,8 @@ export class CreateJdComponent implements OnInit {
       DeletedQualifications: this.deletedQualifications,
       DeletedSkills: this.deletedSkills,
       DeletedResponsibilities: this.deletedResponsiblities,
-      DeletedTags: this.deletedTags
+      DeletedTags: this.deletedTags,
+      NewDesignation:isNaN(this.jobDescriptionForm.get('selectedDesignation').value)?this.jobDescriptionForm.get('selectedDesignation').value:undefined
     };
     this.jobService.CreateProfile(jdObject).subscribe((updatedData: any) => {
       if (updatedData.StatusCode === 200){
@@ -406,6 +414,8 @@ export class CreateJdComponent implements OnInit {
           this.router.navigate(['myJd']);
         }
 
+      }else{
+        this.toastr.error(updatedData.Message, 'Error');
       }
     });
   }

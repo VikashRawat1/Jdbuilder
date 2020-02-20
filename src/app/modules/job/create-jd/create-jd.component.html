@@ -73,28 +73,73 @@
               (ngSubmit)="onSave()"
             >
             <div class="row">
-              <p class="col-4 pt-2 font-weight-bold">DESIGNATION</p>
-              <div class="form-group col-8 pl-0 pr-0">
-                <select name="demo" class="form-control" formControlName="selectedDesignation">
+              <p class="col-4 m-auto font-weight-bold">DESIGNATION</p>
+              <!-- <div class="col-8"> -->
+                <mat-form-field class="col-8 px-0">
+                  <input type="text"
+                  placeholder="Select Designation"
+                  aria-label="Number"
+                  matInput
+                  formControlName="selectedDesignation"
+                  [value]="selectedDesignationName"
 
-                  <option [value]='selectedDesignationName'>Select Designation</option>
-                  <option *ngFor = "let designation of designations" [value]="designation.Id">{{designation.DesignationName}}</option>
-                </select>
-              </div>
-              <p class="col-4 pt-2 font-weight-bold">EXPERIENCE</p>
-              <div class="form-group col-8 pl-0 pr-0">
-                <select name="demo" class="form-control" formControlName="selectedExperience">
+                  [matAutocomplete]="desig">
+                  <mat-autocomplete #desig="matAutocomplete">
+                    <mat-option (onSelectionChange)="selectedDesignationName = $event.source.viewValue;" *ngFor="let designation of designations" [value]="designation.Id">
+                      {{designation.DesignationName}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+                <mat-error class="col-8 offset-4 px-0">
+                  <div *ngIf="(submitted || jobDescriptionForm.get('selectedDesignation').touched) && jobDescriptionForm.get('selectedDesignation').invalid">
+                    <div *ngIf="jobDescriptionForm.get('selectedDesignation').invalid">Please select designation.</div>
+                </div>
+              </mat-error>
+<!--
+                    <select name="demo" class="form-control" formControlName="selectedDesignation">
+
+                      <option [value]='selectedDesignationName'>Select Designation</option>
+                      <option *ngFor = "let designation of designations" [value]="designation.Id">{{designation.DesignationName}}</option>
+                    </select> -->
+              <!-- </div> -->
+              <p class="col-4 m-auto pt-2 font-weight-bold">EXPERIENCE</p>
+              <!-- <div class="col-8 pl-0 pr-0"> -->
+                <!-- <select name="demo" class="form-control" formControlName="selectedExperience">
                   <option [value]='selectedExperienceName'>Select Experience</option>
                   <option *ngFor = "let experience of experiences" [value]="experience.Id">{{experience.ExperienceName}}</option>
-                  </select>
-              </div>
-              <p class="col-4 pt-2 font-weight-bold">LOCATION</p>
-              <div class="form-group col-8 pl-0 pr-0">
-                <select name="demo" class="form-control" formControlName="selectedLocation">
+                  </select> -->
+                  <mat-form-field class="col-8 px-0">
+                    <mat-label>Select Experience</mat-label>
+                    <mat-select formControlName="selectedExperience">
+                      <mat-option *ngFor="let experience of experiences" [value]="experience.Id">
+                        {{experience.ExperienceName}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-error class="col-8 offset-4 px-0">
+                    <div *ngIf="(submitted || jobDescriptionForm.get('selectedExperience').touched) && jobDescriptionForm.get('selectedExperience').invalid">
+                      <div *ngIf="jobDescriptionForm.get('selectedExperience').invalid">Please select experience.</div>
+                  </div>
+                </mat-error>
+              <!-- </div> -->
+              <p class="col-4 m-auto pt-2 font-weight-bold">LOCATION</p>
+                <!-- <select name="demo" class="form-control" formControlName="selectedLocation">
                   <option [value]='selectedLocationName'>Select Location</option>
                   <option *ngFor = "let location of locations" [value]="location.Id">{{location.LocationName}}</option>
-                  </select>
-              </div>
+                  </select> -->
+                  <mat-form-field class="col-8 px-0">
+                    <mat-label>Select Location</mat-label>
+                    <mat-select formControlName="selectedLocation">
+                      <mat-option *ngFor="let location of locations" [value]="location.Id">
+                        {{location.LocationName}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-error class="col-8 offset-4 px-0">
+                    <div *ngIf="(submitted || jobDescriptionForm.get('selectedLocation').touched) && jobDescriptionForm.get('selectedLocation').invalid">
+                      <div *ngIf="jobDescriptionForm.get('selectedLocation').invalid">Please select experience.</div>
+                  </div>
+                </mat-error>
               <div class="col-12">
                 <hr>
               </div>
@@ -113,8 +158,10 @@
                   formControlName="about"
                   [matAutocomplete]="auto"></textarea>
                 </mat-form-field>
-                <mat-error>
-                  <span *ngIf="!jobDescriptionForm.get('about').valid && jobDescriptionForm.get('about').touched">Please enter summary !!!</span>
+                <mat-error class="col-8 px-0">
+                  <div *ngIf="(submitted || jobDescriptionForm.get('about').touched) && jobDescriptionForm.get('about').invalid">
+                    <div *ngIf="jobDescriptionForm.get('about').invalid">Please enter summary.</div>
+                </div>
               </mat-error>
               </div>
               <!-- <div class="col-12">
@@ -136,7 +183,7 @@
                           #tagInput
                          [matChipInputFor]="chipList"
                          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                         [formControl]="tagsCtrl"
+                         formControlName="tagsCtrl"
                          [matAutocomplete]="auto"
                          (matChipInputTokenEnd)="add($event,true)"
                          >
@@ -148,6 +195,12 @@
                 </mat-autocomplete>
 
               </mat-form-field>
+              <mat-error class="col-8">
+                <div *ngIf="(submitted || jobDescriptionForm.get('tagsCtrl').touched) && tags.length<1">
+                  Please enter tags.
+              </div>
+            </mat-error>
+
               <small class="col-12 form-text text-muted">*Add User name, Project, Skill, Client and future references.</small>
               <p class="col-12 pt-2 font-weight-bold">MANDATORY SKILLS</p>
               <div class="col-12" formArrayName="mandatorySkills"

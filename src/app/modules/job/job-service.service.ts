@@ -48,5 +48,8 @@ export class Job1ServiceService {
   CreateProfile(jobDetail) {
     return this.httpClient.post(`${url}/CreateProfile`,jobDetail);
   }
-
+  FetchProfileSummary(desinationObject){
+    console.log(desinationObject, 'designation boujjjddd')
+    return this.httpClient.get(`${url}/FetchProfileSummary?designationId=${desinationObject.designationId}&newDesignation=${desinationObject.name}`);
+  }
 }

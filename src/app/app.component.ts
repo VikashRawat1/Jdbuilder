@@ -58,7 +58,7 @@ export class AppComponent implements OnInit {
       }
     });
     this.adalService.acquireTokenResilient(this.config.resource).subscribe((token) => {
-      console.log(token,'token inside app component')
+      // console.log(token,'token inside app component')
     });
     // this.jobService.getSideBarIndex().subscribe((sidebarIndex)=>{
     //   this.selectedIndex = sidebarIndex

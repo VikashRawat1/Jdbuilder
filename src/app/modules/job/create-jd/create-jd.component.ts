@@ -48,9 +48,11 @@ export class CreateJdComponent implements OnInit {
   suggestedSkill = [];
   suggestedQualification = [];
   suggestedResponsibilities = [];
+  suggestedSummary = []
   selectedIndex = 2
   isSameUser = false
   submitted = false;
+  isDuplicateDesignation = false
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('suggestedInput') suggestedInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -72,12 +74,6 @@ export class CreateJdComponent implements OnInit {
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   }
-  cla(evn){
-    console.log(evn, 'evnnn')
-  };
-  cla2(evn){
-    console.log(evn, 'evnnn')
-  };
   private _filter(value: any): string[] {
     const filterValue = value.Id ? value.Id.toLowerCase() : value.toLowerCase();
     return this.allTags.filter((option, index) => {
@@ -326,6 +322,7 @@ export class CreateJdComponent implements OnInit {
     console.log(this.jobDescriptionForm.controls['rolesAndResponsibility'].value[index],'dsdfdfdfd')
       this.jobDescriptionForm.controls['rolesAndResponsibility'].value[index].Responsibility = event.option.value
   }
+
   getSkill(event){
     console.log(event, 'event')
     if(event.target.value.length >2){
@@ -371,6 +368,36 @@ export class CreateJdComponent implements OnInit {
       }
     }
   }
+  FetchProfileSummary(designationEvent){
+    this.selectedDesignationName = designationEvent.viewValue;
+    console.log(designationEvent, 'designationEvent')
+    let designationObject = {designationId:designationEvent.value,name:designationEvent.viewValue}
+    this.jobService.FetchProfileSummary(designationObject).subscribe((Data: any)=>{
+      console.log(Data, 'skllls')
+      if(Data.StatusCode){
+        this.suggestedSummary = Data.ProfileSummary;
+        console.log(this.suggestedSummary, 'suggestedSummary')
+      }
+    })
+  }
+  checkDuplicateDesignation(event){
+    console.log(event, 'checkDuplicateDesignation eventttt',this.jobDescriptionForm.get('selectedDesignation').value,"designationvalue")
+    if(isNaN(this.jobDescriptionForm.get('selectedDesignation').value)){
+      let isChecked = false
+      this.designations.forEach((designation:any) => {
+
+        console.log(designation.DesignationName.trim().toLowerCase(), 'to lower case',event.target.value.trim().toLowerCase(),"event value target")
+        if(!isChecked){
+          if(designation.DesignationName.trim().toLowerCase() === event.target.value.trim().toLowerCase()){
+            this.isDuplicateDesignation = true
+            isChecked = true
+          }else{
+            this.isDuplicateDesignation = false
+          }
+        }
+      });
+    }
+  }
   // activateClass(index){
   //   this.commonJobService.changeSideBarIndex(index)
   // }
@@ -378,7 +405,7 @@ export class CreateJdComponent implements OnInit {
     this.submitted = true;
     console.log(this.jobDescriptionForm,"formdetialll",this.jobDescriptionForm.invalid,"dddddddd")
           // stop here if form is invalid
-          if (this.jobDescriptionForm.invalid || this.tags.length<1) {
+          if (this.jobDescriptionForm.invalid || this.tags.length<1 || this.isDuplicateDesignation) {
             return;
         }
     console.log(this.jobDescriptionForm.get('qualifications').value,'qualifications valuee')

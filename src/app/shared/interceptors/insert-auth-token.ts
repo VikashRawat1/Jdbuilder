@@ -15,9 +15,9 @@ export class InsertAuthTokenInterceptor implements HttpInterceptor {
         // merge the bearer token into the existing headers
         return this.adalService.acquireTokenResilient(this.config.resource).pipe(
             mergeMap((token: string) => {
-              console.log(token, 'token outsidee');
+              // console.log(token, 'token outsidee');
               if (token) {
-                console.log(token, 'tokennnn');
+                // console.log(token, 'tokennnn');
                 req = req.clone({
                     setHeaders: {Authorization : 'Bearer ' + token}
                 });

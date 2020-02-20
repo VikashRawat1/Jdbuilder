@@ -50,10 +50,10 @@ public getAccessToken(endpoint: string, callbacks: (message: string, token: stri
 }
 
 public acquireTokenResilient(resource: string): Observable<any> {
-    console.log(resource, 'resource');
+    // console.log(resource, 'resource');
     return new Observable<any>((subscriber: Subscriber<any>) =>
         this.context.acquireToken(resource, (message: string, token: string) => {
-            console.log(token, 'tokennn')
+            // console.log(token, 'tokennn')
             if (token) {
                 this.isUserAuthenticated.next(true);
                 subscriber.next(token);

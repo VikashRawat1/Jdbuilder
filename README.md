@@ -2,10 +2,11 @@
 
 Pending points
 i) scroll pagination on listing
-ii) header set on job detail page. design pending
-iii) logout functionality
-iv) 
-
+ii) designation dropdown issue in edit jd
+iii) load all designation data after adding new designation
+iv) pdf generate for mobile
+v) summary suggestion
+.
 
 1) 
 2) Change fresher to 0-1 -> p2

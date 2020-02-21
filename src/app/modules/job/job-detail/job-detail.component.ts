@@ -55,9 +55,11 @@ export class JobDetailComponent implements OnInit {
   suggestedSkill = [];
   suggestedQualification = [];
   suggestedResponsibilities = [];
+  suggestedSummary = []
   selectedIndex = 2
   isSameUser = false
   submitted = false;
+  isDuplicateDesignation = false
   ////
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('suggestedInput') suggestedInput: ElementRef<HTMLInputElement>;
@@ -204,6 +206,10 @@ export class JobDetailComponent implements OnInit {
     // this.commonJobService.getSideBarIndex().subscribe((sidebarIndex)=>{
     //   this.selectedIndex = sidebarIndex;
     // })
+    this.initLoad();
+
+  }
+  initLoad(){
     this.jobService.fetchProfiles(location.pathname.split('/').pop()).subscribe((jobDetail: any) => {
       if (jobDetail.StatusCode === 200) {
         if(this.adalService.userInfo.profile.oid === jobDetail.ProfileDetail.CreatedBy){
@@ -238,9 +244,9 @@ export class JobDetailComponent implements OnInit {
         this.jobDescriptionForm = this.formBuilder.group({
           title: new FormControl(jobDetail.ProfileDetail.ProfileName),
           about: new FormControl(jobDetail.ProfileDetail.About, Validators.required),
-          selectedDesignation: new FormControl(jobDetail.ProfileDetail.DesignationId),
-          selectedLocation: new FormControl(jobDetail.ProfileDetail.LocationId),
-          selectedExperience: new FormControl(jobDetail.ProfileDetail.ExperienceId),
+          selectedDesignation: new FormControl(jobDetail.ProfileDetail.DesignationId, Validators.required),
+          selectedLocation: new FormControl(jobDetail.ProfileDetail.LocationId, Validators.required),
+          selectedExperience: new FormControl(jobDetail.ProfileDetail.ExperienceId, Validators.required),
           desiredSkills: this.formBuilder.array(defaultDesiredSkill),
           mandatorySkills: this.formBuilder.array(defaultMandatorySkill),
           qualifications:  this.formBuilder.array(defaultQualification),
@@ -273,6 +279,7 @@ export class JobDetailComponent implements OnInit {
             designations.DesignationList.forEach((val) => {
               if (this.jobDescriptionForm && this.jobDescriptionForm.get('selectedDesignation').value === val.Id) {
                 this.selectedDesignationName = val.DesignationName;
+                // this.jobDescriptionForm.patchValue({selectedDesignation: val.DesignationName})
               }
             });
           }
@@ -321,8 +328,6 @@ export class JobDetailComponent implements OnInit {
         }
       });
     });
-
-
   }
   createMandatorySkill(newSkill): FormGroup {
     return this.formBuilder.group({
@@ -536,11 +541,44 @@ export class JobDetailComponent implements OnInit {
   // activateClass(index){
   //   this.commonJobService.changeSideBarIndex(index)
   // }
+  FetchProfileSummary(designationEvent){
+    this.selectedDesignationName = designationEvent.viewValue;
+    console.log(designationEvent, 'designationEvent',this.jobDescriptionForm.get('selectedDesignation').value,'value of designationnnn')
+    let designationObject = {designationId:designationEvent.value,name:designationEvent.viewValue}
+    this.jobService.FetchProfileSummary(designationObject).subscribe((Data: any)=>{
+      console.log(Data, 'skllls')
+      if(Data.StatusCode){
+        this.suggestedSummary = Data.ProfileSummary;
+        console.log(this.suggestedSummary, 'suggestedSummary')
+      }
+    })
+  }
+  checkDuplicateDesignation(event){
+    console.log(event, 'checkDuplicateDesignation eventttt',this.jobDescriptionForm.get('selectedDesignation').value,"designationvalue")
+    if(isNaN(this.jobDescriptionForm.get('selectedDesignation').value)){
+      console.log(isNaN(this.jobDescriptionForm.get('selectedDesignation').value),'chslkdfjkfjj')
+      // alert(1)
+      this.FetchProfileSummary({value:0,name:event.target.value})
+      let isChecked = false
+      this.designations.forEach((designation:any) => {
+
+        console.log(designation.DesignationName.trim().toLowerCase(), 'to lower case',event.target.value.trim().toLowerCase(),"event value target")
+        if(!isChecked){
+          if(designation.DesignationName.trim().toLowerCase() === event.target.value.trim().toLowerCase()){
+            this.isDuplicateDesignation = true
+            isChecked = true
+          }else{
+            this.isDuplicateDesignation = false
+          }
+        }
+      });
+    }
+  }
   onSave() {
     this.submitted = true;
     console.log(this.jobDescriptionForm,"formdetialll",this.jobDescriptionForm.invalid,"dddddddd")
           // stop here if form is invalid
-          if (this.jobDescriptionForm.invalid) {
+          if (this.jobDescriptionForm.invalid || this.tags.length<1 || this.isDuplicateDesignation) {
             return;
         }
     console.log(this.jobDescriptionForm.get('qualifications').value,'qualifications valuee')
@@ -560,7 +598,8 @@ export class JobDetailComponent implements OnInit {
       DeletedQualifications: this.deletedQualifications,
       DeletedSkills: this.deletedSkills,
       DeletedResponsibilities: this.deletedResponsiblities,
-      DeletedTags: this.deletedTags
+      DeletedTags: this.deletedTags,
+      NewDesignation:isNaN(this.jobDescriptionForm.get('selectedDesignation').value)?this.jobDescriptionForm.get('selectedDesignation').value:undefined
     };
     this.jobService.saveJd(jdObject).subscribe((updatedData: any) => {
       if (updatedData.StatusCode === 200){
@@ -572,6 +611,7 @@ export class JobDetailComponent implements OnInit {
           this.isEditJd = false
           document.body.scrollTop = 0; // For Safari
           document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+          this.initLoad()
         }else{
           // this.commonJobService.changeSideBarIndex(2)
           this.router.navigate(['myJd']);

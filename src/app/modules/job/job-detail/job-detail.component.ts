@@ -17,6 +17,8 @@ import { AdalService } from 'src/app/shared/services/adal.service';
 import * as JSPdf from 'jspdf';
 // import * as html2canvas from 'html2canvas';
 import html2canvas from 'html2canvas';
+import html from './pdf.html'
+
 @Component({
   selector: 'app-job-detail',
   templateUrl: './job-detail.component.html',
@@ -177,7 +179,6 @@ export class JobDetailComponent implements OnInit {
     },
   ];
   constructor(@Inject(DOCUMENT) private document: Document, private formBuilder: FormBuilder, private jobService: Job1ServiceService, private toastr: ToastrService,private router: Router, private commonJobService: JobServiceService, private adalService:AdalService ) {
-
    }
   @HostListener('window:scroll', [])
   onWindowScroll() {
@@ -245,6 +246,7 @@ export class JobDetailComponent implements OnInit {
           title: new FormControl(jobDetail.ProfileDetail.ProfileName),
           about: new FormControl(jobDetail.ProfileDetail.About, Validators.required),
           selectedDesignation: new FormControl(jobDetail.ProfileDetail.DesignationId, Validators.required),
+          selectedDesignationN: new FormControl(jobDetail.ProfileDetail.DesignationName, Validators.required),
           selectedLocation: new FormControl(jobDetail.ProfileDetail.LocationId, Validators.required),
           selectedExperience: new FormControl(jobDetail.ProfileDetail.ExperienceId, Validators.required),
           desiredSkills: this.formBuilder.array(defaultDesiredSkill),
@@ -279,7 +281,8 @@ export class JobDetailComponent implements OnInit {
             designations.DesignationList.forEach((val) => {
               if (this.jobDescriptionForm && this.jobDescriptionForm.get('selectedDesignation').value === val.Id) {
                 this.selectedDesignationName = val.DesignationName;
-                // this.jobDescriptionForm.patchValue({selectedDesignation: val.DesignationName})
+                this.jobDescriptionForm.patchValue({selectedDesignationN: val.DesignationName})
+                this.FetchProfileSummary({value:val.Id,viewValue:val.DesignationName})
               }
             });
           }
@@ -542,7 +545,11 @@ export class JobDetailComponent implements OnInit {
   //   this.commonJobService.changeSideBarIndex(index)
   // }
   FetchProfileSummary(designationEvent){
+    console.log(designationEvent, 'designationEventssss')
+    // return
     this.selectedDesignationName = designationEvent.viewValue;
+    this.jobDescriptionForm.patchValue({selectedDesignationN: designationEvent.viewValue})
+    this.jobDescriptionForm.patchValue({selectedDesignation: designationEvent.value})
     console.log(designationEvent, 'designationEvent',this.jobDescriptionForm.get('selectedDesignation').value,'value of designationnnn')
     let designationObject = {designationId:designationEvent.value,name:designationEvent.viewValue}
     this.jobService.FetchProfileSummary(designationObject).subscribe((Data: any)=>{
@@ -556,9 +563,9 @@ export class JobDetailComponent implements OnInit {
   checkDuplicateDesignation(event){
     console.log(event, 'checkDuplicateDesignation eventttt',this.jobDescriptionForm.get('selectedDesignation').value,"designationvalue")
     if(isNaN(this.jobDescriptionForm.get('selectedDesignation').value)){
-      console.log(isNaN(this.jobDescriptionForm.get('selectedDesignation').value),'chslkdfjkfjj')
+      console.log(isNaN(this.jobDescriptionForm.get('selectedDesignationN').value),'chslkdfjkfjj')
       // alert(1)
-      this.FetchProfileSummary({value:0,name:event.target.value})
+      // this.FetchProfileSummary({value:0,name:event.target.value})
       let isChecked = false
       this.designations.forEach((designation:any) => {
 
@@ -573,6 +580,10 @@ export class JobDetailComponent implements OnInit {
         }
       });
     }
+  }
+  clearDesignationId(evnt){
+    console.log(evnt, 'evnenttt')
+    this.jobDescriptionForm.patchValue({selectedDesignation: evnt.target.value})
   }
   onSave() {
     this.submitted = true;
@@ -617,6 +628,8 @@ export class JobDetailComponent implements OnInit {
           this.router.navigate(['myJd']);
         }
 
+      }else{
+        this.toastr.error(updatedData.Message, 'Error');
       }
     });
   }

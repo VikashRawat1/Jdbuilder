@@ -18,6 +18,7 @@ import * as JSPdf from 'jspdf';
 // import * as html2canvas from 'html2canvas';
 import html2canvas from 'html2canvas';
 import html from './pdf.html'
+import { LoaderService } from 'src/app/shared/services/loader.service';
 
 @Component({
   selector: 'app-job-detail',
@@ -68,8 +69,11 @@ export class JobDetailComponent implements OnInit {
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
   @ViewChild('content', {}) content: ElementRef;
   capturedImage;
-
+  constructor(private loaderService: LoaderService,@Inject(DOCUMENT) private document: Document, private formBuilder: FormBuilder, private jobService: Job1ServiceService, private toastr: ToastrService,private router: Router, private commonJobService: JobServiceService, private adalService:AdalService ) {
+  }
   public downloadPDF() {
+    let loader = this.loaderService
+    loader.show();
     window.scrollTo()
   //   html2canvas(document.querySelector("#content"),{scrollY: -window.scrollY}).then(canvas => {
 
@@ -144,6 +148,7 @@ export class JobDetailComponent implements OnInit {
         doc.addImage(canvasDataURL, 'PNG', 25, 20, (width*0.5), (height*0.5));
 
     }
+
     //! after the for loop is finished running, we save the pdf.
       // doc.addImage(img,'JPEG',0,0,200,0);
       doc.save('testCanvas.pdf');
@@ -151,6 +156,7 @@ export class JobDetailComponent implements OnInit {
       // this.downloadLink.nativeElement.href = canvas.toDataURL('image/png');
       // this.downloadLink.nativeElement.download = 'marble-diagram.png';
       // this.downloadLink.nativeElement.click();
+      loader.hide();
       });
   }
   // Pie
@@ -178,8 +184,7 @@ export class JobDetailComponent implements OnInit {
       backgroundColor: ['#264d00', '#66cc00', '#b3ff66', '#ffa600'],
     },
   ];
-  constructor(@Inject(DOCUMENT) private document: Document, private formBuilder: FormBuilder, private jobService: Job1ServiceService, private toastr: ToastrService,private router: Router, private commonJobService: JobServiceService, private adalService:AdalService ) {
-   }
+
   @HostListener('window:scroll', [])
   onWindowScroll() {
     if ((document.body.scrollTop > 140 ||

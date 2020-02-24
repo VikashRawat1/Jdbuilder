@@ -44,14 +44,17 @@ export class JobListingComponent implements OnInit {
   ngOnInit() {
     if(location.pathname == '/myJd'){
       this.myJd = true
+      this.sidebarIndex = 2
     }else{
       this.myJd = false
+      this.sidebarIndex = 1
     }
     const pageParams = {pageSize: this.DefaultPageSize, pageIndex: this.pageSelected, myJd: this.myJd,sortByDate: this.sortByDate};
     this.jobService.getAllJobs(pageParams).subscribe((jobs: any) => {
       this.jobs = jobs.ProfileList;
       this.length = jobs.TotalRecords;
-      this.range = `${0 + 1}-${this.jobs.length} of ${this.length}`;
+      // this.range = `${0 + 1}-${this.jobs.length} of ${this.length}`;
+      this.range = `1-${this.jobs.length} of ${this.length}`;
     });
     this.jobService.FetchExperienceList().subscribe((experiences: any) => {
       if (experiences.StatusCode === 200) {
@@ -82,10 +85,12 @@ export class JobListingComponent implements OnInit {
     this.jobService.getAllJobs(pageParams).subscribe((jobs: any) => {
       this.jobs = jobs.ProfileList;
       this.length = jobs.TotalRecords;
-      this.range = `${this.pageSelected + 1}-${this.jobs.length} of ${this.length}`;
+      // this.range = `${this.pageSelected + 1}-${this.jobs.length} of ${this.length}`;
+      this.range = `1-${this.jobs.length} of ${this.length}`;
     });
   }
   search() {
+    this.jobs = []
     console.log(typeof this.selectedDesignation, 'selectedselectiponnnnnn')
     const paramObject = {
       locationId : (this.selectedLocation && this.selectedLocation !== 'undefined') ? this.selectedLocation : 0,
@@ -102,13 +107,18 @@ export class JobListingComponent implements OnInit {
     this.filterProfile(paramObject);
   }
   filterProfile(paramObject) {
-    console.log(paramObject,'paramobject')
+    console.log(paramObject,'paramobject',this.jobs.length,'this.jobs.length',this.length,'this.lengthddd')
+    if(this.jobs.length === this.length){
+      return
+    }
     this.jobService.FetchFilteredProfiles(paramObject).subscribe((FilteredList: any) => {
       if (FilteredList.StatusCode === 200) {
-        this.jobs = FilteredList.ProfileList;
+        this.jobs.push(...FilteredList.ProfileList);
+        console.log(this.jobs, 'jobsss')
         this.length = FilteredList.TotalRecords;
         const previousRecord = paramObject.pageIndex * paramObject.pageSize;
-        this.range = `${previousRecord + 1}-${previousRecord + this.jobs.length} of ${this.length}`;
+        // this.range = `${previousRecord + 1}-${previousRecord + this.jobs.length} of ${this.length}`;
+        this.range = `1-${this.jobs.length} of ${this.length}`;
       }
     });
   }
@@ -142,5 +152,10 @@ export class JobListingComponent implements OnInit {
       this.router.navigate(['allJd/job-description/' + jobId]);
     }
 
+  }
+  onScroll() {
+    console.log('scrolled!!');
+    let pageDetails = {pageIndex:this.pageSelected + 1};
+    this.onPaginateChange(pageDetails)
   }
 }

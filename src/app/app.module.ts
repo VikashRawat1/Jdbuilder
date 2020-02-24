@@ -30,6 +30,7 @@ import { PipesModule } from './shared/pipes/jobId-pipe/pipe.module';
 import { LayoutModule } from './shared/layout/layout.module';
 import { CreateJdComponent } from './modules/job/create-jd/create-jd.component';
 import { MaterialUiModule } from './modules/material-ui/material-ui.module';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +53,8 @@ import { MaterialUiModule } from './modules/material-ui/material-ui.module';
     PipesModule,
     LayoutModule,
     ReactiveFormsModule,
-    MaterialUiModule
+    MaterialUiModule,
+    InfiniteScrollModule
   ],
   providers: [JobServiceService, LoaderService, AdalService, AdalConfigService,
     { provide: HTTP_INTERCEPTORS, useClass: InsertAuthTokenInterceptor, multi: true },

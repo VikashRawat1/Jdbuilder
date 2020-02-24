@@ -57,6 +57,9 @@ tr.noBorder td {
 .mat-standard-chip{
   height: inherit;
 }
+/deep/ .mat-select-value{
+  color: #6c757d!important;
+}
 /deep/ .mat-option-text
 {
     line-height: initial;

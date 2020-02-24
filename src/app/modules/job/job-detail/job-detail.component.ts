@@ -570,6 +570,9 @@ export class JobDetailComponent implements OnInit {
   }
   checkDuplicateDesignation(event){
     console.log(event, 'checkDuplicateDesignation eventttt',this.jobDescriptionForm.get('selectedDesignation').value,"designationvalue")
+    if(!isNaN(this.jobDescriptionForm.get('selectedDesignation').value)){
+      this.isDuplicateDesignation = false
+    }
     if(isNaN(this.jobDescriptionForm.get('selectedDesignation').value)){
       console.log(isNaN(this.jobDescriptionForm.get('selectedDesignationN').value),'chslkdfjkfjj')
       // alert(1)
@@ -590,8 +593,10 @@ export class JobDetailComponent implements OnInit {
     }
   }
   clearDesignationId(evnt){
-    console.log(evnt, 'evnenttt')
-    this.jobDescriptionForm.patchValue({selectedDesignation: evnt.target.value})
+    console.log(evnt, 'evnenttt',this.jobDescriptionForm.get('selectedDesignation').value,"designationvalueee at cleardesi")
+    if((evnt.keyCode >= 48 && evnt.keyCode <= 57) || (evnt.keyCode >= 65 && evnt.keyCode <= 90)){
+      this.jobDescriptionForm.patchValue({selectedDesignation: evnt.target.value})
+    }
   }
   onSave() {
     this.submitted = true;

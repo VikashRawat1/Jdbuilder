@@ -144,7 +144,7 @@ export class CreateJdComponent implements OnInit {
             }
           }
         }
-        this.filteredTags = this.tagsCtrl.valueChanges
+        this.filteredTags = this.jobDescriptionForm.get("tagsCtrl").valueChanges
         .pipe(
           startWith(''),
           map(val => {
@@ -379,6 +379,9 @@ export class CreateJdComponent implements OnInit {
         console.log(this.suggestedSummary, 'suggestedSummary')
       }
     })
+  }
+  selectSuggestion(selectedSuggestion){
+    this.jobDescriptionForm.patchValue({about: selectedSuggestion})
   }
   checkDuplicateDesignation(event){
     console.log(event, 'checkDuplicateDesignation eventttt',this.jobDescriptionForm.get('selectedDesignation').value,"designationvalue")

@@ -237,7 +237,7 @@
                           #tagInput
                          [matChipInputFor]="chipList"
                          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                         [formControl]="tagsCtrl"
+                         formControlName="tagsCtrl"
                          [matAutocomplete]="auto"
                          (matChipInputTokenEnd)="add($event,true)"
                          >
@@ -249,6 +249,11 @@
                 </mat-autocomplete>
 
               </mat-form-field>
+              <mat-error class="col-8">
+                <div *ngIf="(submitted || jobDescriptionForm.get('tagsCtrl').touched) && tags.length<1">
+                  Please enter tags.
+              </div>
+            </mat-error>
               <small class="col-12 form-text text-muted">*Add User name, Project, Skill, Client and future references.</small>
               <p class="col-12 pt-2 font-weight-bold">MANDATORY SKILLS</p>
               <div class="col-12" formArrayName="mandatorySkills"

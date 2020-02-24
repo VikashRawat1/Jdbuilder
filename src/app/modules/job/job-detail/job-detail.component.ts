@@ -317,7 +317,7 @@ export class JobDetailComponent implements OnInit {
               }
             }
           }
-          this.filteredTags = this.tagsCtrl.valueChanges
+          this.filteredTags = this.jobDescriptionForm.get("tagsCtrl").valueChanges
           .pipe(
             startWith(''),
             map(val => {

@@ -383,6 +383,9 @@ export class CreateJdComponent implements OnInit {
   selectSuggestion(selectedSuggestion){
     this.jobDescriptionForm.patchValue({about: selectedSuggestion})
   }
+  clearSummary(){
+    this.jobDescriptionForm.patchValue({about: ""})
+  }
   checkDuplicateDesignation(event){
     console.log(event, 'checkDuplicateDesignation eventttt',this.jobDescriptionForm.get('selectedDesignation').value,"designationvalue")
     if(isNaN(this.jobDescriptionForm.get('selectedDesignation').value)){

@@ -159,7 +159,7 @@
                 <div id="demo" class="carousel slide bg-white" data-ride="carousel">
 
                   <!-- Indicators -->
-                  <ul *ngIf="suggestedSummary.length>0" class="carousel-indicators">
+                  <ul *ngIf="suggestedSummary.length>0" class="carousel-indicators mb-4">
                     <!-- <ng-container *ngFor="let summary of suggestedSummary | async;let i=index">
                       <li data-target="#demo" data-slide-to="{{i}}" class="active"></li>
                     </ng-container> -->
@@ -168,10 +168,11 @@
 
                   <!-- The slideshow -->
                   <div class="carousel-inner">
-                    <div *ngFor="let summary of suggestedSummary; let k = index" class="carousel-item bg-dark" [ngClass]="k == 0 ? 'active' : ''">
+                    <div *ngFor="let summary of suggestedSummary; let k = index" class="carousel-item bg-theme-color text-center" [ngClass]="k == 0 ? 'active' : ''">
                       <!-- <div class="carousel-caption"> -->
                         <h3>Suggestion {{k+1}}</h3>
-                        <p>{{summary}}</p>
+                        <p class="mb-3">{{summary}}</p>
+                        <button type="button" class="btn theme-color-btn btn-sm"  (click)="selectSuggestion(summary)">Select</button>
                       <!-- </div> -->
                       <!-- <mat-form-field class="col-12 px-0">
                         <textarea  type="text"
@@ -206,12 +207,12 @@
                   aria-label="Number"
                   matInput
                   formControlName="about"
-                  [matAutocomplete]="summary"></textarea>
-                  <mat-autocomplete #summary="matAutocomplete">
+                  ></textarea>
+                  <!-- <mat-autocomplete #summary="matAutocomplete">
                     <mat-option *ngFor="let summary of suggestedSummary" [value]="summary">
                       {{summary}}
                     </mat-option>
-                  </mat-autocomplete>
+                  </mat-autocomplete> -->
                 </mat-form-field>
                 <mat-error>
                   <span *ngIf="!jobDescriptionForm.get('about').valid && jobDescriptionForm.get('about').touched">Please enter summary !!!</span>

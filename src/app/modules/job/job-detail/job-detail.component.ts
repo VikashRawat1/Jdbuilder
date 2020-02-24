@@ -560,6 +560,9 @@ export class JobDetailComponent implements OnInit {
       }
     })
   }
+  selectSuggestion(selectedSuggestion){
+    this.jobDescriptionForm.patchValue({about: selectedSuggestion})
+  }
   checkDuplicateDesignation(event){
     console.log(event, 'checkDuplicateDesignation eventttt',this.jobDescriptionForm.get('selectedDesignation').value,"designationvalue")
     if(isNaN(this.jobDescriptionForm.get('selectedDesignation').value)){

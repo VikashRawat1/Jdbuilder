@@ -20,9 +20,12 @@ tr.noBorder td {
   background: white;
   position: fixed;
   top:0;
-  z-index:1;
+  z-index:998;
   width: 100%;
   border-bottom: solid 1px;
+}
+.fixed-bottom{
+  z-index: 998;
 }
 // .mat-form-field /deep/ .mat-form-field-wrapper  {
 //   padding-bottom: 0;

@@ -85,6 +85,24 @@ tr.noBorder td {
   height: 1px;
   top: 90%;
 }
+.suggestion-card{
+  background: #e5e5e5;
+  padding: 26px;
+  color: black;
+  box-shadow: 1px 1px 2px 2px #8f808080;
+  p{
+    text-align: justify !important;
+    color: #000000 !important;
+    opacity: 1 !important;
+  };
+  .carousel-indicators{
+    margin-bottom: 0px !important;
+  }
+
+}
+.carousel-indicators li{
+  background-color: #000000 !important;
+}
 // .ellipsis {
 //   white-space: nowrap;
 //   overflow: hidden;

@@ -106,7 +106,8 @@ export class JobDetailComponent implements OnInit {
   //  });
     let quotes = document.getElementById('content-pdf');
     html2canvas(document.getElementById('content-pdf'),{scrollY: -window.scrollY}).then(function(canvas) {
-
+      // document.body.appendChild(canvas);
+      // return
       var img = canvas.toDataURL("image/png");
       console.log(canvas, 'canvass')
       // window.open(img);
@@ -567,6 +568,9 @@ export class JobDetailComponent implements OnInit {
   }
   selectSuggestion(selectedSuggestion){
     this.jobDescriptionForm.patchValue({about: selectedSuggestion})
+  }
+  clearSummary(){
+    this.jobDescriptionForm.patchValue({about: ""})
   }
   checkDuplicateDesignation(event){
     console.log(event, 'checkDuplicateDesignation eventttt',this.jobDescriptionForm.get('selectedDesignation').value,"designationvalue")

@@ -44,6 +44,12 @@ ploea add askill project , clientname , project, future refernces
 -
 
 
+24 Feb 2020
+i) pdf for mobile view
+ii) carosel is overlapping on header in mobile view.
+iii) loader is not showing after click on view details.
+iv) 
+
 
 
 32) 

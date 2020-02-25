@@ -3,6 +3,7 @@ import { Job1ServiceService } from '../job-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { JobServiceService } from 'src/app/shared/services/job-service.service';
+import { LoaderService } from 'src/app/shared/services/loader.service';
 @Component({
   selector: 'app-job-listing',
   templateUrl: './job-listing.component.html',
@@ -29,7 +30,7 @@ export class JobListingComponent implements OnInit {
   selectedUserId = ''
   sortByDate = 'desc'
   sidebarIndex = 2
-  constructor(private commongJobService: JobServiceService , private jobService: Job1ServiceService, private toastr: ToastrService, private router: Router) {
+  constructor(private loaderService:LoaderService,private commongJobService: JobServiceService , private jobService: Job1ServiceService, private toastr: ToastrService, private router: Router) {
     // this.commongJobService.getSideBarIndex().subscribe((sidebarIndex)=>{
     //   this.sidebarIndex = sidebarIndex
     //   alert(sidebarIndex)
@@ -146,6 +147,7 @@ export class JobListingComponent implements OnInit {
   //   this.commongJobService.changeSideBarIndex(index)
   // }
   goToDetails(jobId) {
+    this.loaderService.hide();
     if(location.pathname.indexOf('myJd') > 0){
       this.router.navigate(['myJd/job-description/' + jobId]);
     }else{

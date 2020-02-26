@@ -104,3 +104,12 @@ Completed task
         onePageCanvas.setAttribute('width', "900");
         onePageCanvas.setAttribute('height', "980");
         var ctx = onePageCanvas.getContext('2d');
+
+
+feedback 26 feb
+i) justify in textarea.
+ii) padding from top in input.
+iii) first four line should be appear in summary. 
+iv) summary header title should be same like other.
+v) increase scope of three dots
+vi) enter designation is not working in create jd.

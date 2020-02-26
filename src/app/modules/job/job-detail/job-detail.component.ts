@@ -19,7 +19,10 @@ import * as JSPdf from 'jspdf';
 import html2canvas from 'html2canvas';
 import html from './pdf.html'
 import { LoaderService } from 'src/app/shared/services/loader.service';
-
+import htmlToPdfmake from 'html-to-pdfmake'
+import pdfMake from 'pdfmake'
+import pdfFonts from 'pdfmake/build/vfs_fonts'
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 @Component({
   selector: 'app-job-detail',
   templateUrl: './job-detail.component.html',
@@ -74,36 +77,7 @@ export class JobDetailComponent implements OnInit {
   public downloadPDF() {
     let loader = this.loaderService
     loader.show();
-    window.scrollTo()
-  //   html2canvas(document.querySelector("#content"),{scrollY: -window.scrollY}).then(canvas => {
-
-  //     // debugger;
-
-  //    /// document.body.appendChild(canvas);
-  //    this.capturedImage = canvas.toDataURL();
-  //    console.log("canvas.toDataURL() -->" + this.capturedImage);
-  //    // this will contain something like (note the ellipses for brevity), console.log cuts it off
-  //    // "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAa0AAAB3CAYAAACwhB/KAAAXr0lEQVR4Xu2dCdiNZf7HP/ZQkpQtaUxDjYYoTSYlURMhGlmKa..."
-
-
-  //    canvas.toBlob(function (blob) {
-
-  //      //  just pass blob to something expecting a blob
-  //      // somfunc(blob);
-
-  //      // Same as canvas.toDataURL(), just longer way to do it.
-  //      var reader = new FileReader();
-  //     //  debugger;
-  //      reader.readAsDataURL(blob);
-  //      reader.onloadend = function () {
-  //        let base64data = reader.result;
-  //        console.log("Base64--> " + base64data);
-  //      }
-
-  //    });
-
-
-  //  });
+    // window.scrollTo()
     let quotes = document.getElementById('content-pdf');
     html2canvas(document.getElementById('content-pdf'),{scrollY: -window.scrollY}).then(function(canvas) {
       // document.body.appendChild(canvas);
@@ -159,6 +133,51 @@ export class JobDetailComponent implements OnInit {
       // this.downloadLink.nativeElement.click();
       loader.hide();
       });
+  }
+  public downloadPDF2(){
+    let htmlContent =  this.document.getElementById('content-pdf')
+    console.log(htmlContent.outerHTML, 'html contenttt')
+    this.jobService.GeneratePDF({htmlContent:htmlContent.outerHTML}).subscribe((data:any)=>{
+      console.log(data,'dataaa')
+      // const blob = new Blob([data], { type: 'application/pdf' });
+      // const url= window.URL.createObjectURL(blob);
+      // window.open(url);
+
+      // var a = document.createElement("a");
+      //     a.href = URL.createObjectURL(blob);
+      //     a.download = "document.pdf";
+      //     // start download
+      //     a.click();
+
+      let blob = new Blob([data.body], {
+        type: 'application/pdf' // must match the Accept type
+     // type: 'application/octet-stream' // for excel
+     });
+     var link = document.createElement('a');
+     link.href = window.URL.createObjectURL(blob);
+     link.download = 'samplePDFFile.pdf';
+     link.click();
+     window.URL.revokeObjectURL(link.href);
+    })
+  }
+  public downloadPDF3(){
+    let loader = this.loaderService
+    // loader.show();
+    var html = htmlToPdfmake(this.document.getElementById('content-pdf').outerHTML);
+    console.log(html, 'htmlllll')
+    // return
+    var docDefinition = {
+      content: [
+        html
+      ],
+      styles:{
+        'html-strong':{
+          background:'yellow' // it will add a yellow background to all <STRONG> elements
+        }
+      }
+    };
+    var pdfDocGenerator = pdfMake.createPdf(docDefinition).download();
+    console.log(pdfDocGenerator, 'pdfdocumtgetnt')
   }
   // Pie
   public pieChartOptions: ChartOptions = {

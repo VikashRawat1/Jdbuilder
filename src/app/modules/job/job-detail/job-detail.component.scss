@@ -94,6 +94,13 @@ tr.noBorder td {
     text-align: justify !important;
     color: #000000 !important;
     opacity: 1 !important;
+    display: block;/* or inline-block */
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow: hidden;
+    max-height: 5.6em;
+    line-height: 1.8em;
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
   };
   .carousel-indicators{
     margin-bottom: 0px !important;

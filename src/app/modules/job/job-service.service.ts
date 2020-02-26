@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Config } from '../../config/config';
+import { Observable} from 'rxjs';
+import {HttpResponse} from '@angular/common/http';
+import { map } from 'rxjs/operators';
+
 const url = Config.url;
 @Injectable({providedIn: 'root'})
 export class Job1ServiceService {
@@ -51,5 +55,14 @@ export class Job1ServiceService {
   FetchProfileSummary(desinationObject){
     console.log(desinationObject, 'designation boujjjddd')
     return this.httpClient.get(`${url}/FetchProfileSummary?designationId=${desinationObject.designationId}&newDesignation=${desinationObject.name}`);
+  }
+
+
+  GeneratePDF(htmlObject): Observable<Object>{
+    const options = {
+      headers: new HttpHeaders().append('key', 'value')
+    }
+    console.log(htmlObject, 'designation boujjjddd')
+    return this.httpClient.post(`${url}/GeneratePDF?htmlString=l`,htmlObject,{observe: 'response', responseType: 'blob'})
   }
 }

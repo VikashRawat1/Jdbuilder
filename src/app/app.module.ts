@@ -54,7 +54,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     LayoutModule,
     ReactiveFormsModule,
     MaterialUiModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
   ],
   providers: [JobServiceService, LoaderService, AdalService, AdalConfigService,
     { provide: HTTP_INTERCEPTORS, useClass: InsertAuthTokenInterceptor, multi: true },

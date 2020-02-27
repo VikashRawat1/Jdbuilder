@@ -121,6 +121,9 @@ tr.noBorder td {
 // p.block {
 //   height: 20%;
 // }
+.dropdown-menu{
+  z-index: 997;
+}
 .html2canvas-container { width: 3000px !important; height: 3000px !important; }
 /* Desktop View */
 @media only screen and (min-width: 600px) {

@@ -76,7 +76,7 @@
               <p class="col-4 m-auto font-weight-bold">DESIGNATION</p>
               <!-- <div class="col-8"> -->
                 <mat-form-field class="col-8 pl-0">
-                  <input (focusout)="checkDuplicateDesignation($event)" type="text"
+                  <input (focusout)="checkDuplicateDesignation($event)" (keyup.enter)="checkDuplicateDesignation($event)" type="text"
                   placeholder="Select Designation"
                   aria-label="Number"
                   matInput
@@ -109,7 +109,7 @@
                   <option [value]='selectedExperienceName'>Select Experience</option>
                   <option *ngFor = "let experience of experiences" [value]="experience.Id">{{experience.ExperienceName}}</option>
                   </select> -->
-                  <mat-form-field class="col-8 pl-0">
+                  <mat-form-field class="col-8 pl-0 mat-focused">
                     <mat-label>Select Experience</mat-label>
                     <mat-select formControlName="selectedExperience">
                       <mat-option *ngFor="let experience of experiences" [value]="experience.Id">

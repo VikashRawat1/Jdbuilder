@@ -369,6 +369,7 @@ export class CreateJdComponent implements OnInit {
     }
   }
   FetchProfileSummary(designationEvent){
+    console.log(designationEvent, 'designationeventtt')
     this.selectedDesignationName = designationEvent.viewValue;
     console.log(designationEvent, 'designationEvent')
     let designationObject = {designationId:designationEvent.value,name:designationEvent.viewValue}
@@ -387,9 +388,10 @@ export class CreateJdComponent implements OnInit {
     this.jobDescriptionForm.patchValue({about: ""})
   }
   checkDuplicateDesignation(event){
-    console.log(event, 'checkDuplicateDesignation eventttt',this.jobDescriptionForm.get('selectedDesignation').value,"designationvalue")
+    console.log(event, 'checkDuplicateDesignation eventttt',this.jobDescriptionForm.get('selectedDesignation').value,"designationvalue",'designationname')
+
     if(isNaN(this.jobDescriptionForm.get('selectedDesignation').value)){
-      this.FetchProfileSummary({value:0,name:event.target.value})
+      this.FetchProfileSummary({value:0,viewValue:event.target.value})
       let isChecked = false
       this.designations.forEach((designation:any) => {
 

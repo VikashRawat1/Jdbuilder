@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Config } from '../../config/config';
 import { Observable} from 'rxjs';
-import {HttpResponse} from '@angular/common/http';
-import { map } from 'rxjs/operators';
 
 const url = Config.url;
 @Injectable({providedIn: 'root'})

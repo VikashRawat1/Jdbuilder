@@ -83,6 +83,7 @@ export class JobListingComponent implements OnInit {
     this.selectedExperience = undefined;
     this.selectedDesignation = undefined;
     this.selectedUserId = ''
+    this.searchString = ''
     const pageParams = {pageSize: 2, pageIndex: 0, myJd: this.myJd,sortByDate:this.sortByDate};
     this.jobService.getAllJobs(pageParams).subscribe((jobs: any) => {
       this.jobs = jobs.ProfileList;
@@ -110,9 +111,9 @@ export class JobListingComponent implements OnInit {
   }
   filterProfile(paramObject) {
     console.log(paramObject,'paramobject',this.jobs.length,'this.jobs.length',this.length,'this.lengthddd')
-    if(this.jobs.length === this.length){
-      return
-    }
+    // if(this.jobs.length === this.length){
+    //   return
+    // }
     this.jobService.FetchFilteredProfiles(paramObject).subscribe((FilteredList: any) => {
       if (FilteredList.StatusCode === 200) {
         this.jobs.push(...FilteredList.ProfileList);

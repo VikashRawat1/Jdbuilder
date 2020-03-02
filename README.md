@@ -112,4 +112,11 @@ ii) padding from top in input.
 iii) first four line should be appear in summary. 
 iv) summary header title should be same like other.
 v) increase scope of three dots
-vi) enter designation is not working in create jd.
+vi) enter desig
+
+Testing point
+i) search is not working wiht created by
+ii)seatch by all is not working when set all parameter
+iii) limit summary in listing
+iv) updated by and updated on should be camel case.
+v) mulliple tags are not removing.

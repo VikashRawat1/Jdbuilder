@@ -42,7 +42,18 @@ paginator-page-size.mat-select-trigger {
   box-shadow: 2px 2px 2px 2px #0d0c0c80;
   // border-radius: 14px;
 }
-
+.limit{
+  text-align: justify !important;
+  color: #000000 !important;
+  opacity: 1 !important;
+  display: block;/* or inline-block */
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  overflow: hidden;
+  max-height: 5.6em;
+  line-height: 1.8em;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+};
 .input-design{
   border-radius:0;
   height :45px;

@@ -482,9 +482,9 @@
                       </div>
                       <p [hidden]='item.controls.isEditing.value' style="color:gray">{{item.controls.Responsibility.value}}</p>
                     </div>
-                    <div class="col-1 my-auto p-0 btn dropdown dropleft" >
-                      <i class="fa pl-2 fa-ellipsis-v float-right" aria-hidden="true" data-toggle="dropdown"></i>
-                      <div class="dropdown-menu">
+                    <div class="col-1 my-auto p-0 btn dropdown dropleft">
+                      <i class="fa pl-2 fa-ellipsis-v float-right" aria-hidden="true" data-toggle="dropdown" data-display="static"></i>
+                      <div class="dropdown-menu dropdown-width">
                         <a class="dropdown-item" href="JavaScript:" (click)='item.controls.isEditing.value = true'>Edit</a>
                         <a class="dropdown-item" href="JavaScript:" (click)='deleteResponsiblity(item.controls,i)'>Delete</a>
                       </div>
@@ -501,8 +501,8 @@
                 <button type="button" class="btn theme-color-btn btn-sm" (click)="addResponsibility()">+ Add</button>
                 <hr >
               </div>
-              <p class="col-12 pt-2 font-weight-bold mb-0">LAST UPDATED BY : <span class="font-weight-normal">{{jobDetail.ProfileDetail.CreatorName}}</span></p>
-              <p class="col-12 font-weight-bold mb-0">LAST UPDATED ON : <span class="font-weight-normal">{{jobDetail.ProfileDetail.UpdatedDate | date: 'dd-MMM-yyyy'}}</span></p>
+              <p class="col-12 pt-2 font-weight-bold mb-0">Last Updated By : <span class="font-weight-normal">{{jobDetail.ProfileDetail.CreatorName}}</span></p>
+              <p class="col-12 font-weight-bold mb-0">Last Updated On : <span class="font-weight-normal">{{jobDetail.ProfileDetail.UpdatedDate | date: 'dd-MMM-yyyy'}}</span></p>
               <!-- <p class="col-12 font-weight-bold">CREATED ON : <span class="font-weight-normal">{{jobDetail.ProfileDetail.CreatedDate | date: 'dd-MMM-yyyy'}}</span></p> -->
               <!-- <div class="row d-none d-lg-block"> -->
                 <div class="col-12 d-none pr-0 d-lg-block">
@@ -701,9 +701,9 @@
               <div class="col-12">
                 <hr>
               </div>
-              <p class="col-12 pt-2 font-weight-bold mb-0">LAST UPDATED BY : <span class="font-weight-normal">{{jobDetail.ProfileDetail.CreatorName}}</span></p>
+              <p class="col-12 pt-2 font-weight-bold mb-0">Last Updated By : <span class="font-weight-normal">{{jobDetail.ProfileDetail.CreatorName}}</span></p>
 
-              <p class="col-12 font-weight-bold mb-0">LAST UPDATED ON : <span class="font-weight-normal">{{jobDetail.ProfileDetail.UpdatedDate | date: 'dd-MMM-yyyy'}}</span></p>
+              <p class="col-12 font-weight-bold mb-0">Last Updated On : <span class="font-weight-normal">{{jobDetail.ProfileDetail.UpdatedDate | date: 'dd-MMM-yyyy'}}</span></p>
               <!-- <p class="col-12 font-weight-bold">CREATED ON : <span class="font-weight-normal">{{jobDetail.ProfileDetail.CreatedDate | date: 'dd-MMM-yyyy'}}</span></p> -->
 
               <div class="col-6 col-lg-4">

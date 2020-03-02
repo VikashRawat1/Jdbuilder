@@ -82,7 +82,8 @@ export class JobListingComponent implements OnInit {
     this.selectedLocation = undefined;
     this.selectedExperience = undefined;
     this.selectedDesignation = undefined;
-    const pageParams = {pageSize: 2, pageIndex: 0, myJd: this.myJd};
+    this.selectedUserId = ''
+    const pageParams = {pageSize: 2, pageIndex: 0, myJd: this.myJd,sortByDate:this.sortByDate};
     this.jobService.getAllJobs(pageParams).subscribe((jobs: any) => {
       this.jobs = jobs.ProfileList;
       this.length = jobs.TotalRecords;

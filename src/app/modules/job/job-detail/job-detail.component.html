@@ -92,13 +92,13 @@
                 <input (focusout)="checkDuplicateDesignation($event)" type="text"
                 placeholder="Select Designation"
                 aria-label="Number"
-                (keyup) ="clearDesignationId($event)"
+                (keyup) ="clearDesignationId($event);filterDesignationList($event)"
                 matInput
                 [value]="selectedDesignationName"
                 formControlName="selectedDesignationN"
                 [matAutocomplete]="desig">
                 <mat-autocomplete (optionSelected)="FetchProfileSummary($event.option);" #desig="matAutocomplete">
-                  <mat-option *ngFor="let designation of designations" [value]="designation.Id">
+                  <mat-option *ngFor="let designation of filteredDesignations" [value]="designation.Id">
                     {{designation.DesignationName}}
                   </mat-option>
                 </mat-autocomplete>
@@ -136,7 +136,7 @@
               </div> -->
               <mat-form-field class="col-8 pl-0">
                 <mat-label>Select Location</mat-label>
-                <mat-select formControlName="selectedLocation">
+                <mat-select formControlName="selectedLocation" multiple [compareWith]="compareWithFunc">
                   <mat-option *ngFor="let location of locations" [value]="location.Id">
                     {{location.LocationName}}
                   </mat-option>

@@ -53,6 +53,7 @@ export class CreateJdComponent implements OnInit {
   isSameUser = false
   submitted = false;
   isDuplicateDesignation = false
+  filteredDesignations: string[] = []
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('suggestedInput') suggestedInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -115,7 +116,6 @@ export class CreateJdComponent implements OnInit {
       qualifications:  this.formBuilder.array(defaultQualification),
       rolesAndResponsibility: this.formBuilder.array(defaultResponsibility),
     });
-    console.log(this.jobDescriptionForm, 'jobdescripptionfrommmm')
     this.jobService.FetchExperienceList().subscribe((experiences: any) => {
       if (experiences.StatusCode === 200) {
         this.experiences = experiences.ExperienceMasterList;
@@ -158,6 +158,7 @@ export class CreateJdComponent implements OnInit {
       }
     });
   }
+  compareWithFunc = (a: any, b: any) => a == b;
   createMandatorySkill(newSkill): FormGroup {
     return this.formBuilder.group({
         isEditing: newSkill.isEditing?newSkill.isEditing:false,
@@ -168,7 +169,6 @@ export class CreateJdComponent implements OnInit {
     });
   }
   createQualification(qualificationObj): FormGroup {
-    console.log(qualificationObj, 'qualificaddfd')
     qualificationObj.Name = [qualificationObj.Name,Validators.required]
     return this.formBuilder.group(qualificationObj);
   }
@@ -304,8 +304,6 @@ export class CreateJdComponent implements OnInit {
     this.tagsCtrl.setValue(null);
   }
   selectedSkill(event: MatAutocompleteSelectedEvent,index,isMandatory): void{
-    console.log(event,'eventt')
-    console.log(this.jobDescriptionForm.controls['mandatorySkills'].value[index],'dsdfdfdfd')
     if(isMandatory){
       this.jobDescriptionForm.controls['mandatorySkills'].value[index].SkillName = event.option.value
     }else{
@@ -313,71 +311,54 @@ export class CreateJdComponent implements OnInit {
     }
   }
   selectQualification(event: MatAutocompleteSelectedEvent,index,isMandatory): void{
-    console.log(event,'eventt')
-    console.log(this.jobDescriptionForm.controls['qualifications'].value[index],'dsdfdfdfd')
       this.jobDescriptionForm.controls['qualifications'].value[index].Name = event.option.value
   }
   selectResponsibility(event: MatAutocompleteSelectedEvent,index,isMandatory): void{
-    console.log(event,'eventt')
-    console.log(this.jobDescriptionForm.controls['rolesAndResponsibility'].value[index],'dsdfdfdfd')
       this.jobDescriptionForm.controls['rolesAndResponsibility'].value[index].Responsibility = event.option.value
   }
 
   getSkill(event){
-    console.log(event, 'event')
     if(event.target.value.length >2){
       // check for letter and numbers
       if((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 65 && event.keyCode <= 90)){
         this.jobService.FetchAllSkills(event.target.value).subscribe((skillData: any)=>{
-          console.log(skillData, 'skllls')
           if(skillData.StatusCode){
             this.suggestedSkill = skillData.Skills;
-            console.log(this.suggestedSkill, 'sillllllll')
           }
         })
       }
     }
   }
   getQualifications(event){
-    console.log(event, 'event')
     if(event.target.value.length >1){
       // check for letter and numbers
       if((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 65 && event.keyCode <= 90)){
         this.jobService.FetchAllQualifications(event.target.value).subscribe((Data: any)=>{
-          console.log(Data, 'skllls')
           if(Data.StatusCode){
             this.suggestedQualification = Data.ProfileQualifications;
-            console.log(this.suggestedQualification, 'sillllllll')
           }
         })
       }
     }
   }
   getResponsibilities(event){
-    console.log(event, 'event')
     if(event.target.value.length >1){
       // check for letter and numbers
       if((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 65 && event.keyCode <= 90)){
         this.jobService.FetchAllResponsibilities(event.target.value).subscribe((Data: any)=>{
-          console.log(Data, 'skllls')
           if(Data.StatusCode){
             this.suggestedResponsibilities = Data.ProfileResponsibilities;
-            console.log(this.suggestedResponsibilities, 'sillllllll')
           }
         })
       }
     }
   }
   FetchProfileSummary(designationEvent){
-    console.log(designationEvent, 'designationeventtt')
     this.selectedDesignationName = designationEvent.viewValue;
-    console.log(designationEvent, 'designationEvent')
     let designationObject = {designationId:designationEvent.value,name:designationEvent.viewValue}
     this.jobService.FetchProfileSummary(designationObject).subscribe((Data: any)=>{
-      console.log(Data, 'skllls')
       if(Data.StatusCode){
         this.suggestedSummary = Data.ProfileSummary;
-        console.log(this.suggestedSummary, 'suggestedSummary')
       }
     })
   }
@@ -388,14 +369,12 @@ export class CreateJdComponent implements OnInit {
     this.jobDescriptionForm.patchValue({about: ""})
   }
   checkDuplicateDesignation(event){
-    console.log(event, 'checkDuplicateDesignation eventttt',this.jobDescriptionForm.get('selectedDesignation').value,"designationvalue",'designationname')
 
     if(isNaN(this.jobDescriptionForm.get('selectedDesignation').value)){
       this.FetchProfileSummary({value:0,viewValue:event.target.value})
       let isChecked = false
       this.designations.forEach((designation:any) => {
 
-        console.log(designation.DesignationName.trim().toLowerCase(), 'to lower case',event.target.value.trim().toLowerCase(),"event value target")
         if(!isChecked){
           if(designation.DesignationName.trim().toLowerCase() === event.target.value.trim().toLowerCase()){
             this.isDuplicateDesignation = true
@@ -407,18 +386,31 @@ export class CreateJdComponent implements OnInit {
       });
     }
   }
+  filterDesignationList(evnt){
+    // return
+    if((evnt.keyCode >= 48 && evnt.keyCode <= 57) || (evnt.keyCode >= 65 && evnt.keyCode <= 90) || evnt.keyCode === 8){
+      if(evnt.target.value === ''){
+        this.filteredDesignations = this.designations;
+        return
+      }
+      this.filteredDesignations = this.designations.filter((designation: any)=>{
+        let strRegExPattern = evnt.target.value;
+        if(designation.DesignationName.match(new RegExp(strRegExPattern,'gi'))){
+          // alert('match')
+          return designation;
+        }
+      })
+    }
+  }
   // activateClass(index){
   //   this.commonJobService.changeSideBarIndex(index)
   // }
   onSave() {
     this.submitted = true;
-    console.log(this.jobDescriptionForm,"formdetialll",this.jobDescriptionForm.invalid,"dddddddd")
           // stop here if form is invalid
           if (this.jobDescriptionForm.invalid || this.tags.length<1 || this.isDuplicateDesignation) {
             return;
         }
-    console.log(this.jobDescriptionForm.get('qualifications').value,'qualifications valuee')
-    console.log(this.jobDescriptionForm.get('rolesAndResponsibility').value,'rolesAndResponsibility valuee')
     const jdObject = {
       // ProfileId: location.pathname.split('/').pop(),
       ProfileName: this.jobDescriptionForm.get('title').value,

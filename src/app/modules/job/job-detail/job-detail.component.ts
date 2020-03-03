@@ -39,6 +39,7 @@ export class JobDetailComponent implements OnInit {
   deletedResponsiblities: string[] = [];
   deletedTags: string[] = [];
   designations: string[] = [];
+  filteredDesignations: string[] = []
   experiences: string[] = [];
   locations: string[] = [];
   isDataFetched = false;
@@ -55,7 +56,7 @@ export class JobDetailComponent implements OnInit {
   allTags = [];
   isEditJd = false;
   selectedDesignationName;
-  selectedLocationName;
+  selectedLocationName = [];
   selectedExperienceName;
   jobDetail;
   suggestedSkill = [];
@@ -83,7 +84,6 @@ export class JobDetailComponent implements OnInit {
       // document.body.appendChild(canvas);
       // return
       var img = canvas.toDataURL("image/png");
-      console.log(canvas, 'canvass')
       // window.open(img);
       var doc = new JSPdf('p', 'pt', 'letter');
       for (var i = 0; i <= quotes.clientHeight/1450; i++) {
@@ -136,9 +136,7 @@ export class JobDetailComponent implements OnInit {
   }
   public downloadPDF2(){
     let htmlContent =  this.document.getElementById('content-pdf')
-    console.log(htmlContent.outerHTML, 'html contenttt')
     this.jobService.GeneratePDF({htmlContent:htmlContent.outerHTML}).subscribe((data:any)=>{
-      console.log(data,'dataaa')
       // const blob = new Blob([data], { type: 'application/pdf' });
       // const url= window.URL.createObjectURL(blob);
       // window.open(url);
@@ -164,7 +162,6 @@ export class JobDetailComponent implements OnInit {
     let loader = this.loaderService
     // loader.show();
     var html = htmlToPdfmake(this.document.getElementById('content-pdf').outerHTML);
-    console.log(html, 'htmlllll')
     // return
     var docDefinition = {
       content: [
@@ -177,7 +174,6 @@ export class JobDetailComponent implements OnInit {
       }
     };
     var pdfDocGenerator = pdfMake.createPdf(docDefinition).download();
-    console.log(pdfDocGenerator, 'pdfdocumtgetnt')
   }
   // Pie
   public pieChartOptions: ChartOptions = {
@@ -256,11 +252,9 @@ export class JobDetailComponent implements OnInit {
         }
         );
         jobDetail.ProfileDetail.QualificationList.forEach((ele) => {
-            console.log(ele, 'elee')
             ele.isEditing = false
             defaultQualification.push(this.createQualification(ele));
         });
-        console.log(defaultQualification, 'default qualificationnnn')
         jobDetail.ProfileDetail.ResponsibilityList.forEach((ele) => {
           ele.isEditing = false
           ele.Responsibility = [ele.Responsibility,Validators.required]
@@ -272,7 +266,7 @@ export class JobDetailComponent implements OnInit {
           about: new FormControl(jobDetail.ProfileDetail.About, Validators.required),
           selectedDesignation: new FormControl(jobDetail.ProfileDetail.DesignationId, Validators.required),
           selectedDesignationN: new FormControl(jobDetail.ProfileDetail.DesignationName, Validators.required),
-          selectedLocation: new FormControl(jobDetail.ProfileDetail.LocationId, Validators.required),
+          selectedLocation: new FormControl([jobDetail.ProfileDetail.LocationId], Validators.required),
           selectedExperience: new FormControl(jobDetail.ProfileDetail.ExperienceId, Validators.required),
           desiredSkills: this.formBuilder.array(defaultDesiredSkill),
           mandatorySkills: this.formBuilder.array(defaultMandatorySkill),
@@ -294,8 +288,8 @@ export class JobDetailComponent implements OnInit {
           if (locations.StatusCode === 200) {
             this.locations = locations.LocationMasterList;
             locations.LocationMasterList.forEach((val) => {
-              if (this.jobDescriptionForm && this.jobDescriptionForm.get('selectedLocation').value === val.Id) {
-                this.selectedLocationName = val.LocationName;
+              if (this.jobDescriptionForm && this.jobDescriptionForm.get('selectedLocation').value.includes(val.Id)) {
+                this.selectedLocationName.push(val.LocationName)
               }
             });
           }
@@ -303,6 +297,7 @@ export class JobDetailComponent implements OnInit {
         this.jobService.FetchDesignationList().subscribe((designations: any) => {
           if (designations.StatusCode === 200) {
             this.designations = designations.DesignationList;
+            this.filteredDesignations = designations.DesignationList;
             designations.DesignationList.forEach((val) => {
               if (this.jobDescriptionForm && this.jobDescriptionForm.get('selectedDesignation').value === val.Id) {
                 this.selectedDesignationName = val.DesignationName;
@@ -328,7 +323,6 @@ export class JobDetailComponent implements OnInit {
           qualifications:  this.formBuilder.array([ this.formBuilder.group({Id: 0, Name: 'default qualification'})]),
         });
       }
-      console.log(this.jobDescriptionForm, 'dfdfdfdf')
       this.jobService.FetchTagsList().subscribe((tags: any) => {
         if (tags.StatusCode === 200) {
           this.allTags = tags.ProfileTagsList;
@@ -357,6 +351,7 @@ export class JobDetailComponent implements OnInit {
       });
     });
   }
+  compareWithFunc = (a: any, b: any) => a == b;
   createMandatorySkill(newSkill): FormGroup {
     return this.formBuilder.group({
         isEditing: newSkill.isEditing?newSkill.isEditing:false,
@@ -367,7 +362,6 @@ export class JobDetailComponent implements OnInit {
     });
   }
   createQualification(qualificationObj): FormGroup {
-    console.log(qualificationObj, 'qualificaddfd')
     qualificationObj.Name = [qualificationObj.Name,Validators.required]
     return this.formBuilder.group(qualificationObj);
   }
@@ -503,8 +497,6 @@ export class JobDetailComponent implements OnInit {
     this.tagsCtrl.setValue(null);
   }
   selectedSkill(event: MatAutocompleteSelectedEvent,index,isMandatory): void{
-    console.log(event,'eventt')
-    console.log(this.jobDescriptionForm.controls['mandatorySkills'].value[index],'dsdfdfdfd')
     if(isMandatory){
       this.jobDescriptionForm.controls['mandatorySkills'].value[index].SkillName = event.option.value
     }else{
@@ -512,55 +504,42 @@ export class JobDetailComponent implements OnInit {
     }
   }
   selectQualification(event: MatAutocompleteSelectedEvent,index,isMandatory): void{
-    console.log(event,'eventt')
-    console.log(this.jobDescriptionForm.controls['qualifications'].value[index],'dsdfdfdfd')
       this.jobDescriptionForm.controls['qualifications'].value[index].Name = event.option.value
   }
   selectResponsibility(event: MatAutocompleteSelectedEvent,index,isMandatory): void{
-    console.log(event,'eventt')
-    console.log(this.jobDescriptionForm.controls['rolesAndResponsibility'].value[index],'dsdfdfdfd')
       this.jobDescriptionForm.controls['rolesAndResponsibility'].value[index].Responsibility = event.option.value
   }
   getSkill(event){
-    console.log(event, 'event')
     if(event.target.value.length >2){
       // check for letter and numbers
       if((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 65 && event.keyCode <= 90)){
         this.jobService.FetchAllSkills(event.target.value).subscribe((skillData: any)=>{
-          console.log(skillData, 'skllls')
           if(skillData.StatusCode){
             this.suggestedSkill = skillData.Skills;
-            console.log(this.suggestedSkill, 'sillllllll')
           }
         })
       }
     }
   }
   getQualifications(event){
-    console.log(event, 'event')
     if(event.target.value.length >1){
       // check for letter and numbers
       if((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 65 && event.keyCode <= 90)){
         this.jobService.FetchAllQualifications(event.target.value).subscribe((Data: any)=>{
-          console.log(Data, 'skllls')
           if(Data.StatusCode){
             this.suggestedQualification = Data.ProfileQualifications;
-            console.log(this.suggestedQualification, 'sillllllll')
           }
         })
       }
     }
   }
   getResponsibilities(event){
-    console.log(event, 'event')
     if(event.target.value.length >1){
       // check for letter and numbers
       if((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 65 && event.keyCode <= 90)){
         this.jobService.FetchAllResponsibilities(event.target.value).subscribe((Data: any)=>{
-          console.log(Data, 'skllls')
           if(Data.StatusCode){
             this.suggestedResponsibilities = Data.ProfileResponsibilities;
-            console.log(this.suggestedResponsibilities, 'sillllllll')
           }
         })
       }
@@ -570,18 +549,14 @@ export class JobDetailComponent implements OnInit {
   //   this.commonJobService.changeSideBarIndex(index)
   // }
   FetchProfileSummary(designationEvent){
-    console.log(designationEvent, 'designationEventssss')
     // return
     this.selectedDesignationName = designationEvent.viewValue;
     this.jobDescriptionForm.patchValue({selectedDesignationN: designationEvent.viewValue})
     this.jobDescriptionForm.patchValue({selectedDesignation: designationEvent.value})
-    console.log(designationEvent, 'designationEvent',this.jobDescriptionForm.get('selectedDesignation').value,'value of designationnnn')
     let designationObject = {designationId:designationEvent.value,name:designationEvent.viewValue}
     this.jobService.FetchProfileSummary(designationObject).subscribe((Data: any)=>{
-      console.log(Data, 'skllls')
       if(Data.StatusCode){
         this.suggestedSummary = Data.ProfileSummary;
-        console.log(this.suggestedSummary, 'suggestedSummary')
       }
     })
   }
@@ -592,18 +567,15 @@ export class JobDetailComponent implements OnInit {
     this.jobDescriptionForm.patchValue({about: ""})
   }
   checkDuplicateDesignation(event){
-    console.log(event, 'checkDuplicateDesignation eventttt',this.jobDescriptionForm.get('selectedDesignation').value,"designationvalue")
     if(!isNaN(this.jobDescriptionForm.get('selectedDesignation').value)){
       this.isDuplicateDesignation = false
     }
     if(isNaN(this.jobDescriptionForm.get('selectedDesignation').value)){
-      console.log(isNaN(this.jobDescriptionForm.get('selectedDesignationN').value),'chslkdfjkfjj')
       // alert(1)
       // this.FetchProfileSummary({value:0,name:event.target.value})
       let isChecked = false
       this.designations.forEach((designation:any) => {
 
-        console.log(designation.DesignationName.trim().toLowerCase(), 'to lower case',event.target.value.trim().toLowerCase(),"event value target")
         if(!isChecked){
           if(designation.DesignationName.trim().toLowerCase() === event.target.value.trim().toLowerCase()){
             this.isDuplicateDesignation = true
@@ -616,20 +588,32 @@ export class JobDetailComponent implements OnInit {
     }
   }
   clearDesignationId(evnt){
-    console.log(evnt, 'evnenttt',this.jobDescriptionForm.get('selectedDesignation').value,"designationvalueee at cleardesi")
     if((evnt.keyCode >= 48 && evnt.keyCode <= 57) || (evnt.keyCode >= 65 && evnt.keyCode <= 90)){
       this.jobDescriptionForm.patchValue({selectedDesignation: evnt.target.value})
     }
   }
+  filterDesignationList(evnt){
+    // return
+    if((evnt.keyCode >= 48 && evnt.keyCode <= 57) || (evnt.keyCode >= 65 && evnt.keyCode <= 90) || evnt.keyCode === 8){
+      if(evnt.target.value === ''){
+        this.filteredDesignations = this.designations;
+        return
+      }
+      this.filteredDesignations = this.designations.filter((designation: any)=>{
+        let strRegExPattern = evnt.target.value;
+        if(designation.DesignationName.match(new RegExp(strRegExPattern,'gi'))){
+          // alert('match')
+          return designation;
+        }
+      })
+    }
+  }
   onSave() {
     this.submitted = true;
-    console.log(this.jobDescriptionForm,"formdetialll",this.jobDescriptionForm.invalid,"dddddddd")
           // stop here if form is invalid
           if (this.jobDescriptionForm.invalid || this.tags.length<1 || this.isDuplicateDesignation) {
             return;
         }
-    console.log(this.jobDescriptionForm.get('qualifications').value,'qualifications valuee')
-    console.log(this.jobDescriptionForm.get('rolesAndResponsibility').value,'rolesAndResponsibility valuee')
     // return
     const jdObject = {
       ProfileId: location.pathname.split('/').pop(),

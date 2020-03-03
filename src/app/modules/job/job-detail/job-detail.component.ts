@@ -232,6 +232,7 @@ export class JobDetailComponent implements OnInit {
 
   }
   initLoad(){
+    this.selectedLocationName = [];
     this.jobService.fetchProfiles(location.pathname.split('/').pop()).subscribe((jobDetail: any) => {
       if (jobDetail.StatusCode === 200) {
         if(this.adalService.userInfo.profile.oid === jobDetail.ProfileDetail.CreatedBy){
@@ -266,7 +267,7 @@ export class JobDetailComponent implements OnInit {
           about: new FormControl(jobDetail.ProfileDetail.About, Validators.required),
           selectedDesignation: new FormControl(jobDetail.ProfileDetail.DesignationId, Validators.required),
           selectedDesignationN: new FormControl(jobDetail.ProfileDetail.DesignationName, Validators.required),
-          selectedLocation: new FormControl([jobDetail.ProfileDetail.LocationId], Validators.required),
+          selectedLocation: new FormControl(jobDetail.ProfileDetail.LocationId, Validators.required),
           selectedExperience: new FormControl(jobDetail.ProfileDetail.ExperienceId, Validators.required),
           desiredSkills: this.formBuilder.array(defaultDesiredSkill),
           mandatorySkills: this.formBuilder.array(defaultMandatorySkill),
@@ -294,6 +295,7 @@ export class JobDetailComponent implements OnInit {
             });
           }
         });
+
         this.jobService.FetchDesignationList().subscribe((designations: any) => {
           if (designations.StatusCode === 200) {
             this.designations = designations.DesignationList;

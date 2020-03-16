@@ -716,6 +716,8 @@
                 <div class="col-12 d-none pr-0 d-lg-block pt-4">
                   <input data-toggle="modal" data-target="#myModal" type="button" value="View Candidates" class=" mr-2 btn theme-color-btn"/>
                   <input (click)="isEditJd = true;fixHeader()" type="button" value="Edit JD" class="btn theme-secondary-btn"/>
+                  <input *ngIf="isSameUser" (click)="deleteProfile()" type="button" value="Delete JD" class="btn theme-secondary-btn"/>
+                  <input *ngIf="isSameUser" (click)="makePrivate()" type="button" value="Make Private JD" class="btn theme-secondary-btn"/>
                 </div>
 
               <!-- </div> -->
@@ -850,7 +852,7 @@
                   <p class="col-12 pt-2 font-weight-bold" style="font-size: 30px;color: black;">EXPERIENCE</p>
                   <p class="col-12 pt-2" style="text-align: justify;font-size: 24px;color: black;">{{selectedExperienceName}}</p>
                   <p class="col-12 pt-2 font-weight-bold" style="font-size: 30px;color: black;">LOCATION</p>
-                  <p class="col-12 pt-2" style="text-align: justify;font-size: 24px;color: black;">{{selectedLocationName}}</p>
+                  <p class="col-12 pt-2" style="text-align: justify;font-size: 24px;color: black;">{{selectedLocationName.join(', ')}}</p>
                   <p class="col-12 pt-2 font-weight-bold" style="font-size: 30px;color: black;">SUMMARY</p>
 
                   <div class="col-12">

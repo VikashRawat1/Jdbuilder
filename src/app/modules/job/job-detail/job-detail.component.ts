@@ -610,6 +610,23 @@ export class JobDetailComponent implements OnInit {
       })
     }
   }
+  deleteProfile(){
+    console.log()
+    this.jobService.deleteProfile(location.href.split('/')[location.href.split('/').length-1]).subscribe((data:any)=>{
+      console.log(data, 'data')
+      if(data.StatusCode === 200){
+        this.router.navigate(['myJd']);
+      }
+    })
+  }
+  makePrivate(){
+    this.jobService.PrivatizeProfile(location.href.split('/')[location.href.split('/').length-1]).subscribe((data:any)=>{
+      console.log(data, 'data')
+      if(data.StatusCode === 200){
+        this.router.navigate(['myJd']);
+      }
+    })
+  }
   onSave() {
     this.submitted = true;
           // stop here if form is invalid

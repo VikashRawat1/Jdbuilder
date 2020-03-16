@@ -63,4 +63,10 @@ export class Job1ServiceService {
     console.log(htmlObject, 'designation boujjjddd')
     return this.httpClient.post(`${url}/GeneratePDF?htmlString=l`,htmlObject,{observe: 'response', responseType: 'blob'})
   }
+  deleteProfile(jobId) {
+    return this.httpClient.get(`${url}/DeleteProfile?profileId=${jobId}`);
+  }
+  PrivatizeProfile(jobId) {
+    return this.httpClient.get(`${url}/PrivatizeProfile?profileId=${jobId}&status=true`);
+  }
 }

@@ -26,3 +26,10 @@ iii) multiselect in location.
 iv) Ml in suggestion 
 v) suggestion dropdown distored after 2 line
 vi) Jd portal to Rapid jd portal
+
+
+feedback point 13/3/2020
+1) Rapid Jd creator header is 
+2) mandatory and desired skills dropdown is not showing properly.
+3) designation issue.
+4) 

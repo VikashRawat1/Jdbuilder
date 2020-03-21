@@ -8,7 +8,8 @@ import {
   MatInputModule,
   MatSelectModule,
   MatPaginatorModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatSlideToggleModule
 } from '@angular/material';
 const modules = [
   MatChipsModule,
@@ -18,7 +19,8 @@ const modules = [
   MatInputModule,
   MatSelectModule,
   MatPaginatorModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatSlideToggleModule
 ];
 @NgModule({
   declarations: [],

@@ -5,6 +5,7 @@ import { Job1ServiceService } from '../job-service.service';
 import {MatChipInputEvent} from '@angular/material';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
+import {ThemePalette} from '@angular/material/core';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
@@ -67,6 +68,10 @@ export class JobDetailComponent implements OnInit {
   isSameUser = false
   submitted = false;
   isDuplicateDesignation = false
+  //slider property
+  color: ThemePalette = 'primary';
+  isPrivateChecked = false;
+  disabled = false;
   ////
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('suggestedInput') suggestedInput: ElementRef<HTMLInputElement>;
@@ -262,6 +267,7 @@ export class JobDetailComponent implements OnInit {
           defaultResponsibility.push(this.formBuilder.group(ele));
       });
         this.tags = jobDetail.ProfileDetail.TagsList;
+        this.isPrivateChecked = jobDetail.ProfileDetail.IsPrivate;
         this.jobDescriptionForm = this.formBuilder.group({
           title: new FormControl(jobDetail.ProfileDetail.ProfileName),
           about: new FormControl(jobDetail.ProfileDetail.About, Validators.required),
@@ -628,6 +634,7 @@ export class JobDetailComponent implements OnInit {
     })
   }
   onSave() {
+    console.log(this.isPrivateChecked, 'private value checkedd')
     this.submitted = true;
           // stop here if form is invalid
           if (this.jobDescriptionForm.invalid || this.tags.length<1 || this.isDuplicateDesignation) {
@@ -649,7 +656,8 @@ export class JobDetailComponent implements OnInit {
       DeletedSkills: this.deletedSkills,
       DeletedResponsibilities: this.deletedResponsiblities,
       DeletedTags: this.deletedTags,
-      NewDesignation:isNaN(this.jobDescriptionForm.get('selectedDesignation').value)?this.jobDescriptionForm.get('selectedDesignation').value:undefined
+      NewDesignation:isNaN(this.jobDescriptionForm.get('selectedDesignation').value)?this.jobDescriptionForm.get('selectedDesignation').value:undefined,
+      isPrivate:this.isPrivateChecked
     };
     this.jobService.saveJd(jdObject).subscribe((updatedData: any) => {
       if (updatedData.StatusCode === 200){
